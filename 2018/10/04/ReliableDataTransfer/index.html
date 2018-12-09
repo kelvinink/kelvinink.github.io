@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Reliable Data Transfer | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionThis article is going to summarize the similarities and differences of three principle reliable data transfer protocols, including Stop-and-Wait , Go_Back_n and Selective-repeat. The defin">
+<meta name="keywords" content="Network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reliable Data Transfer">
+<meta property="og:url" content="http://kelvin.ink/2018/10/04/ReliableDataTransfer/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="IntroductionThis article is going to summarize the similarities and differences of three principle reliable data transfer protocols, including Stop-and-Wait , Go_Back_n and Selective-repeat. The defin">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/ReliableDataTransfer/GBN_FSM_sender.JPG">
+<meta property="og:image" content="http://kelvin.ink/resources/res/ReliableDataTransfer/GBN_FSM_Receiver.jpg">
+<meta property="og:image" content="http://kelvin.ink/resources/res/ReliableDataTransfer/Go_Back_N_animation.jpg">
+<meta property="og:image" content="http://kelvin.ink/resources/res/ReliableDataTransfer/ReliableDataTransfer_Mechanism.jpg">
+<meta property="og:updated_time" content="2018-12-09T19:25:05.364Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reliable Data Transfer">
+<meta name="twitter:description" content="IntroductionThis article is going to summarize the similarities and differences of three principle reliable data transfer protocols, including Stop-and-Wait , Go_Back_n and Selective-repeat. The defin">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/ReliableDataTransfer/GBN_FSM_sender.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ReliableDataTransfer" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/04/ReliableDataTransfer/" class="article-date">
+  <time datetime="2018-10-04T07:40:25.000Z" itemprop="datePublished">2018-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Reliable Data Transfer
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This article is going to summarize the similarities and differences of three principle reliable data transfer protocols, including <strong>Stop-and-Wait</strong> , <strong>Go_Back_n</strong> and <strong>Selective-repeat</strong>. The definition of reliable data transfer is fairy straight forward. It means that during the transmission, information is not lost due to dropped packets and packets are received in <em>correct order</em>. We now give a brief introduction to the three protocols above.</p>
+<h2 id="Stop-and-Wait"><a href="#Stop-and-Wait" class="headerlink" title="Stop-and-Wait"></a>Stop-and-Wait</h2><p>Stop-and-Wait protocol send one frame at a time and wait for the Ack signal from the receiver. It is a special case of the general sliding window protocol with transmit and receive window sizes equal to 1. Stop-and-Wait protocol repeat the same procedure again and again until all of the packets have been received by the receiver. It just send and wait , send and wait , send and wait… And nothing more!</p>
+<h2 id="Go-Back-N"><a href="#Go-Back-N" class="headerlink" title="Go-Back-N"></a>Go-Back-N</h2><p>Go-Back-N continues to send a number of frames specified by a window size even without receiving an acknowledgement (Ack) packet from the receiver. It is a special case of the general sliding window protocol with the transmit window size of N and receive window size of 1. It can transmit N frames to the peer before requiring an Ack. The mechanism behind Go-Back-N is fairy complicated. We are not going to explain it step by step. This post assumes that you have some basic understanding about the Go-Back-N protocol, but don’t know how the protocol exactly work. If you do not have any idea of the protocol, please refer to <em>Computer Networking, A Top-Down approach</em> by Jams F.Kurose.Keith W.Ross. </p>
+<h3 id="Finite-State-Machine-of-Go-Back-N"><a href="#Finite-State-Machine-of-Go-Back-N" class="headerlink" title="Finite State Machine of Go-Back-N"></a>Finite State Machine of Go-Back-N</h3><p>Here is the FSM of the sender. The <strong>events</strong> are shown above the horizontal line, while the <strong>actions</strong> are shown below the horizontal line.</p>
+<p><img src="/resources/res/ReliableDataTransfer/GBN_FSM_sender.JPG" alt="IMG.1 FSM of Sender" width="70%"></p>
+<p>The FSM of receiver is shown on IMG.2</p>
+<p><img src="/resources/res/ReliableDataTransfer/GBN_FSM_Receiver.jpg" alt="IMG.1 FSM of Receiver"></p>
+<p>Read the FSM carefully, it won’t be hard to grasp the key points of Go-Back-N. To fully understand the protocol. I have made an animation to show how the transition from one state to another state happens.</p>
+<h3 id="Animation-of-Go-Back-N"><a href="#Animation-of-Go-Back-N" class="headerlink" title="Animation of Go-Back-N"></a>Animation of Go-Back-N</h3><p>In this animation, we set the window size as 4. It strictly follow the FSM  transition conditions shown above, you can compare it with the FSM and see what had happened behind the scene.<strong><a href="https://youtu.be/Pw57-iV85FQ" target="_blank" rel="noopener">Youtube Video Link</a>.</strong></p>
+<p><a href="https://youtu.be/Pw57-iV85FQ" target="_blank" rel="noopener"><img src="/resources/res/ReliableDataTransfer/Go_Back_N_animation.jpg" alt="Youtube Video Link" width="60%"></a></p>
+<p>If you want to play more with it, you can go to this <a href="http://www.ccs-labs.org/teaching/rn/animations/gbn_sr/" target="_blank" rel="noopener">online CS Lab</a>. You can chose two APQ protocols, <em>Go-Back-N</em> and <em>Selective-repeat</em>. You can also specify some parameters by yourselves, like window size and timeout.</p>
+<h2 id="Selective-repeat"><a href="#Selective-repeat" class="headerlink" title="Selective-repeat"></a>Selective-repeat</h2><p>Selective-repeat protocol’s sender sends a number of frames specified by a window size even without the need to wait for individual Ack from the receiver. The receiver may selectively reject a single frame, which may be retransmitted alone. It is the general case of the sliding window protocol with both transmit and receive window sizes equal to N.<br>Selective repeat protocol is so similar to Go-Back-N. The differences between them are:</p>
+<ol>
+<li>In selective repeat protocol, each packet has its own timer; while in GBN, there is only one timer for all of the packets.</li>
+<li>In selective repeat protocol, the receiver maintain a buffer for received out of order packets, while in GBN, the receiver will discard those out of packets directly.</li>
+<li>In selective repeat protocol, when timeout happened(timer of specific packet), the sender will select those packets that are not yet ACK’d for retransmit. In GBN, when timeout happened, the sender will retransmit all of the not yet ACK’d packets.</li>
+<li>Receiver of GBN has no sliding window. For selective repeat protocol, the sliding windows of senders and receivers are not synced. </li>
+</ol>
+<h2 id="Mechanism-of-Reliable-Data-Transfer"><a href="#Mechanism-of-Reliable-Data-Transfer" class="headerlink" title="Mechanism of Reliable Data Transfer"></a>Mechanism of Reliable Data Transfer</h2><p>All of the reliable data transfer protocols are based on some mechanism like <em>timer</em> , <em>checksum</em> , <em>sequence number</em> and <em>cumulative acknowledgment</em> etc. And the three protocols are variated in terms of these mechanism. The table below explains why do we need these mechanism. And the second table is trying to compare the differences of the three protocols. This concludes the summarization of the reliable data transmission protocols.</p>
+<p><img src="/resources/res/ReliableDataTransfer/ReliableDataTransfer_Mechanism.jpg" alt="Reliable Data Transfer Mechanism" width="90%"><br><a href="/resources/res/ReliableDataTransfer/ReliableDataTransfer_Mechanism.pdf">Tables in PDF</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjpha7rvx000nbu0zptdd8hrx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/06/DatabaseSystem/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Phases of Database System Design
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/28/ProbabilitySummarization/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Probability Summarization(Quick Reference)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Kelvin . Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

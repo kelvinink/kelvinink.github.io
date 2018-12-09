@@ -1,0 +1,104 @@
+\contentsline {section}{\numberline {1}Set}{3}
+\contentsline {subsection}{\numberline {1.1}Set Operations}{3}
+\contentsline {subsection}{\numberline {1.2}Set Relations}{3}
+\contentsline {subsection}{\numberline {1.3}Set Algebra}{4}
+\contentsline {section}{\numberline {2}Counting}{4}
+\contentsline {subsection}{\numberline {2.1}The Counting Principle(Multiplication Principle)}{4}
+\contentsline {subsection}{\numberline {2.2}Counting Results}{4}
+\contentsline {section}{\numberline {3}Probability Axioms}{4}
+\contentsline {subsection}{\numberline {3.1}Probability Laws}{4}
+\contentsline {subsection}{\numberline {3.2}Some Properties of Probability Laws}{5}
+\contentsline {section}{\numberline {4}Conditional Probability}{5}
+\contentsline {subsection}{\numberline {4.1}Definition}{5}
+\contentsline {subsection}{\numberline {4.2}Multiplication Rule}{5}
+\contentsline {subsection}{\numberline {4.3}Total Probability Theorem}{5}
+\contentsline {subsection}{\numberline {4.4}Bayes' Rule}{5}
+\contentsline {subsection}{\numberline {4.5}Independence}{6}
+\contentsline {subsubsection}{\numberline {4.5.1}Definition}{6}
+\contentsline {subsection}{\numberline {4.6}Conditioning Independence}{6}
+\contentsline {subsubsection}{\numberline {4.6.1}Definition}{6}
+\contentsline {subsection}{\numberline {4.7}Independence of Events}{6}
+\contentsline {subsubsection}{\numberline {4.7.1}Definition}{6}
+\contentsline {section}{\numberline {5}Discrerte Random Variables}{6}
+\contentsline {subsection}{\numberline {5.1}Probability Mass Function}{6}
+\contentsline {subsubsection}{\numberline {5.1.1}Definition}{6}
+\contentsline {subsection}{\numberline {5.2}Cumulative Distribution Function}{6}
+\contentsline {subsubsection}{\numberline {5.2.1}Definition}{6}
+\contentsline {subsection}{\numberline {5.3}Expectation}{6}
+\contentsline {subsubsection}{\numberline {5.3.1}Definition}{6}
+\contentsline {subsection}{\numberline {5.4}Variance}{6}
+\contentsline {subsubsection}{\numberline {5.4.1}Definition}{6}
+\contentsline {subsubsection}{\numberline {5.4.2}Standard Deviation}{6}
+\contentsline {subsection}{\numberline {5.5}nth Moment}{7}
+\contentsline {subsubsection}{\numberline {5.5.1}Definition}{7}
+\contentsline {subsection}{\numberline {5.6}Functions of Random Variables}{7}
+\contentsline {subsubsection}{\numberline {5.6.1}Expectation for Functions of Random Variables}{7}
+\contentsline {subsubsection}{\numberline {5.6.2}Linear Function of a Random Variable}{7}
+\contentsline {subsection}{\numberline {5.7}Joint PMF}{7}
+\contentsline {subsubsection}{\numberline {5.7.1}Definition}{7}
+\contentsline {subsubsection}{\numberline {5.7.2}Marginal PMF}{7}
+\contentsline {subsubsection}{\numberline {5.7.3}Functions of Multiple Random Variable}{7}
+\contentsline {subsection}{\numberline {5.8}Conditional PMF on Events}{8}
+\contentsline {subsubsection}{\numberline {5.8.1}Definition}{8}
+\contentsline {subsection}{\numberline {5.9}Conditional PMF on Random Variable}{8}
+\contentsline {subsubsection}{\numberline {5.9.1}Definition}{8}
+\contentsline {subsection}{\numberline {5.10}Conditional Expectation}{8}
+\contentsline {subsubsection}{\numberline {5.10.1}Definition}{8}
+\contentsline {subsection}{\numberline {5.11}Independence of a Random Variable from an Event}{9}
+\contentsline {subsubsection}{\numberline {5.11.1}Definition}{9}
+\contentsline {subsection}{\numberline {5.12}Independence of a Random Variable from a Random Variable}{9}
+\contentsline {subsubsection}{\numberline {5.12.1}Definition}{9}
+\contentsline {subsection}{\numberline {5.13}Conditional Independence}{9}
+\contentsline {subsubsection}{\numberline {5.13.1}Definition}{9}
+\contentsline {section}{\numberline {6}Continuous Random Variable}{9}
+\contentsline {subsection}{\numberline {6.1}Probability Density Function(PDF)}{9}
+\contentsline {subsubsection}{\numberline {6.1.1}Definition}{9}
+\contentsline {subsection}{\numberline {6.2}Expectation}{9}
+\contentsline {subsubsection}{\numberline {6.2.1}Definition}{9}
+\contentsline {subsection}{\numberline {6.3}Variance}{10}
+\contentsline {subsubsection}{\numberline {6.3.1}Definition}{10}
+\contentsline {subsection}{\numberline {6.4}Cumulative Distribution Funciton(CDF)}{10}
+\contentsline {subsubsection}{\numberline {6.4.1}Definition}{10}
+\contentsline {subsection}{\numberline {6.5}Relation Between CDF and PDF}{10}
+\contentsline {subsection}{\numberline {6.6}Joint PDF}{10}
+\contentsline {subsubsection}{\numberline {6.6.1}Definition}{10}
+\contentsline {subsubsection}{\numberline {6.6.2}Marginal PDF}{10}
+\contentsline {subsection}{\numberline {6.7}Joint CDF}{10}
+\contentsline {subsubsection}{\numberline {6.7.1}Definition}{10}
+\contentsline {subsection}{\numberline {6.8}Relation Betwween Joint CDF and Joint PDF}{11}
+\contentsline {subsection}{\numberline {6.9}Conditioning a Random Variable on an Event}{11}
+\contentsline {subsubsection}{\numberline {6.9.1}Definition}{11}
+\contentsline {subsection}{\numberline {6.10}Joint Conditional PDF}{11}
+\contentsline {subsubsection}{\numberline {6.10.1}Definition}{11}
+\contentsline {subsection}{\numberline {6.11}Conditioning a Random Variable on another Random Variable}{11}
+\contentsline {subsubsection}{\numberline {6.11.1}Definition}{11}
+\contentsline {subsection}{\numberline {6.12}Condition Expectation}{11}
+\contentsline {subsubsection}{\numberline {6.12.1}Definition}{11}
+\contentsline {subsection}{\numberline {6.13}Total Expectation Theorem}{12}
+\contentsline {subsection}{\numberline {6.14}Independence}{12}
+\contentsline {subsubsection}{\numberline {6.14.1}Definition}{12}
+\contentsline {subsection}{\numberline {6.15}Bayes' Rule for Continuous Random Variable}{12}
+\contentsline {section}{\numberline {7}Further Topics on Random Variables}{12}
+\contentsline {subsection}{\numberline {7.1}Calculating PDF of Y=g(X) from Continuous RV X}{12}
+\contentsline {subsection}{\numberline {7.2}Convelution}{13}
+\contentsline {subsection}{\numberline {7.3}Covariance}{13}
+\contentsline {subsubsection}{\numberline {7.3.1}Definition}{13}
+\contentsline {subsection}{\numberline {7.4}Correlation Coefficient}{13}
+\contentsline {subsubsection}{\numberline {7.4.1}Definition}{13}
+\contentsline {subsection}{\numberline {7.5}Variance of the Sum of Random Variables}{13}
+\contentsline {subsection}{\numberline {7.6}Conditional Expectation and Variance Revisited}{13}
+\contentsline {subsubsection}{\numberline {7.6.1}Law of Iterated Expectation}{13}
+\contentsline {subsubsection}{\numberline {7.6.2}Law of Total Variance}{14}
+\contentsline {subsection}{\numberline {7.7}Moment Generating Function}{14}
+\contentsline {subsubsection}{\numberline {7.7.1}Definition}{14}
+\contentsline {subsubsection}{\numberline {7.7.2}From MGF to Moments}{14}
+\contentsline {subsubsection}{\numberline {7.7.3}MGF of Independent Random Variables}{14}
+\contentsline {section}{\numberline {8}Limit Theorems}{14}
+\contentsline {subsection}{\numberline {8.1}Markov Inequality}{14}
+\contentsline {subsection}{\numberline {8.2}Chebyshev's Inequality}{15}
+\contentsline {subsection}{\numberline {8.3}The weak law of large numbers}{15}
+\contentsline {subsection}{\numberline {8.4}Convergence in Probability}{15}
+\contentsline {subsection}{\numberline {8.5}Convergence with Probability 1}{15}
+\contentsline {subsection}{\numberline {8.6}The Strong Law of Large Numbers}{15}
+\contentsline {subsection}{\numberline {8.7}Central Limit Theorem}{15}
+\contentsline {section}{\numberline {9}References}{16}

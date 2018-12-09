@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Uniprocessor Scheduling Algorithms | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Your may download all of the tables(key points) of this article by clicking this link:PDF Quick Reference:Download tables IntroductionIn this article, we are going to introduce several short-term sche">
+<meta name="keywords" content="Operating System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uniprocessor Scheduling Algorithms">
+<meta property="og:url" content="http://kelvin.ink/2018/10/14/UniprocessorSchedulingAlgorithm/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="Your may download all of the tables(key points) of this article by clicking this link:PDF Quick Reference:Download tables IntroductionIn this article, we are going to introduce several short-term sche">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/TableOfContents.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/StateTransitionDiagram.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/ProgramCodeReside.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAndStateTransition1.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAndStateTransition2.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/CriteriasforDifferentSystems.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/FCFS_table.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/FCFS_scheduling.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/RR_table.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/RR_scheduling.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/SJF_table.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/SJF_scheduling.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/PSJF_table.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/PSJF_scheduling.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAlgorithmProperties.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/SystemsAndCorrespondingAlgorithm.png">
+<meta property="og:updated_time" content="2018-12-09T19:25:05.364Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Uniprocessor Scheduling Algorithms">
+<meta name="twitter:description" content="Your may download all of the tables(key points) of this article by clicking this link:PDF Quick Reference:Download tables IntroductionIn this article, we are going to introduce several short-term sche">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/UniprocessorSchedulingAlgorithm/TableOfContents.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-UniprocessorSchedulingAlgorithm" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/" class="article-date">
+  <time datetime="2018-10-14T09:19:44.000Z" itemprop="datePublished">2018-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Uniprocessor Scheduling Algorithms
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Your may download all of the tables(key points) of this article by clicking this link:<br>PDF Quick Reference:<br><a href="/resources/res/UniprocessorSchedulingAlgorithm/UniprocessorSchedulingAlgorithmsTables.pdf">Download tables</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this article, we are going to introduce several short-term scheduling algorithms that are widely used in uniprocessor computers. After reading this article, your should be able to answer the following questions: What’s process state? What’s short-term scheduling? When to do short-term scheduling? What kinds of scheduling algorithms do we currently have? How do we choose a scheduling algorithm and based on what criteria? The following table indicates which sections in this article are trying to answer these questions correspondingly.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/TableOfContents.png" alt="Contents Indicating Table" width="70%"></p>
+<h1 id="Process-States"><a href="#Process-States" class="headerlink" title="Process States"></a>Process States</h1><ul>
+<li><strong>New</strong>: A process is being created.<br>  Program code are moved from disk to main memory.</li>
+<li><strong>Ready</strong>: The process is waiting to be scheduling to a processor.<br>  Pprogram code reside in main memory.</li>
+<li><strong>Running</strong>: Instructions are being executed in CPU.<br>  Instructions reside in CPU.</li>
+<li><strong>Waiting</strong>: The process is blocked and waiting for some events to occur(signal)<br>  Program code are in main memory or has been swapped out to virtual memory.</li>
+<li><strong>Terminated</strong>: The process has finished execution.<br>  Program code are removed from memory.</li>
+</ul>
+<p>This is the state transition diagram of the process states.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/StateTransitionDiagram.png" alt="State Transition Diagram" width="70%"></p>
+<p>The table below shows where do program code mainly reside at each state.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/ProgramCodeReside.png" alt="Program Code Location" width="70%"></p>
+<h1 id="Types-of-Scheduling"><a href="#Types-of-Scheduling" class="headerlink" title="Types of Scheduling"></a>Types of Scheduling</h1><p>There are three kinds of scheduling including <code>long-term scheduling</code> , <code>medium-term scheduling</code> and <code>short-term scheduling</code>. This article is mainly focus on short-term scheduling.</p>
+<p>This table shows when do we do the three scheduling in terms of state transitions.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAndStateTransition1.png" alt="Scheduling and State Transition" width="70%"></p>
+<p>We mark them on the state transition diagram:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAndStateTransition2.png" alt="Scheduling on State Transition" width="70%"></p>
+<h1 id="Short-Term-Scheduling"><a href="#Short-Term-Scheduling" class="headerlink" title="Short-Term Scheduling"></a>Short-Term Scheduling</h1><h2 id="Scheduling-Criteria"><a href="#Scheduling-Criteria" class="headerlink" title="Scheduling Criteria"></a>Scheduling Criteria</h2><p>There are a bunch of scheduling criteria that we need to consider when choosing a scheduling algorithm.</p>
+<ul>
+<li>CPU utilization (u%)</li>
+<li>Throughput (process/second)</li>
+<li>Turnaround time (seconds/process)</li>
+<li>Waiting time (seconds)</li>
+<li>Response time (seconds)</li>
+<li>Deadline</li>
+<li>Fairness</li>
+<li>Predictability</li>
+<li>Policy enforcement</li>
+<li>Balance</li>
+</ul>
+<h2 id="Criteria-for-Different-Systems"><a href="#Criteria-for-Different-Systems" class="headerlink" title="Criteria for Different Systems"></a>Criteria for Different Systems</h2><p>Different systems should follow different criteria based on their own requirements.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/CriteriasforDifferentSystems.png" alt="Criteria for Different Systems" width="70%"></p>
+<h2 id="Scheduling-Algorithms"><a href="#Scheduling-Algorithms" class="headerlink" title="Scheduling Algorithms"></a>Scheduling Algorithms</h2><p>We will introduce four scheduling algorithms with examples. In next section, we will explain the details of these algorithms.</p>
+<h3 id="1-First-Come-First-Serve-FCFS"><a href="#1-First-Come-First-Serve-FCFS" class="headerlink" title="1. First-Come-First-Serve (FCFS)"></a>1. First-Come-First-Serve (FCFS)</h3><p><strong>Selection Function:</strong> Select the process with the minimum arrival time. (Non-preemptive)<br><strong>Example for FCFS:</strong><br>Suppose there are four processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/FCFS_table.png" alt="FCFS Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/FCFS_scheduling.png" alt="FCFS Scheduling Result" width="50%"></p>
+<h3 id="2-Round-Robin-RR"><a href="#2-Round-Robin-RR" class="headerlink" title="2. Round-Robin (RR)"></a>2. Round-Robin (RR)</h3><p><strong>Selection Function:</strong> Each process execute for fixed length of time quantum. (Preemptive)<br><strong>Example for RR:</strong><br>Suppose there are four processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/RR_table.png" alt="Round-Robin Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/RR_scheduling.png" alt="Round-Robin Scheduling Result" width="70%"></p>
+<h3 id="3-Shortest-Job-First-SJF"><a href="#3-Shortest-Job-First-SJF" class="headerlink" title="3. Shortest-Job-First (SJF)"></a>3. Shortest-Job-First (SJF)</h3><p><strong>Selection Function:</strong> Select the process with the minimum service time (Non-preemptive)<br><strong>Example for SJF:</strong><br>Suppose there are four processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SJF_table.png" alt="SJF Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SJF_scheduling.png" alt="SJF Scheduling Result" width="50%"></p>
+<h3 id="4-Preemptive-Shortest-Job-First-PSJF"><a href="#4-Preemptive-Shortest-Job-First-PSJF" class="headerlink" title="4. Preemptive-Shortest-Job-First (PSJF)"></a>4. Preemptive-Shortest-Job-First (PSJF)</h3><p><strong>Selection Function:</strong> Select the process with the minimum <strong>remaining</strong> service time (Preemptive)<br><strong>Example for PSJF:</strong><br>Suppose there are three processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/PSJF_table.png" alt="PSJF Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/PSJF_scheduling.png" alt="PSJF Scheduling Result" width="50%"></p>
+<h2 id="Scheduling-Algorithm-Properties"><a href="#Scheduling-Algorithm-Properties" class="headerlink" title="Scheduling Algorithm Properties"></a>Scheduling Algorithm Properties</h2><p>We define some terms first.</p>
+<ul>
+<li><strong>a</strong> : arrival time of a process</li>
+<li><strong>e</strong> : time spent in execution so far</li>
+<li><strong>s</strong> : total service time required by the process, including e</li>
+</ul>
+<p>The following table shows the corresponding properties to the scheduling algorithms.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAlgorithmProperties.png" alt="Scheduling Algorithm Properties" width="75%"></p>
+<h2 id="Scheduling-Algorithm-Selection"><a href="#Scheduling-Algorithm-Selection" class="headerlink" title="Scheduling Algorithm Selection"></a>Scheduling Algorithm Selection</h2><p>Based on the criteria for different systems and scheduling algorithm properties, we can decide what kind of algorithms we should choose for each kind of systems. As is shown from below:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SystemsAndCorrespondingAlgorithm.png" alt="Systems and Scheduling Algorithms" width="70%"></p>
+<h1 id="Why-Why-Why"><a href="#Why-Why-Why" class="headerlink" title="Why Why Why"></a>Why Why Why</h1><h2 id="Why-Multiprograming"><a href="#Why-Multiprograming" class="headerlink" title="Why Multiprograming"></a>Why Multiprograming</h2><p>Some processes are <strong>CPU bound</strong>, and some are <strong>I/O bound</strong>. An I/O bound process will be blocked when it tries to do I/O. <strong>To improve CPU utilization rate</strong>, engineers proposed the concept of Multiprograming. That is to say — we load many processes into the main memory at the same time. When a running process is blocked by I/O operation, we switch to run other processes. Multiprograming is the root cause that we need to do short-term scheduling.</p>
+<h2 id="What’s-the-differences-between-Multiprograming-and-Multithreading"><a href="#What’s-the-differences-between-Multiprograming-and-Multithreading" class="headerlink" title="What’s the differences between Multiprograming and Multithreading"></a>What’s the differences between Multiprograming and Multithreading</h2><p>Multiprograming is for improving CPU utilization, while Multithreading is for many other reasons. For example: share resources, parallelism, simplify code structure, improve concurrency and many others.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/14/UniprocessorSchedulingAlgorithm/" data-id="cjpha7rvw000lbu0zoq78s0mb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/20/DM_Note1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          DataMing Note 1 Data Mining Basics
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/09/HowToReadABook_zh/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何阅读数学著作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Kelvin . Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

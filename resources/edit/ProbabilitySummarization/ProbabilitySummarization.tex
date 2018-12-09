@@ -1,0 +1,497 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Probability Summarization}
+\author{Kelvin $\cdot$ Liang \, ziyoustep@gmail.com}
+\date{September, 28, 2018}
+\maketitle
+
+\tableofcontents
+
+\section{Set}
+\subsection{Set Operations}
+\begin{align*}
+    &\textbf{Complement:} &\overline{A}\\
+    &\textbf{Union:} &A \cup B\\
+    &\textbf{Intersection:} &A \cap B
+\end{align*}
+
+\subsection{Set Relations}
+\textbf{Disjoint:} In a collection of sets, no two of theem have a common element.\\
+\textbf{Partition:} In a collection of sets which are disjoint and their union is $\Omega$.
+
+\subsection{Set Algebra}
+\textbf{Theorem:}
+\begin{align*}
+    &\textbf{Commutative laws:} &A \cup B &= B \cup A\\
+    &\textbf{Associative laws:} &(A \cup B) \cup C &= A \cup (B \cup C)\\
+    &  &(A \cap B) \cap C &= A \cap (B \cap C)\\
+    &\textbf{Distributive laws:} &(A \cup B) \cap C &= (A \cap C) \cup (B \cap C)\\
+    &  &(A \cap B) \cup C &= (A \cup C) \cap (B \cup C)    
+\end{align*}
+
+\section{Counting}
+\subsection{The Counting Principle(Multiplication Principle)}
+Consider a process that consist of $r$ stages, and there are $n_i$ possible results at the $ith$ stage. Then the total number of possible results of the $r$-stage process is:
+
+\textbf{Theorem:}
+$$n_1 n_2 \cdots \cdots n_r$$
+
+\subsection{Counting Results}
+\textbf{Theorem:}\\
+\indent \textbf{Permutation}(Distinguishable, without replacement, order matters)
+$$n!$$
+
+\indent \textbf{K-Permutation}(Distinguishable, without replacement, order matters)
+$$\frac{n!}{(n-k)!}$$
+
+\indent \textbf{Combination}(Distinguishable, without replacement, order no matters)
+$$\left(^{n} _{k}\right) = \frac{n!}{k!(n-k)!}$$
+
+\indent \textbf{Partition}(Distinguishable, without replacement, order no matters)
+$$\left(^n _{n_1,n_2,\cdots,n_r}\right) = \frac{n!}{n_{1}! n_{2}! \cdots n_{r}!}$$
+
+\indent \textbf{Number of Subsets}
+$$2^n$$
+
+\section{Probability Axioms}
+\subsection{Probability Laws}
+\begin{enumerate}
+    \item \textbf{Nonnegativity}
+    $$P(A) \geq 0$$
+    \item \textbf{Additivity}\\
+    If $A$ and $B$ are two disjoint events then:
+    $$P(A \cup B) = P(A) + P(B)$$
+    \item \textbf{Normalization}
+    $$P(\Omega) = 1$$
+\end{enumerate}
+
+\subsection{Some Properties of Probability Laws}
+\begin{enumerate}
+    \item If $A \subset B$, then $P(A) \leq P(B)$
+    \item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+    \item $P(A \cup B) \leq P(A) + P(B)$
+\end{enumerate}
+
+\section{Conditional Probability}
+\subsection{Definition}
+$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
+
+\subsection{Multiplication Rule}
+\textbf{Theorem:}\\
+$$P\left(\cap ^{n}_{i=1} = P(A_1)P(A_2|A_1)P(A_3|A_1 \cap A_2) \cdots P(A_n|\cap ^{n-1}_{i=1}A_i\right)$$
+
+\subsection{Total Probability Theorem}
+\textbf{Theorem}\\
+$$P(B) = P(A_1)P(B|A_1)+P(A_2)P(B|A_2)+\cdots +P(A_n)P(B|A_n)$$
+
+\subsection{Bayes' Rule}
+Bayes' rule is often used for inference. There are a number of "cause" that may result in a certain "effect". We observe the effect and we wish to infer the cause. Let $A_i$ associate with "cause" and $B$ represents "effect". $P(A_i)$ is called \emph{prior probability} and $P(A_i | B)$ is called \emph{posterior probability}. What Bayes want to do is to find out posterior probability given prior probability.\\
+
+\noindent \textbf{Bayes' Rule}\\
+Let $A_1 , A_2 , \cdots A_n$ be disjoint events that form a partition of the sample space and assume that $P(A_i) > 0$, for all $i$. Then for any event $B$ we have:\\
+\begin{equation*}
+    \begin{split}
+        P(A_i | B) & = \frac{P(A_i)P(B|A_i)}{P(B)}\\
+                   & = \frac{P(A_i)P(B|A_i)}{P(A_1)P(B|A_1)+\cdots +P(A_n)P(B|A_n)}
+    \end{split}
+\end{equation*}
+
+\subsection{Independence}
+\subsubsection{Definition}
+$$P(A|B) = P(A)$$
+
+\subsection{Conditioning Independence}
+\subsubsection{Definition}
+$$P(A\cap B|C) = P(A|C) P(B|C)$$
+
+\subsection{Independence of Events}
+\subsubsection{Definition}
+$$P\left(\underset{i\in B}{\cap} A_i \right) = \underset{i\in S}{\prod}P(A_i)$$
+
+\section{Discrerte Random Variables}
+\subsection{Probability Mass Function}
+\subsubsection{Definition}
+$$P_X (x) = P({X=x})$$
+
+\subsection{Cumulative Distribution Function}
+\subsubsection{Definition}
+$$F_X (x) = P(X \leq x)$$
+
+\subsection{Expectation}
+\subsubsection{Definition}
+$$E[X] = \sum_{x} xP_X(x)$$
+
+\subsection{Variance}
+\subsubsection{Definition}
+$$Var[X] = E[(X-E[X])^2] = E[X^2] - (E[X])^2$$
+
+\subsubsection{Standard Deviation}
+\indent \indent \indent \textbf{Definition:}\\
+$$\sigma_X = \sqrt{Var[X]}$$
+
+\subsection{nth Moment}
+\subsubsection{Definition}
+$$E[X^n]$$
+
+\subsection{Functions of Random Variables}
+\indent Let $Y = g(X)$ then we have:\\
+\noindent \textbf{Theorem:}\\
+$$P_Y(y) = \sum_{\{x|g(x) = y\}} P_X(x)$$
+
+\subsubsection{Expectation for Functions of Random Variables}
+\noindent \textbf{Theorem:}\\
+$$E[g(X)] = \sum_{x} g(x)P_X(x)$$
+
+\subsubsection{Linear Function of a Random Variable}
+\indent Let $Y = aX + b$ then:\\
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        E[Y] & = aE[X] + b\\
+        Var[Y] & = a^2Var[X]
+    \end{split}
+\end{equation*}
+
+\subsection{Joint PMF}
+\subsubsection{Definition}
+$$P_{X,Y}(x,y) = P(X=x, Y=y)$$
+
+\subsubsection{Marginal PMF}
+\textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        P_X(x) = \sum_y P_{X,y}(x,y)\\
+        P_Y(y) = \sum_x P_{X,y}(x,y)
+    \end{split}
+\end{equation*}
+
+\subsubsection{Functions of Multiple Random Variable}
+\indent Let $Z = g(X,Y)$ then:\\
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        & P_Z(z) = \sum_{\{(x,y)|g(x,y)=z\}}P_{X,Y}(x,y)\\
+        & E[g(x,y)] = \sum_{x} \sum_{y} g(x,y)P_{X,Y}(x,y)\\
+        & E[aX+bY+c] = aE[X] + bE[Y] + c
+    \end{split}
+\end{equation*}
+
+\subsection{Conditional PMF on Events}
+\subsubsection{Definition}
+$$P_{X|A}(x) = P(X=x|A) = \frac{P(\{X=x\} \cap A)}{P(A)}$$
+\noindent \textbf{Theorem:}\\
+$$P_X(x) = \sum_{i=1}^{n}P(A_i)P_{X|A_i}(x)$$
+
+\subsection{Conditional PMF on Random Variable}
+\subsubsection{Definition}
+\begin{equation*}
+    \begin{split}
+        P_{X|Y}(x|y) & = P(X=x|Y=y)\\
+        & = \frac{P(X=x, Y=y)}{P(Y=y)}\\
+        & = \frac{P_{X,Y}(x,y)}{P_Y(y)}
+    \end{split}
+\end{equation*}
+
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        P_{X,Y}(x,y) & = P_Y(y)P_{X|Y}(x|y)\\
+        P_{X}(x) & = \sum_y P_Y(y)P_{X|Y}(x|y)
+    \end{split}
+\end{equation*}
+
+\subsection{Conditional Expectation}
+\subsubsection{Definition}
+$$E[X|A] = \sum_x xP_{X|A}(x)$$
+\noindent \textbf{Theorem:}\\
+$$E[g(x)|A] = \sum_x g(x)P_{X|A}(x)$$
+\indent If $A_1, A_2, \cdots , A_n$ are disjoint partition then:\\
+$$E[X] = \sum_{i=1} P(A_i) E[X|A_i]$$
+
+\subsection{Independence of a Random Variable from an Event}
+\subsubsection{Definition}
+$$P_{X|A}(x) = P_X(x)$$
+
+\subsection{Independence of a Random Variable from a Random Variable}
+\subsubsection{Definition}
+$$P_{X|Y}(x|y) = P_X(x)$$
+\noindent \textbf{Theorem:}\\
+\indent If $X$ and $Y$ are independent then:\\
+\begin{equation*}
+    \begin{split}
+        & E[X|Y] = E[X]E[Y]\\
+        & E[g(X)h(Y)] = E[g(X)]E[h(Y)]\\
+        & Var[X+Y] = Var[X] + Var[Y]
+    \end{split}
+\end{equation*}
+
+\subsection{Conditional Independence}
+\subsubsection{Definition}
+$$P_{X,Y|A}(x,y) = P_{X|A}(x)P_{Y|A}(y)$$
+
+\section{Continuous Random Variable}
+\subsection{Probability Density Function(PDF)}
+\subsubsection{Definition}
+$$P(X\in B) = \int_{B} f_X(x) dx$$
+$$f_X(x)\ is PDF$$
+
+\subsection{Expectation}
+\subsubsection{Definition}
+$$E[X] = \int_{-\infty}^{\infty} xf_X(x)dx$$
+\noindent \textbf{Theorem:}\\
+$$E[g(X)] = \int_{-\infty}^{\infty} g(x)f_X(x)dx$$
+
+\subsection{Variance}
+\subsubsection{Definition}
+$$Var[X] = E[(X-E[X])^2]$$
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        Var[X] & = \int_{-\infty}^{\infty} (x-E[x])^2 f_X(x)dx\\
+        Var[X] & = E[X^2] -(E[X])^2
+    \end{split}
+\end{equation*}
+\indent \indent If $Y = aX + b$ then we have:
+\begin{equation*}
+    \begin{split}
+        E[Y] & = aE[X] + b \\
+        Var[Y] & = a^2Var[X]
+    \end{split}
+\end{equation*}
+
+
+\subsection{Cumulative Distribution Funciton(CDF)}
+\subsubsection{Definition}
+\begin{equation*}
+    F_X(x) = P(X\leq x) =
+    \begin{cases}
+        \underset{{k\leq x}}{\sum} P_X(k) & \text{if X is discrete}\\
+        \int_{-\infty}^{x} f_X(t)dt & \text{if X is continuous}
+    \end{cases}
+\end{equation*}
+
+\subsection{Relation Between CDF and PDF}
+\noindent \textbf{Theorem:}\\
+$$f_X(x)  = \frac{dF_X(x)}{dx}$$
+
+\subsection{Joint PDF}
+\subsubsection{Definition}
+$$P((X,Y)\in B) = \int\int_{(x,y)\in B} f_{X,Y}(x,y) dxdy$$
+$$f_{X,Y}(x,y)\ is PDF$$
+
+\subsubsection{Marginal PDF}
+\begin{equation*}
+    \begin{split}
+        f_X(x) & = \int_{-\infty}^{\infty} f_{X,Y}(x,y)dy\\
+        f_Y(y) & = \int_{-\infty}^{\infty} f_{X,Y}(x,y)dx
+    \end{split}
+\end{equation*}
+
+\subsection{Joint CDF}
+\subsubsection{Definition}
+\begin{equation*}
+    \begin{split}
+        F_{X,Y}(x,y) & = P(X\leq x, Y\leq y)\\
+        & = \int_{-\infty}^{x}\int_{-\infty}^{y} f_{X,Y}(s,t)dtds
+    \end{split}
+\end{equation*}
+
+\subsection{Relation Betwween Joint CDF and Joint PDF}
+$$f_{X,Y}(x,y) = \frac{\delta^2 F_{X,Y}(x,y)}{\delta x \delta y}$$
+
+\subsection{Conditioning a Random Variable on an Event}
+\subsubsection{Definition}
+$$f_{X|A} = \frac{f_X(x)}{P(X\in A)}$$
+\indent If $A_1 , A_2 , \cdots , A_n$ are disjoint partition, then\\
+\noindent \textbf{Theorem:}\\
+$$f_X(x) = \underset{i=1}{\sum^n} P(A_i) f_{X|A_i}(x)$$
+
+\subsection{Joint Conditional PDF}
+\subsubsection{Definition}
+$$f_{X,Y|C}(x,y) = \frac{f_{X,Y}(x,y)}{P(C)}$$
+\noindent \textbf{Theorem:}\\
+$$f_{X|C}(x) = \int_{-\infty}^{\infty} f_{X,Y|C}(x,y)dy$$
+
+\subsection{Conditioning a Random Variable on another Random Variable}
+\subsubsection{Definition}
+$$f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}$$
+\noindent \textbf{Theorem:}\\
+$$P(X\in A | Y=y) = \int_A f_{X|Y}(x|y)dx$$
+
+\subsection{Condition Expectation}
+\subsubsection{Definition}
+\begin{equation*}
+    \begin{split}
+        E[X|A] & = \int_{-\infty}^{\infty} xf_{X|A}(x)dx\\
+        E[X|Y=y] & = \int_{-\infty}^{\infty} xf_{X|Y}(x|y)dx
+    \end{split}
+\end{equation*}
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        E[g(X)|A] & = \int_{-\infty}^{\infty} g(x)f_{X|A}(x)dx\\
+        E[g(X)|Y=y] & = \int_{-\infty}^{\infty} g(x)f_{X|Y}(x|y)dx
+    \end{split}
+\end{equation*}
+
+\subsection{Total Expectation Theorem}
+\begin{equation*}
+    \begin{split}
+        E[X] & = \underset{i=1}{\sum^n} P(A_i) E[X|A_i]\\
+        E[X|Y=y] & = \int_{-\infty}^{\infty} E[X|Y=y] f_Y(y)dy
+    \end{split}
+\end{equation*}
+
+\subsection{Independence}
+\subsubsection{Definition}
+$$f_{X|Y}(x|y) = f_X(x)$$
+\indent If $X, Y$ independent then:\\
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        f_{X,Y}(x,y) & = f_X(x), f_Y(y)\\
+        F_{X,Y}(x,y) & = F_X(x)F_Y(y)\\
+        E[XY] & = E[X]E[Y]\\
+        E[g(X)h(Y)] & = E[g(X)]E[h(Y)]\\
+        Var[X+Y] & = Var[X] + Var[Y]
+    \end{split}
+\end{equation*}
+
+\subsection{Bayes' Rule for Continuous Random Variable}
+If $X$ is \emph{continuous}, then:\\
+$$f_Y(y)f_{X|Y}(x|y) = f_X(x)f_{Y|X}(y|x)$$
+$$and$$
+\begin{equation*}
+    \begin{split}
+        f_{X|Y}(x|y) & = \frac{f_X(x)f_{Y|X}(y|x)}{f_Y(y)}\\
+        & = \frac{f_X(x)f_{Y|X}(y|x)}{\int_{-\infty}^{\infty} f_X(t)f_{Y|X}(y|t)dt}
+    \end{split}
+\end{equation*}
+
+If $N$ is \emph{discrete}, then: \\
+\begin{equation*}
+    \begin{split}
+        & f_Y(y)P(N=n | Y=y) = P_N(n)f_{Y|N}(y|n)\\
+        & P(N=n | Y=y) = \frac{P_N(n)f_{Y|N}(y|n)}{f_Y(y)} = \frac{P_N(n)f_{Y|N}(y|n)}{\sum_i P_N(i)f_{Y|N}(y|i)}\\
+        & f_{Y|N}(y|n) = \frac{f_Y(y)P(N=n|Y=y)}{P_N(n)} = \frac{f_Y(y)P(N=n|Y=y)}{\int_{-\infty}^{\infty} f_Y(t) P(N=n|Y=t)dt}
+    \end{split}
+\end{equation*}
+
+\section{Further Topics on Random Variables}
+\subsection{Calculating PDF of Y=g(X) from Continuous RV X}
+\begin{itemize}
+    \item \textbf{Step1. }Calculate CDF $F_Y$
+    $$F_Y(y) = P(g(x)\leq y) = \int_{\{x|g(x)\leq y\}} f_X(x)dx$$
+    \item \textbf{Step2. }Differentiate to obtain PDF $f_Y$
+    $$f_Y(y) = \frac{dF_Y(y)}{dy}$$
+\end{itemize}
+
+\subsection{Convelution}
+If $Z=X+Y$, and $X , Y$ are independent.\\
+When \emph{discrete}:\\
+$$P_Z(z) = \sum_x P_X(x)P_Y(z-x)$$
+When \emph{continuous}:\\
+$$f_Z(z) = \int_{-\infty}^{\infty} f_X(x)f_Y(z-x)dx$$
+
+\subsection{Covariance}
+\subsubsection{Definition}
+\begin{equation*}
+    \begin{split}
+        Cov(X,Y) & = E[(X-E[X])(Y-E[Y])]\\
+        & = E[XY] - E[X]E[Y]
+    \end{split}
+\end{equation*}
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        Cov(X,X) & = Var[X]\\
+        Cov(X,aY+b) & = a\cdot Cov(X,Y)\\
+        Cov(X, Y+Z) & = Cov(X,Y) + Cov(X,Z)
+    \end{split}
+\end{equation*}
+
+\subsection{Correlation Coefficient}
+\subsubsection{Definition}
+$$\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}$$
+
+\subsection{Variance of the Sum of Random Variables}
+\noindent \textbf{Theorem:}\\
+\begin{equation*}
+    \begin{split}
+        Var[X_1+X_2] & = Var[X_1] + Var[X_2] + 2Cov(X_1, X_2)\\
+        Var\left[\underset{i=1}{\sum^n}X_i\right] & = \underset{i=1}{\sum^n} Var[X_i] + \underset{\{(i,j)|i\neq j\}}{\sum} Cov(X_i, X_j)
+    \end{split}
+\end{equation*}
+
+\subsection{Conditional Expectation and Variance Revisited}
+\subsubsection{Law of Iterated Expectation}
+$$E[E[X|Y]] = E[X]$$
+\subsubsection{Law of Total Variance}
+$$Var[X] = E[Var[X|Y]] + Var[E[X|Y]]$$
+
+\subsection{Moment Generating Function}
+\subsubsection{Definition}
+$$M_X(s) = E[e^{sX}]$$
+\indent \indent When \emph{discrete}:\\
+$$M_X(s) = \sum_x e^{sx} P_X(x)$$
+\indent \indent When \emph{continuous}:\\
+$$M_X(s) = \int_{-\infty}^{\infty} e^{sx}f_X(x)dx$$
+
+\noindent \textbf{Theorem:}\\
+If $Y=aX+b$ then we have:\\
+$$M_Y(s) = E[e^{s(aX+b)}] = e^{sb}M_X(sa)$$
+
+\subsubsection{From MGF to Moments}
+$$\frac{d^n M_X(s)}{d_{s^n}} \bigg|_{s=0} = \int_{-\infty}^{\infty} x^n f_X(x)dx = E[x^n]$$
+
+\subsubsection{MGF of Independent Random Variables}
+\noindent \textbf{Theorem:}\\
+\indent If $X, Y$ independent , $Z=X+Y$ then:\\
+$$M_Z(s) = M_X(s)M_Y(s)$$
+\indent Generalization: If $Z=X_1+\cdots +X_n$ then:\\
+$$M_Z(s) = M_{X_1}(s)\cdots M_{X_n}(s)$$
+
+\section{Limit Theorems}
+\subsection{Markov Inequality}
+If a randowm variable $X$ can only take nonnegative values, then:\\
+$$P(X\geq a) \leq \frac{E[X]}{a}, \text{\ for all } a>0$$
+
+\subsection{Chebyshev's Inequality}
+If $X$ is a random variable with mean $u$ and variance $\sigma^2$, then:\\
+$$P(|X-u| \geq c) \leq \frac{\sigma^2}{c^2}, \text{\ for all }c>0$$
+
+\noindent \textbf{Corollary:}\\
+Let $C=k\sigma$ we have:\\
+$$P(|X-u| \geq k\sigma) \leq \frac{1}{k^2}$$
+
+\subsection{The weak law of large numbers}
+Let \textbf{$X_1 , X_2 , \cdots$} be a sequence of independent identically distributed random variables with mean \textbf{$u$}, For every \textbf{$\varepsilon>0$}, we have:
+$$P\left(|M_n-u| \geq \varepsilon\right) = P\left(\bigg| \frac{X_1+\cdots +X_n}{n} - u \bigg| \geq \varepsilon\right) \rightarrow 0, \ as\ n\to \infty$$
+
+\subsection{Convergence in Probability}
+Let $Y_1 , Y_2 , \cdots$ be a sequence of random variables(not necessary independent) and let $a$ be a real number, we say that the sequence $Y_n$ converges to $a$ in probability, if for every $\varepsilon>0$ we have:
+$$\lim_{n\to \infty}P\left(|Y_n - a| \geq \varepsilon\right) = 0$$
+
+\subsection{Convergence with Probability 1}
+Let $Y_1 , Y_2 , \cdots$ be a sequence of random variables(not necessary independent) and let $c$ be a real number, we say that $Y_n$ convergeces to $c$ \textbf{with probability 1} if:
+$$P\left(\lim_{n\to \infty} Y_n = c\right) = 1$$
+
+\subsection{The Strong Law of Large Numbers}
+Let \textbf{$X_1 , X_2 , \cdots$} be a sequence of independent identically distributed random variables with mean $u$. Then, the sequence of sample means $M_n = (X_1+\cdots+X_n)/n$ converges to $u$ \textbf{with probability 1}, that is
+$$P\left(\lim_{n\to \infty} \frac{X_1+\cdots+X_n}{n} = u\right) = 1$$
+
+\subsection{Central Limit Theorem}
+Let \textbf{$X_1 , X_2 , \cdots$} be a sequence of independent identically distributed random variables with common mean $u$ and variance $\sigma^2$,\\
+Define $S_n = \sum_{i=1}^{n}X_i$ then: \\
+$$\lim_{n\to \infty} P\left(\frac{S_n}{\sigma\sqrt{n}} \leq x\right) = \Phi(x) \ , \ -\infty<x<\infty$$
+
+\section{References}
+1. Introduction to Probability, 2nd Edition, by Dimitri P. Betsekas and John N. Tsitsiklis, 2008, ISBN 978-1-886529-23-6
+\end{document}

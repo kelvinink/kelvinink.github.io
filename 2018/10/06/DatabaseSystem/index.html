@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Phases of Database System Design | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionThis article is gonna give a brief overview to the phases of database system design which is the kernel of database life cycle. The whole article here is discussing what we need to do and">
+<meta name="keywords" content="Database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Phases of Database System Design">
+<meta property="og:url" content="http://kelvin.ink/2018/10/06/DatabaseSystem/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="IntroductionThis article is gonna give a brief overview to the phases of database system design which is the kernel of database life cycle. The whole article here is discussing what we need to do and">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/DatabaseSystem/PhasesOfDatabaseDesign.png">
+<meta property="og:updated_time" content="2018-12-09T19:25:05.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Phases of Database System Design">
+<meta name="twitter:description" content="IntroductionThis article is gonna give a brief overview to the phases of database system design which is the kernel of database life cycle. The whole article here is discussing what we need to do and">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/DatabaseSystem/PhasesOfDatabaseDesign.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DatabaseSystem" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/06/DatabaseSystem/" class="article-date">
+  <time datetime="2018-10-06T13:30:33.000Z" itemprop="datePublished">2018-10-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Phases of Database System Design
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>This article is gonna give a brief overview to the phases of database system design which is the kernel of database life cycle. The whole article here is discussing what we need to do and how to do in each phases of database design.</p>
+<p>After each phase, we will get the corresponding deliverable–The so called schema. In the following section, we will introduce the data model first, and then the phases of database design. A <strong>data model</strong> is collection of concepts for describing the data in a database. While A <strong>schema</strong> is a description of a particular collection of data, using a given data model. The relationship between data model, schema, and phases of design are as follow:<br>Before we start the design process, we choose a data model for our database. Then, we do the design. In each step of our design process, we obtain the corresponding schema such as conceptual schema, logical schema .etc.</p>
+<p>The following figure shows the database design and application development in parallel:<br><img src="/resources/res/DatabaseSystem/PhasesOfDatabaseDesign.png" alt="Phases of Database Design" width="70%"></p>
+<p>Lets start with data models.</p>
+<h1 id="Data-Models"><a href="#Data-Models" class="headerlink" title="Data Models"></a>Data Models</h1><p>There are three kinds of data models whose abstraction level are from high to low:</p>
+<ul>
+<li>Conceptual model [e.g: ER-model]</li>
+<li>Logical model [e.g: Relational-model]</li>
+<li>Physical model</li>
+</ul>
+<ol>
+<li><strong>Conceptual Model</strong><br>A data model that is independent of <em>all</em> implementation details like target DBMS, storage structure, security, performance issue.<br>Example: ER model</li>
+<li><strong>Logical Model</strong><br>A logical data model describes the data in as much detail as possible, without regard to how they will be physical implemented in the DBMS.<br>Examples: By ANSI -&gt; Hierarchical Model, Network Model, Relational Model and Object Oriented Model</li>
+<li><strong>Physical Model</strong><br>Data model that involved data management technology.</li>
+</ol>
+<h1 id="The-Four-Database-Design-Phases"><a href="#The-Four-Database-Design-Phases" class="headerlink" title="The Four Database Design Phases"></a>The Four Database Design Phases</h1><p>There are four steps in database design procedure:</p>
+<h2 id="1-Requirements-collection-and-analysis"><a href="#1-Requirements-collection-and-analysis" class="headerlink" title="1. Requirements collection and analysis"></a>1. Requirements collection and analysis</h2><p>   <strong>Task:</strong> Analyse user requirements.<br>   <strong>Deliverables:</strong> Data requirements, Functional requirements</p>
+<h2 id="2-Conceptual-design"><a href="#2-Conceptual-design" class="headerlink" title="2. Conceptual design"></a>2. Conceptual design</h2><p>   <strong>Task:</strong> Create conceptual model<br>   <strong>Deliverables:</strong> Conceptual schema(Conceptual model) e.g: ER-Model</p>
+<h2 id="3-Logical-design-Data-model-mapping"><a href="#3-Logical-design-Data-model-mapping" class="headerlink" title="3. Logical design(Data model mapping)"></a>3. Logical design(Data model mapping)</h2><p>   <strong>Task:</strong> Maps conceptual model to the implemented logical model of target DBMS.<br>   <strong>Deliverables:</strong> Logical schema(Logical model) e.g: Relational Schema<br>   <strong>Remarks:</strong> What we need to do(focus) on in this phase: <em>Integrity, Constraints, Normalization</em><br>   <em>Note1: You may assume that the logical schema is just a conceptual schema with more details</em><br>   <em>Note2: Logical design may or may not DBMS independent.</em></p>
+<h2 id="4-Physical-design"><a href="#4-Physical-design" class="headerlink" title="4. Physical design"></a>4. Physical design</h2><p>   <strong>Task:</strong> Determines how a database is implemented in a DBMS.The internal storage structures, file organizations, indexes, access paths, and physical design parameters are completed in this phase.<br>   <strong>Deliverables:</strong> Internal schema(Physical model) e.g: File organization, Indexes<br>   <strong>Remarks:</strong> What we need to do(focus on) in this phase: <em>Denormalization, Indexing, Derived data, Storage structure, Partitioning, View, Security, Query Optimization, Backup, Recovery, Concurrency control, Access control</em></p>
+<p>It’s hard to distinguish conceptual and logical model, the boundary is blur. It will be safe to think logical model as a conceptual model with more details.</p>
+<p>Or, we can see it from another point of view:</p>
+<p>Different DBMS are using different data model, we can consider these data model as logical model. For example, MongoDB is using document-oriented model, Oracle Berkeley DB XML is using XML model and MySQL is using relational model. These are all so called logical model. Note that the abstraction level of conceptual model is higher than that of logical model. So, it’s hard to transform from one logical model to another logical model. But, transforming from conceptual model to the three logical models above is fairy easy. This is one main difference between conceptual model and logical model.<br>This concludes the discussion.</p>
+<h1 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a>Further Discussion</h1><p>Further discussion of databases are all based on the phases of database design. For example: normalization and constraints checking resides in logical design; while denormalization, indexing and query optimization resides in physical design. We will give more discussion to these topics in other posts of <a href="kelvin.ink">kelvin.ink</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/06/DatabaseSystem/" data-id="cjpha7rvg0003bu0zoy88bdkw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/">Database</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/08/OOAnalysisUML1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Object Oriented Analysis with UML 1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/04/ReliableDataTransfer/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Reliable Data Transfer</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Kelvin . Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

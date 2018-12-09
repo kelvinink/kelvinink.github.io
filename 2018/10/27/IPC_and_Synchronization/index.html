@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Interprocess Communication and Synchronization | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionIn this article, we are going to introduce interprocess communication(IPC)—a mechanism for processes to synchronize and communicate with each other. After reading this article you will und">
+<meta name="keywords" content="Operating System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interprocess Communication and Synchronization">
+<meta property="og:url" content="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="IntroductionIn this article, we are going to introduce interprocess communication(IPC)—a mechanism for processes to synchronize and communicate with each other. After reading this article you will und">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/IPC_MindMap.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/RaceCondition1.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/RaceCondition2.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/testAndSet.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/CAS.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmRelationship.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/lockVariable.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/takingTurns.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/peterson.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/bakery.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/mutex.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/semaphore.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/SynchronizationAlgorithms.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmProperties.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/LinuxIPCProperties.png">
+<meta property="og:updated_time" content="2018-12-09T19:25:05.361Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Interprocess Communication and Synchronization">
+<meta name="twitter:description" content="IntroductionIn this article, we are going to introduce interprocess communication(IPC)—a mechanism for processes to synchronize and communicate with each other. After reading this article you will und">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/IPC_and_Synchronization/IPC_MindMap.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-IPC_and_Synchronization" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/27/IPC_and_Synchronization/" class="article-date">
+  <time datetime="2018-10-27T11:12:45.000Z" itemprop="datePublished">2018-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Interprocess Communication and Synchronization
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this article, we are going to introduce interprocess communication(IPC)—a mechanism for processes to <strong>synchronize</strong> and <strong>communicate</strong> with each other. After reading this article you will understand:</p>
+<ul>
+<li>Why do we need interprocess communication(IPC)<br>[Ans: Synchronization &amp; Communication]</li>
+<li>Two approaches for IPC<br>[Ans: Shared memory &amp; Message passing]</li>
+<li>Why do we need synchronization for shared memory methods<br>[Ans: Race condition]</li>
+<li>Methods for shared memory synchronization<br>[Ans: Mutex, Semaphore, Monitor]</li>
+<li>Differences among shared memory synchronization methods </li>
+<li>What message passing methods do we have<br>[Ans: In linux: Pipe, Message queue, socket…]</li>
+<li>How to categorize message passing methods<br>[Ans: Blocking, Addressing, Queuing]</li>
+</ul>
+<p>Let me show you a mind map for interprocess communication. It also shows the structure of this article.<br>You may download the <a href="/resources/res/IPC_and_Synchronization/IPC_MindMap.pdf">PDF Version Here</a><br><img src="/resources/res/IPC_and_Synchronization/IPC_MindMap.png" alt=""></p>
+<h1 id="Why-Interprocess-Communication"><a href="#Why-Interprocess-Communication" class="headerlink" title="Why Interprocess Communication"></a>Why Interprocess Communication</h1><p>Cooperating processes frequently need to communicate with each other to ensure works are correctly done. Sometimes,the correctness of the executing results depend on the executing sequence of cooperating processes. At this scenario, we need to enforce <strong>synchronization</strong> to make sure we can get the correct results. Sometimes the execution of one process may require the result of another process. At this scenario, we need a <strong>communication</strong> mechanism for those processes to talk to each other.</p>
+<h1 id="Two-Approaches-for-IPC"><a href="#Two-Approaches-for-IPC" class="headerlink" title="Two Approaches for IPC"></a>Two Approaches for IPC</h1><p>Here is where IPC comes to rescue. There are two approaches that can be used for IPC. One is <strong>shared memory</strong>, and the other is <strong>message passing</strong>. We will address the details of them in the following sections.</p>
+<h1 id="Shared-Memory-IPC"><a href="#Shared-Memory-IPC" class="headerlink" title="Shared Memory IPC"></a>Shared Memory IPC</h1><p>Cooperating processes may communicate by <strong>sharing</strong> the same piece of memory. One process can write some data to a piece of shared memory, and another process can read from the same piece of memory directly. When doing so, you need to be careful. Otherwise, The executing result may not be the same as your expectation. To understand why, we explain the concept of race condition first.</p>
+<h2 id="Race-Condition"><a href="#Race-Condition" class="headerlink" title="Race Condition"></a>Race Condition</h2><p>A race condition occurs when multiple processes or threads try to read and write data items at the same piece of shared memory, so that the <strong>final result</strong> depends on the <strong>order</strong> of execution of instructions.</p>
+<p><strong>Example:</strong><br>Suppose process 1 and process 2 are sharing the same data <code>counter</code> , race condition may happens as follows:<br><img src="/resources/res/IPC_and_Synchronization/RaceCondition1.png" alt="Race Condition 1" width="35%"><br>The satements can be break down into three lines of assembly instructions correspondingly:<br><img src="/resources/res/IPC_and_Synchronization/RaceCondition2.png" alt="Race Condition2" width="33%"><br>When <strong>context switch</strong> happens in the <strong>middle</strong> of the three lines of instructions, unexpected results may happens(Try it!). This demonstrate the so called race condition.</p>
+<h2 id="Critical-Section-Problem"><a href="#Critical-Section-Problem" class="headerlink" title="Critical Section Problem"></a>Critical Section Problem</h2><p>To solve race condition problem, we define a problem called critical section problem.<br><strong>Definition:</strong><br>Critical section is the part of program where shared memory is accessed.<br><strong>Definition:</strong><br>Critical section problem: Find solutions that arrange the cooperating processes properly, so that no two processes were ever in their critical sections at the same time.</p>
+<h2 id="Solution-Criteria"><a href="#Solution-Criteria" class="headerlink" title="Solution Criteria"></a>Solution Criteria</h2><p>To satisfy the requirements of critical section problems and other concerns like fairness, efficiency, our solutions should try to fulfill the three criteria below:</p>
+<ol>
+<li><strong>Mutual Exclusion:</strong> No two processes can enter their critical sections at the same time.</li>
+<li><strong>Progress:</strong> If no process is executing its critical section, then one of the waiting processes can enter its critical section.</li>
+<li><strong>Bounded Waiting:</strong> No infinite wait for a process.</li>
+</ol>
+<h2 id="Hardware-Supports-for-Shared-Memory-Synchronization"><a href="#Hardware-Supports-for-Shared-Memory-Synchronization" class="headerlink" title="Hardware Supports for Shared Memory Synchronization"></a>Hardware Supports for Shared Memory Synchronization</h2><p>We are going to introduce two hardware supports for shared memory synchronization. They may be used for implementing software synchronization algorithms like mutex, semaphore. You may wonder what is hardware supporting for software synchronization algorithms. The answer is that hardware provides <strong>atomic operation</strong> for software algorithms. So the following hardware functionalities are all atomic operations.</p>
+<h3 id="Test-and-Set"><a href="#Test-and-Set" class="headerlink" title="Test and Set"></a>Test and Set</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/testAndSet.png" alt="" width="35%"><br><em>Notes: Test and set is supported by hardware, which ensures that it runs atomically.</em></p>
+<h3 id="Compare-and-Swap"><a href="#Compare-and-Swap" class="headerlink" title="Compare and Swap"></a>Compare and Swap</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/CAS.png" alt="" width="55%"><br><em>Notes: Compare and swap is supported by hardware, which ensures that it runs atomically.</em></p>
+<h2 id="Software-solutions-for-Shared-Memory-Synchronization"><a href="#Software-solutions-for-Shared-Memory-Synchronization" class="headerlink" title="Software solutions for Shared Memory Synchronization"></a>Software solutions for Shared Memory Synchronization</h2><p>Remind you again, this article is not explaining the details of these algorithms, but to <strong>relate</strong> them together. We divide them into two parts— <strong>primitive</strong> and <strong>advanced</strong>. Advanced algorithms are supported by primitive algorithms/mechanisms as well as hardware algorithms like test and set. There are four primitive algorithms/mechanisms: Lock variables, Taking turns, Peterson’s algorithm and Bakery algorithm; and three advanced algorithms: Mutex, Semaphore and Monitor. We will illustrate them one by one in the following sections. Before then, we would like to show you the relationships among them first:<br><img src="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmRelationship.png" alt="Synchronization Algorithm Relationship" width="70%"></p>
+<p>Now, let’s define them one by one:</p>
+<h3 id="Lock-Variable-Mechanism"><a href="#Lock-Variable-Mechanism" class="headerlink" title="Lock Variable Mechanism"></a>Lock Variable Mechanism</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/lockVariable.png" alt="" width="48%"></p>
+<h3 id="Taking-Turns-Mechanism"><a href="#Taking-Turns-Mechanism" class="headerlink" title="Taking Turns Mechanism"></a>Taking Turns Mechanism</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/takingTurns.png" alt="" width="48%"></p>
+<h3 id="Peterson’s-Algorithm"><a href="#Peterson’s-Algorithm" class="headerlink" title="Peterson’s Algorithm"></a>Peterson’s Algorithm</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/peterson.png" alt="" width="48%"></p>
+<h3 id="Bakery-Algorithm"><a href="#Bakery-Algorithm" class="headerlink" title="Bakery Algorithm"></a>Bakery Algorithm</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/bakery.png" alt="" width="48%"></p>
+<h3 id="Mutex"><a href="#Mutex" class="headerlink" title="Mutex"></a>Mutex</h3><p><strong>Difinition:</strong><br><img src="/resources/res/IPC_and_Synchronization/mutex.png" alt="" width="48%"><br><em>Notes: The two operations(entry_section() and exit_section()) must be atomic, which can be implemented by test and set or compare and swap.</em></p>
+<h3 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/semaphore.png" alt="" width="48%"><br><em>Notes: The two operations must be atomic, which can be implemented by test and set or compare and swap.</em></p>
+<h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h3><p><strong>Definition:</strong><br>Monitor is an <strong>abstract data type</strong> that provides mutual exclusive operations. The monitor construct ensures that <strong>only one</strong> process at a time is <strong>active</strong> within the monitor. Monitors are provided by operating systems, programmers do not need to worry about how to implement them.</p>
+<h3 id="Put-them-Altogether"><a href="#Put-them-Altogether" class="headerlink" title="Put them Altogether"></a>Put them Altogether</h3><p>Putting all of the synchronization algorithms/mechanisms together:<br>You may download the <a href="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithms.pdf">PDF Version Here</a><br><img src="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithms.png" alt="Synchronization Algorithm Properties" width="68%"></p>
+<p>The following table shows the properties of those software synchronization algorithms above:<br>You can also download its <a href="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmProperties.pdf">PDF Version Here</a><br><img src="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmProperties.png" alt="Synchronization Algorithm Properties" width="80%"></p>
+<h1 id="Message-Passing-IPC"><a href="#Message-Passing-IPC" class="headerlink" title="Message Passing IPC"></a>Message Passing IPC</h1><p>To communicate with other processes, shared memory IPC enforces many synchronization constraints. For message passing IPC, we do not need to care much about synchronization problems(we do, but not much). We can categorize message passing IPC methods from three dimensions: <strong>blocking</strong> , <strong>addressing</strong>, <strong>queuing</strong>.</p>
+<h2 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h2><p>The blocking property describes how message passing processes are <strong>synchronized</strong>.</p>
+<p><strong>Sender:</strong></p>
+<ul>
+<li>Blocking: The sending process is blocked until message is received.</li>
+<li>Nonblocking: Send and go away.</li>
+</ul>
+<p><strong>Receiver:</strong></p>
+<ul>
+<li>Blocking: If no waiting message present, the receiver process is blocked until message come.</li>
+<li>Nonblocking: Try to receive, and go away.</li>
+</ul>
+<h2 id="Addressing"><a href="#Addressing" class="headerlink" title="Addressing"></a>Addressing</h2><p>The addressing property describes the <strong>destination</strong> of the message. A message may be delivered to the receiver <strong>directly</strong> or to a <strong>mail-box</strong> for the receiver to collect later on(Indirectly).</p>
+<h2 id="Queuing"><a href="#Queuing" class="headerlink" title="Queuing"></a>Queuing</h2><p>The queuing property describes the <strong>receiving order</strong> of messages on the receiver side. It may be FIFO or priority based.</p>
+<h2 id="Linux-Message-Passing-IPC"><a href="#Linux-Message-Passing-IPC" class="headerlink" title="Linux Message Passing IPC"></a>Linux Message Passing IPC</h2><p>In linux system, there are about five basic types of message passing IPC methods: anonymous pipe, named pipe, signal, message queue and socket. The following table is trying to compare them by the three properties discussed above.<br><img src="/resources/res/IPC_and_Synchronization/LinuxIPCProperties.png" alt="Linux IPC Methods Properties" width="90%"></p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>//Todo</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjpha7rxb0017bu0zuog6iuw1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/20/DM_Note1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DataMing Note 1 Data Mining Basics</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Kelvin . Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\title{Perceptron Learning Algorithm}
+\author{Kelvin $\cdot$ Liang \, ziyoustep@gmail.com}
+\date{\today}
+\maketitle
+
+\section{Introduction to ML yes/no problem(Binary Classification)}
+Suppose there is a machine learning problem that we need to find out a final hypothesis $f$ which can answer yes/no questions. For example: whether a bank want to approve a credit card for its customers. We will use credit card approval as an example in the following sections.  The first thing we need to figure out is what's our hypothesis set. \textbf{Perceptron Learning Algorithm} is a way to come up with a fairy acceptable hypothesis set.
+\section{Perceptron Hypothesis Set}
+The main idea of Perceptron Hypothesis Set(PHS) is using \textbf{threshold} to classify the input. If the weighted score of a customer is greater than the threshold, the bank would approve a credit card to him/her, otherwise the bank would deny the application.\\
+
+Perceptron Hypothesis Set is defined as:
+$$\displaystyle{h(X) = sign\left(\left(\sum _{i=1}^{n} w_i x_i\right) -threshold \right)}$$
+If the sign of $h(X)$ is $'+'$, the the bank would approve the application, otherwise the bank would deny if the sign of $h(X)$ is $'-'$.\\
+
+We can simplify the form of PHS as follow: \,(Note that $w_0=(-threshold)$
+
+\begin{eqnarray*}
+h(X) &=& sign\left(\left(\sum _{i=1}^{n} w_i x_i\right) -threshold \right)\\
+&=& sign\left(\left(\sum _{i=1}^{n} w_i x_i\right) +(-threshold) \cdot (+1) \right)\\
+&=& sign\left(\sum _{i=0}^{n} w_i x_i\right)\\
+&=& sign\left( W \cdot X \right)
+\end{eqnarray*}
+
+Finally we get our PHS, the next step is to design an algorithm to select a hypothesis from this set. Note that the hypothesis in PHS may be good or bad, it depends on our luckiness. The algorithm we are going to propose is the Perceptron Learning Algorithm.
+
+\section{Perceptron Learning Algorithm (PLA)}
+Formal definition of PLA:\\
+
+\begin{tabular}{|l|}
+\hline
+For t = 0,1,...\\
+
+1. Find the next mistake of $\displaystyle{W_{t}}$ called $\displaystyle{(X_{i}, y_{i})}$ where:\\
+[3mm]
+\indent \indent $\displaystyle{sign\left( W_{t} \cdot X_{i} \right) \neq y_{i}}$\\
+[3mm]
+2. Correct the mistake by\\
+[3mm]
+\indent \indent $\displaystyle{W_{t+1} = W_t + y_{i}X_{i}}$\\
+[3mm]
+...Until a full cycle not encountering any mistake\\
+\hline
+\end{tabular}\\
+
+The PLA halts only if the input data set $\mathbb{D}$ is \textbf{linear separable}. It means that there exist a perfect \textbf{$W^*$} which makes no mistake for input $\mathbb{D}$. That is:
+$$y_i = sign \left( W^* \cdot X_i \right) \, ,for \,i \in \{1...n\}$$ 
+\\
+What we need to do now is to prove that PLA will halt if $\mathbb{D}$ is linear separable. We start by mentioning the fact:
+\\
+\textbf{Fact.} For perfect $W^*$ the following inequality always holds:\\
+\begin{eqnarray}
+y_{i}W^* \cdot X_{i} \geq \min _j\left(y_jW^* \cdot X_j\right) > 0 \, ,for \,j \in \{1...n\}
+\end{eqnarray}
+\\
+\textbf{Claim 1.} $W_t$ gets more aligned with $W^*$\\
+Proof: We will prove this by showing that the value of $W^* \cdot W_t$ is increasing at each update with $(X_i , y_i)$.
+
+\begin{eqnarray}
+W^* \cdot W_{t+1} &=& W^*(W_t+y_iX_i)\\
+&=& W^*\cdot W_t+ y_i W^* \cdot X_i\\
+&\geq& W^* \cdot W_t + \min _j y_j W^* \cdot X_j \, ,for \,j \in \{1...n\}\\
+&>& W^* \cdot W_t + 0
+\end{eqnarray}
+
+So, we get $W^* \cdot W_{t+1} > W^* \cdot W_t + 0$ in the end. The increasing value of $W^* \cdot W_t$ comes from two sources. The first one is that the length of $W_t$ gets larger. The second source is that $W_t$ gets more aligned with $W^*$. To complete our proof of Claim 1, we need to prove Claim 2 first. After completing the proof of Claim 2, Claim 1 will automatically be true.
+\\
+\textbf{Claim 2.} $W_t$ does not grow too fast, which means the increasing value of $W^* \cdot W_t$ is mainly from the alignment between to two vectors. We are going to prove it by showing that the value of $W_t$ doesn't increase much at each round.
+
+\begin{eqnarray}
+||W_{t+1}||^2 &=& ||W_t+y_iX_i||^2\\
+&=& ||W_{t}||^2 +2y_iW^* \cdot X_i + ||y_iX_i||^2\\
+&\leq& ||W_{t}||^2 + 0 + ||y_iX_i||^2\\
+&\leq& ||W_{t}||^2 + \max _j ||y_jX_j||^2 \, ,for \,j \in \{1...n\}
+\end{eqnarray}
+
+Since $\max _j ||y_jX_j||^2$ is a constant. Intuitively, $W_t$ is approaching to $W^*$ steadily. We are going to prove that PLA will halt at some time concisely.\\
+
+\textbf{Corollary 1.} After $T$ mistake corrections
+$$\cos \theta = \frac{W^* \cdot W_T}{||W^*|| \cdot ||W_T||} \geq \sqrt{T} \cdot C \, , for\ constant\ C$$
+Proof: Following the same logic as equation (2) to (4) we have
+
+\begin{eqnarray}
+W^* \cdot W_{T} &=& W^*(W_{T-1}+y_iX_i)\\
+&=& W^*\cdot W_{T-1}+ y_i W^* \cdot X_i\\
+&\geq& W^* \cdot W_{T-1} + \min _j y_j W^* \cdot X_j \, ,for \,j \in \{1...n\}\\
+&\cdots&\\
+&\geq& W^* \cdot W_{0} + T \min _j y_j W^* \cdot X_j \, ,for \,j \in \{1...n\}\\
+&\geq& T \min _j y_j W^* \cdot X_j \, ,for \,j \in \{1...n\}
+\end{eqnarray}
+
+Note that $W_0 = (-threshold)$. For the simplicity of our proof, we choose $W_0 = \textbf{0}$ when transiting from equation (14) to (15).\\
+Following the same idea as equation (6) to (9) we have
+
+\begin{eqnarray}
+||W_{T}||^2 &=& ||W_{T-1}+y_iX_i||^2\\
+&=& ||W_{T-1}||^2 +2y_iW^* \cdot X_i + ||y_iX_i||^2\\
+&\leq& ||W_{T-1}||^2 + 0 + ||y_iX_i||^2\\
+&\leq& ||W_{T-1}||^2 + \max _j ||y_jX_j||^2 \, ,for \,j \in \{1...n\}\\
+&\cdots&\\
+&\leq& ||W_{0}||^2 + T \max _j ||y_jX_j||^2 \, ,for \,j \in \{1...n\}\\
+&=& T \max _j ||y_jX_j||^2 \, ,for \,j \in \{1...n\}
+\end{eqnarray}
+
+Again we choose $W_0 = \textbf{0}$ here.
+
+Combining equation (15) and (22), we get
+
+\begin{eqnarray}
+\frac{W^* \cdot W_{T}}{||W^*|| \cdot ||W_{T}||} \geq \frac{T \min \limits_j y_j W^* \cdot X_j}{||W^*|| \sqrt{T} \max \limits_i ||y_iX_i||} = \sqrt{T}\cdot \frac{\min \limits_j y_j W^* \cdot X_j}{||W^*|| \cdot \max \limits_i ||y_iX_i||}
+\end{eqnarray}
+
+Where the constant $C$ is equal to $\displaystyle{\frac{\min \limits_j y_j W^* \cdot X_j}{||W^*|| \cdot \max \limits_i ||y_iX_i||}}$.
+
+With equation (23) we can easily derive the upper bound of T
+
+\begin{eqnarray}
+T \leq \frac{\max \limits_j ||X_i||^2 \cdot ||W^*||^2}{\left(\min \limits_j y_j W^* \cdot X_j\right)^2}
+\end{eqnarray}
+
+With all of the discussion above, we have proved that PLA will halt after many times of correction if $\mathbb{D}$ is linear separable.
+
+But there are still many problems to be solve for PLA before it can be used in practice. One of the problems is that we are not sure about how long will it take for the algorithm to halt. Another problem is that PLA may not halt because of noisy input in the really world. To comfort this problem, we introduce another algorithm called Pocket Algorithm that is a refinement of PLA in the next section.
+
+\section{Refine PLA to Pocket Algorithm}
+\begin{tabular}{|l|}
+\hline
+Initialize pocket weights \textbf{W}
+For t = 0,1,...\\
+
+1. Find a random mistake of $\displaystyle{W_{t}}$ called $\displaystyle{(X_{i}, y_{i})}$ where:\\
+[3mm]
+\indent \indent $\displaystyle{sign\left( W_{t} \cdot X_{i} \right) \neq y_{i}}$\\
+[3mm]
+2. Try to correct the mistake by\\
+[3mm]
+\indent \indent $\displaystyle{W_{t+1} = W_t + y_{i}X_{i}}$\\
+[3mm]
+3. If $W_{t+1}$ makes fewer mistakes than $W$, replace $W$ with $W_{t+1}$\\
+...Until enough of iterations\\
+\hline
+\end{tabular}\\
+
+The idea behind this algorithm is that we always hold the best solution we have ever seen. The algorithm update $W$ only if it encounter a better solution. The pros of this algorithm compared to PLA is that it's sure to halt after constant iteration specified by caller.
+
+\section{References}
+Almost all of the equations(except some proof) of this note are from Professor Hsuan-Tien Lin , NTU. If you wan to know more information about Machine Learning Foundation, please refer to Professor Lin's homesite.
+
+\end{document}

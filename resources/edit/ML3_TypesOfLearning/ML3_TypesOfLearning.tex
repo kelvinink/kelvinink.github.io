@@ -1,0 +1,63 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\title{Types Of Learning}
+\author{Kelvin $\cdot$ Liang \, ziyoustep@gmail.com}
+\date{June, 11, 2018}
+\maketitle
+
+\section{Introduction}
+In this note, we are going to categorize types of learning by output space, data label, protocol and input space.
+\section{Learning with different output space $Y$}
+\subsection{Binary Classification}
+Answering yes/no questions. $y=\{+1, -1\}$\\
+Example: Credit card approval
+\subsection{Multiclass Classification}
+The classes of the output is more than two. $y=\{1, 2, \cdots , K\}$\\
+Example: Written digits pictures $\Rightarrow 1, 2, \cdots , 9$ 
+\subsection{Regression}
+The output space is $\mathbb{R}$. $y\in \mathbb{R}$\\
+Example: Company data $\Rightarrow$ Stock price
+\subsection{Structured Learning}
+The output is some kind of structure without explicit class definition. In sentence recoginition, the output structure may be like $y=\{PVN, PVP,NVN,\cdots\}$, where $P$ is pronoun, $V$ is verb and $N$ is noun.
+
+\section{Learning with different data label $y_i$}
+\subsection{Supervised Learning}
+Label all $y_i$ for $i\in \{1,\cdots,n\}$\\
+Example: Classify US dollars.
+\subsection{Unsupervised Learning}
+Label no $y_i$\\
+Example: Clustering points on a plane
+\subsection{Semi-supervised Learning}
+Label some $y_i$\\
+This learning method is usually used when labeling is an expensive  operation.
+\subsection{Reinforcement Learning}
+In reinforcement learning, we do not label $y_i$ explicitly, but implicit it by the feedback $\hat{y_i}$.\\
+Example: A dog learn to sit down.
+
+\section{Learning with different protocol $f \to (x_i, y_i)$}
+\subsection{Batch Learning}
+Input all known data at one time.\\
+Example: It's a common protocol. No need to give an example.
+\subsection{Online Learning}
+Sequentially learning from incoming data.(passive)\\
+Example: Gmail classy incoming email as important, spam, promotion etc.
+\subsection{Active Learning}
+The machine strategically query $y_i$ of chosen $x_i$.
+
+\section{Learning with different input space $X$}
+\subsection{Concrete Features}
+Give clear physical meaning. The features are determined by human. So, it often include human intelligence on the learning task.
+\subsection{Raw Features}
+Give simple physical meaning. Often need feature extraction/conversion.
+\subsection{Abstract Features}
+Give no physical meaning.Need feature extraction/conversion as well.
+
+\section{References}
+Almost all of the materials of this note are from Professor Hsuan-Tien Lin , NTU. If you wan to know more information about Machine Learning Foundation, please refer to Professor Lin's homesite.
+
+\end{document}

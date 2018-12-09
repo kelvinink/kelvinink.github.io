@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Object Oriented Analysis with UML 1 | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Object Oriented Analysis ProcedureThis is the first part of our OO analysis series posts. What we are going to talk about here is how to construct use case diagram, use case description and class diag">
+<meta name="keywords" content="Software Engineering">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object Oriented Analysis with UML 1">
+<meta property="og:url" content="http://kelvin.ink/2018/10/08/OOAnalysisUML1/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="Object Oriented Analysis ProcedureThis is the first part of our OO analysis series posts. What we are going to talk about here is how to construct use case diagram, use case description and class diag">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/OOAnalysisUML1/UseCaseDiagramStructure.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/OOAnalysisUML1/UseCaseDescriptionTemplate.jpg">
+<meta property="og:image" content="http://kelvin.ink/resources/res/OOAnalysisUML1/ClassDiagramStructure.png">
+<meta property="og:updated_time" content="2018-12-09T19:25:05.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object Oriented Analysis with UML 1">
+<meta name="twitter:description" content="Object Oriented Analysis ProcedureThis is the first part of our OO analysis series posts. What we are going to talk about here is how to construct use case diagram, use case description and class diag">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/OOAnalysisUML1/UseCaseDiagramStructure.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OOAnalysisUML1" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/08/OOAnalysisUML1/" class="article-date">
+  <time datetime="2018-10-08T08:23:48.000Z" itemprop="datePublished">2018-10-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Object Oriented Analysis with UML 1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Object-Oriented-Analysis-Procedure"><a href="#Object-Oriented-Analysis-Procedure" class="headerlink" title="Object Oriented Analysis Procedure"></a>Object Oriented Analysis Procedure</h1><p>This is the first part of our <strong>OO analysis</strong> series posts. What we are going to talk about here is how to construct <code>use case diagram</code>, <code>use case description</code> and <code>class diagram</code>. First, we construct the use case diagram from user requirements. This will give us an overview to the system that we are going to build. Base on the use case diagram and user requirements, we then finish the use case description. This will show us more details about each use cases. This phase also helps to identify the potential classes and attributes of each class in the next phase. Finally we make the class diagram, this is the blue print of the system that we are gonna develop. (Note: This article reference from professor T.H Tse’s lecture notes , The university of Hong Kong)</p>
+<ol>
+<li>Construct Use Case Diagram</li>
+<li>Construct Use Case Description</li>
+<li>Construct Class Diagram</li>
+</ol>
+<h1 id="Constructing-Use-Case-Diagram"><a href="#Constructing-Use-Case-Diagram" class="headerlink" title="Constructing Use Case Diagram"></a>Constructing Use Case Diagram</h1><h2 id="Steps-of-Constructing-Use-Case-Diagram"><a href="#Steps-of-Constructing-Use-Case-Diagram" class="headerlink" title="Steps of Constructing Use Case Diagram"></a>Steps of Constructing Use Case Diagram</h2><p>The following are the recommended procedure for constructing use case diagram:</p>
+<ol>
+<li>Identify actors and use cases.</li>
+<li>Identify use case relationships.</li>
+<li>Construct use case diagram.</li>
+</ol>
+<h2 id="Structure-of-Use-Case-Diagram"><a href="#Structure-of-Use-Case-Diagram" class="headerlink" title="Structure of Use Case Diagram"></a>Structure of Use Case Diagram</h2><p>This figure shows the structure and elements of a use case diagram:<br><img src="/resources/res/OOAnalysisUML1/UseCaseDiagramStructure.png" alt="Use Case Diagram Structure" width="90%"></p>
+<h1 id="Constructing-Use-Case-Discription-For-each-use-case"><a href="#Constructing-Use-Case-Discription-For-each-use-case" class="headerlink" title="Constructing Use Case Discription (For each use case)"></a>Constructing Use Case Discription (For each use case)</h1><h2 id="Steps-of-Constructing-Use-Case-Discription"><a href="#Steps-of-Constructing-Use-Case-Discription" class="headerlink" title="Steps of Constructing Use Case Discription"></a>Steps of Constructing Use Case Discription</h2><p>The following are the recommended procedure for constructing use case description:</p>
+<ol>
+<li>Document use case name, actors, descriptions .etc.</li>
+<li>Document preconditions, postconditions, assumptions.</li>
+<li>Document normal course.</li>
+<li>Document alternative course.</li>
+<li>Add-in include use cases.</li>
+<li>Add-in extend use cases.</li>
+<li>Add-in exceptions.</li>
+<li>Finish.</li>
+</ol>
+<h2 id="Use-Case-Description-Template"><a href="#Use-Case-Description-Template" class="headerlink" title="Use Case Description Template"></a>Use Case Description Template</h2><p>This figure shows the template of use case description:<br><img src="/resources/res/OOAnalysisUML1/UseCaseDescriptionTemplate.jpg" alt="Use Case Description Template" width="90%"></p>
+<h1 id="Constructing-Class-Diagram"><a href="#Constructing-Class-Diagram" class="headerlink" title="Constructing Class Diagram"></a>Constructing Class Diagram</h1><h2 id="Structure-of-Class-Diagram"><a href="#Structure-of-Class-Diagram" class="headerlink" title="Structure of Class Diagram"></a>Structure of Class Diagram</h2><p>This figure shows the structure and elements of a class diagram:<br><img src="/resources/res/OOAnalysisUML1/ClassDiagramStructure.png" alt="Class Diagram Structure" width="90%"></p>
+<h2 id="Steps-of-Constructing-Class-Diagram"><a href="#Steps-of-Constructing-Class-Diagram" class="headerlink" title="Steps of Constructing Class Diagram"></a>Steps of Constructing Class Diagram</h2><p>The following are the recommended procedure for constructing class diagram:</p>
+<ol>
+<li>Identify classes.</li>
+<li>Keeping the right classes.</li>
+<li>Identify class relationships.</li>
+<li>Keeping the right class relationships.</li>
+<li>Identify attributes and methods.</li>
+<li>Keiiping the right attriutes and methods.</li>
+<li>Constructing class Diagram.</li>
+</ol>
+<h2 id="Indentify-Classes"><a href="#Indentify-Classes" class="headerlink" title="Indentify Classes"></a>Indentify Classes</h2><ul>
+<li>Usually be nouns.</li>
+<li>Must Meaningful in application domain.</li>
+<li>Must be persistance.</li>
+</ul>
+<h2 id="Keeping-the-Right-Classes"><a href="#Keeping-the-Right-Classes" class="headerlink" title="Keeping the Right Classes"></a>Keeping the Right Classes</h2><ul>
+<li>Eliminate redundant classes.</li>
+<li>Eliminate irrelevant classes.</li>
+<li>Eliminate vague classes.</li>
+<li>Eliminate attributes.</li>
+<li>Eliminate operations(methods).</li>
+<li>Eliminate role(relationship).</li>
+<li>Eliminate implementation constructs.</li>
+</ul>
+<h2 id="Identify-Relationships"><a href="#Identify-Relationships" class="headerlink" title="Identify Relationships"></a>Identify Relationships</h2><h3 id="Identify-Association"><a href="#Identify-Association" class="headerlink" title="Identify Association"></a>Identify Association</h3><p>Maybe related to:</p>
+<ul>
+<li>Ownership<ul>
+<li>Has-a</li>
+<li>Has-many</li>
+<li>Uses-a</li>
+<li>Uses-many</li>
+</ul>
+</li>
+<li>Directed actions</li>
+<li>Physical location</li>
+<li>Communication</li>
+</ul>
+<h3 id="Identify-Aggeregation"><a href="#Identify-Aggeregation" class="headerlink" title="Identify Aggeregation"></a>Identify Aggeregation</h3><ul>
+<li>Indicated by Is-part-of relationship<ul>
+<li>Has-a</li>
+<li>Has-many</li>
+</ul>
+</li>
+</ul>
+<h3 id="Identify-Inheritance"><a href="#Identify-Inheritance" class="headerlink" title="Identify Inheritance"></a>Identify Inheritance</h3><ul>
+<li>Indicated by Is-a relationship</li>
+<li>Generalization(Bottom-up)</li>
+<li>Specialization(Top-down)</li>
+</ul>
+<h3 id="Keeping-the-Right-Association"><a href="#Keeping-the-Right-Association" class="headerlink" title="Keeping the Right Association"></a>Keeping the Right Association</h3><ul>
+<li>Eliminate implementation construct associations.</li>
+<li>Eliminate actions.</li>
+<li>Eliminate missnamed associations.</li>
+<li>Add-in role names.</li>
+<li>Add-in multiplicity.</li>
+<li>Add-in missing associations.</li>
+</ul>
+<h3 id="Identify-Attributes"><a href="#Identify-Attributes" class="headerlink" title="Identify Attributes"></a>Identify Attributes</h3><ul>
+<li>Usually be nouns.</li>
+<li>Indicated by possessive phrases.</li>
+<li>Indicated by adjectives.</li>
+</ul>
+<h3 id="Keeping-the-Right-Attributes"><a href="#Keeping-the-Right-Attributes" class="headerlink" title="Keeping the Right Attributes"></a>Keeping the Right Attributes</h3><ul>
+<li>Eliminate discordant attributes.</li>
+<li>Eliminate classes.</li>
+<li>Eliminate internal values.</li>
+<li>Indentifiers may or may not be attributes.</li>
+</ul>
+<h1 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a>Further Discussion</h1><p>There is still one thing we haven’t discussed yet. That’s how to identify methods(operations) of class diagram. Before doing so, we need the help of other dynamic models like sequence diagram and state diagram. And these topics will be covered in OO analysis with UML 2 on <a href="kelvin.ink">kelvin.ink</a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/08/OOAnalysisUML1/" data-id="cjpha7rvv000jbu0zu172e65d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/09/HowToReadABook_zh/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何阅读数学著作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/06/DatabaseSystem/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Phases of Database System Design</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Kelvin . Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

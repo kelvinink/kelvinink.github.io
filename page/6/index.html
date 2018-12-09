@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="Blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kelvin.Liang">
+<meta property="og:url" content="http://kelvin.ink/page/6/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:locale" content="En, ZH">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kelvin.Liang">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-WhatIsPingAndHowItWorks" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/06/WhatIsPingAndHowItWorks/" class="article-date">
+  <time datetime="2018-06-06T10:27:34.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/06/WhatIsPingAndHowItWorks/">What is Ping and How it Works</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="What-is-Ping"><a href="#What-is-Ping" class="headerlink" title="What is Ping"></a>What is Ping</h2><p>Ping is a computer network utility that is used to test the reachability of a host on an Internet Protocol (IP) network. Ping operates by sending Internet Control Message Protocol (ICMP) <strong>echo request</strong> packets to the target host and waiting for an ICMP <strong>echo reply</strong>.</p>
+<h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><p>When we ping a remote host, what lies behind the scene is that we send a ICMP packet to the remote host. When the remote host receive the packet, it will send back a reply to notify us that it’s reachable. Here is the information we need to specify in a ICMP packet.</p>
+<p><img src="/resources/res/WhatIsPingAndHowItWorks/Ip_ICMP_header.jpg" alt="IPV4 Datagram"></p>
+<p>The IPV4 datagram shows what we actually send out to the network when we ping a remote host.The blue part of the table is IPV4 header. The red part of the table is ICMP header which is wrapped inside IPV4 datagram. There are many fields that we need to specify in the datagram. But the most important field of ICMP header is <strong>Type of message</strong>. The most important fields of IPV4 header are <strong>Source IP address</strong> and <strong>Destination IP address</strong>.</p>
+<p>Suppose the <strong>Bob</strong> want to ping <strong>kelvin.ink</strong> and we have the following parameters.</p>
+<pre><code>Bob&apos;s IP address : 192.168.1.100
+Kelvin.ink IP address : 192.168.2.102
+</code></pre><p>Bob can directly type the following command to his terminal:</p>
+<pre><code>ping 192.168.2.102
+</code></pre><p>Then the ping utility will automatically construct an <strong>echo request</strong> ICMP packet with the following configuration and send out to the network.</p>
+<pre><code>Type of message = 8
+Source IP address = 192.168.1.100
+Destination IP address = 192.168.2.102
+</code></pre><p>Where <strong>type of message = 8</strong> means this message is an <strong>echo request</strong> message. For more information about type of message of ICMP, please refer to <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol" target="_blank" rel="noopener">ICMP wiki</a>.<br>In addition, ICMP protocol has also been used for route tracing network utilities like tracert in windows and traceroute in linux. I will explain these commands in details in other posts. Please refer to <a href="https://kelvin.ink">kelvin.ink</a> for more information.</p>
+<p>When kelvin.ink receive the ICMP packet, it will reply to Bob an <strong>echo reply</strong> ICMP packet with the following configuration.</p>
+<pre><code>Type of message = 0
+Source IP address = 192.168.1.102
+Destination IP address = 192.168.2.100
+</code></pre><p>Where <strong>type of message = 0</strong> means this message is an <strong>echo reply</strong> message.</p>
+<p>When Bob receive the reply from kelvin.ink, he can be sure that the network configuration of his computer is correct and kelvin.ink is reachable.</p>
+<h2 id="Visualize-it-in-Packet-tracer"><a href="#Visualize-it-in-Packet-tracer" class="headerlink" title="Visualize it in Packet tracer"></a>Visualize it in Packet tracer</h2><p>Packet Tracer is a visual simulation tool designed by Cisco Systems that allows users to create network topology and imitate computer networks. You can download and play it for free. This Youtube video will show you how a ping ICMP packet is transmitting in the network in more details. <strong><a href="https://youtu.be/hFOZiYaHbxU" target="_blank" rel="noopener">Youtube Video Link</a>.</strong></p>
+<p><a href="https://youtu.be/hFOZiYaHbxU" target="_blank" rel="noopener"><img src="/resources/res/WhatIsPingAndHowItWorks/VisualizePingAtPacketTracer_Youtube.jpg" alt="Youtube Video Link"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/06/06/WhatIsPingAndHowItWorks/" data-id="cjpha7rvy000pbu0zsp48xtyl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-BlidingSignature" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/06/BlidingSignature/" class="article-date">
+  <time datetime="2018-06-06T04:27:33.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/06/BlidingSignature/">Blinding Signature</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Blind signature is a cryptography scheme introduced by David Chaum. Blind signature scheme is used when the author and the signer of a message are not the same. For example, when voters want to cast their votes to voting center , they need a signature from election authority to prove that they are one of the citizens of the nation. Why do we need blind signature? In this voting example, we want to keep the privacy of all the voters. We don’t want anybody, including the election authority knowing the choices of voters.</p>
+<p>I will introduce some background of blind signature first.</p>
+<h2 id="Hash-function"><a href="#Hash-function" class="headerlink" title="Hash function"></a>Hash function</h2><p>A hash function H(x) can map arbitrary number of bits into fixed number of bits, like SHA256 or SHA3.</p>
+<p><img src="/resources/res/BlidingSignature/hash.jpg" alt="IMG.1 Hash Function"></p>
+<p>Hash functions are required to satisfied some properties. The most mentionable one of the properties is preimage resistant. That is when H(x) is known to adversary, it’s infeasible to find out x. This property can protect the voter from adversary attack as we will show below.</p>
+<p>##Asymmetric encryption scheme ##<br>Asymmetric encryption scheme is also called public key cryptography. In asymmetric encryption scheme, a person has a pair of keys : public key and private key. Public key is known to everyone, but private key is only known to himself. Whoever want to send messages to him should encrypt those messages with his public key. When he receives those messages, he can decrypt it with his private key. RSA is a typical a symmetric encryption scheme developed by Ron Rivest, Adi Shamir, and Leonard Adleman.<br>Here is how RSA works:</p>
+<pre><code>Alice&apos;s public key : e
+Alice&apos;s private key: d
+Message from Bob: m
+A large number known to both of Alice and Bob : n
+</code></pre><p><img src="/resources/res/BlidingSignature/rsa_encrypt.jpg" alt="IMG.2 RSA Encryption"></p>
+<p>In the formula, what Bob send to Alice is <strong>m<sup>e</sup>(mod)n</strong>. Alice decrypt it with d:   <strong>(m<sup>e</sup>)<sup>d</sup>(mod n)</strong> ,and get the original message m. I don’t want to show the details or to prove RSA works correctly. If you are interested in it, you may refer to wikipedia. What you are required to know here is how private key and public key interact with each other and get the original message.</p>
+<p>RSA can be used as a <strong>signature</strong> scheme to authenticate that a message is send from a particular part.<br>Suppose m is a message that Alice wants to send to everybody. How can others assure that the message really come from Alice?</p>
+<p>Here is how it works:</p>
+<p><img src="/resources/res/BlidingSignature/rsa_decrypt.jpg" alt="IMG.3 RSA Decryption"></p>
+<p>Alice do not only send <strong>m</strong> , but also concatenate <strong>s = m<sup>d</sup> (mod n)</strong> with it. When others receive the message , they check whether <strong>s<sup>e</sup></strong> equals <strong>m</strong>. If it’s true, people will believe that the message really come from Alice.  Because Alice is  the only person who holds private key <strong>d</strong>.</p>
+<p>Now that you have learned all of the background of blind signature.</p>
+<h2 id="Let’s-get-started"><a href="#Let’s-get-started" class="headerlink" title="Let’s get started!"></a>Let’s get started!</h2><p>The blind signature procedure can be categorized into 3 stages: <strong>blinding</strong>, <strong>signing</strong> and <strong>unblinding</strong> as you can find below:</p>
+<p><img src="/resources/res/BlidingSignature/blidingSignatureProcedure.jpg" alt="IMG.4 Procedure"></p>
+<p>The first step is <strong>blinding</strong>. Assume the voter’s message is M, the private key and public key of election authority is d and e respectively. What the voter needed is a signature from election authority : <strong>H(M)<sup>d</sup>(mod n)</strong>. The voter randomly choose a number <strong>r</strong>, then send election authority <strong>H(M).r<sup>e</sup>(mod n)</strong>.</p>
+<p>The next step is signing, the election authority check the identity  of the voter. If it’s valid for the voter to cast a vote, the election will send back to the voter   <strong>(H(M).r<sup>e</sup>)<sup>d</sup> = H(M)<sup>d</sup>.r (mod n)</strong> .</p>
+<p>The final step is <strong>unblinding</strong>. Because voter know <strong>r</strong> , he can remove r from  <strong>H(M)<sup>d</sup>.r (mod n)</strong> and finally get  <strong>H(M)<sup>d</sup>(mod n)</strong>. What he can do now is to send <strong>M</strong> concatenate  <strong>H(M)<sup>d</sup>(mod n)</strong> to the voting center.</p>
+<p>That’s the end of the story.<br>The most important feature of blind signature is that it protects the privacy of every voters and provide a solid technological foundation for democracy election.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/06/06/BlidingSignature/" data-id="cjpha7rvb0001bu0zixm4tek4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ML1_DefinitionOfMachineLearning" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/06/ML1_DefinitionOfMachineLearning/" class="article-date">
+  <time datetime="2018-06-06T02:12:13.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/06/ML1_DefinitionOfMachineLearning/">Machine Learning Note 1 Definition of Machine Learning</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This page requires some PDF plugins. If you cannot see anything, please click this link: <a href="/resources/res/ML1_DefinitionOfMachineLearning/ML1_DefinitionOfMachineLearning.pdf">Download PDF</a><br>
+
+	<div class="row">
+    <embed src="/resources/res/ML1_DefinitionOfMachineLearning/ML1_DefinitionOfMachineLearning.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/06/06/ML1_DefinitionOfMachineLearning/" data-id="cjpha7rvm0009bu0zn0wtwaz8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Kelvin . Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
