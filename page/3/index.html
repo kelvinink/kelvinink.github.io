@@ -7,14 +7,17 @@
   
   <title>Kelvin.Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="Blog">
+  <meta name="description" content="A blog dedicated to computer science techniques">
+<meta name="keywords" content="Machine Learning, Blockchain, Math, Operating System, C++, Python, Software Engineering">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kelvin.Liang">
 <meta property="og:url" content="http://kelvin.ink/page/3/index.html">
 <meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="A blog dedicated to computer science techniques">
 <meta property="og:locale" content="En, ZH">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kelvin.Liang">
+<meta name="twitter:description" content="A blog dedicated to computer science techniques">
   
     <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
   
@@ -113,7 +116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjpha7rvx000nbu0zptdd8hrx" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjphbe3b2000lwy0zh53kjo3l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -159,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/09/28/ProbabilitySummarization/" data-id="cjpha7rvt000hbu0zmr43kmjp" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/09/28/ProbabilitySummarization/" data-id="cjphbe3b0000hwy0zxzv94m4s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
@@ -316,7 +319,7 @@
 <hr>
 <h3 id="Q-解释-HTTP-和-HTTPS-的区别"><a href="#Q-解释-HTTP-和-HTTPS-的区别" class="headerlink" title="Q: 解释 HTTP 和 HTTPS 的区别"></a>Q: 解释 HTTP 和 HTTPS 的区别</h3><p><strong>A:</strong> HTTPS = HTTP + SSL。HTTP一般是对信息都是进行明文传播，很容易泄漏敏感信息。HTTPS通过SSL对传输层(transport layer)的信息进行加密，可以保证敏感信息的安全。<em>扩展:</em> SSL的作业流程为：Server到certificate authority申请注册证书，并提供entity information + public key，然后certificate authority认证真实性后进行签章并且发放certificate。然后server把certificate部署在系统上。Client发起SSL handshake protocol进行身份验证(authentication)和密匙交换(key exchange)。双方建立其一条安全通道，然后通过SSL record protocol进行数据传输。</p>
 <hr>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//TODO</span><br></pre></td></tr></table></figure>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TODO</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><h3 id="Q-解释User-thread-与-Kernel-thread-的区别"><a href="#Q-解释User-thread-与-Kernel-thread-的区别" class="headerlink" title="Q: 解释User thread 与 Kernel thread 的区别"></a>Q: 解释User thread 与 Kernel thread 的区别</h3><p><strong>A:</strong> User thread 的实现来自于thread library的支持，对于thread的操作和管理都是在user mode下完成。例如TCB的管理，program counter, stack pointer等信息的记录都由thread library统一管理。优点是快，缺点是当一个process中有一个thread被block后，其余所有在同一个process的thread都会被block。Kernel thread的实现由kernel提供支持，缺点是速度较慢，优点是同一个process的thread被block后，不会影响其他thread的运行。</p>
 <hr>
@@ -362,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjpha7ry00019bu0z0gfsek9c" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjphbe3d5001bwy0zq4isxg6m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Career/">Career</a></li></ul>
@@ -386,6 +389,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+    </div>
+  </div>
+
 
   
     

@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://kelvin.ink/resources/res/BackendSoftwareDevQA/IPC.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/BackendSoftwareDevQA/LinuxIPC.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/BackendSoftwareDevQA/ProcessScheduling.png">
-<meta property="og:updated_time" content="2018-12-09T19:25:05.359Z">
+<meta property="og:updated_time" content="2018-12-09T20:06:16.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Backend Developer Interview Q&amp;A">
 <meta name="twitter:description" content="软件后台开发面试准备（问答形式）—- 简介原文出自 kelvin.ink Aug/30/2018—-[转载请注明出处] 最近更新[Oct/03/2018] 为了更加高效地准备工作面试，我决定写下这篇问答形式的总结性的博文。因为面向的公司是中国公司，所以全文使用中文进行组织,关键术语会注明英文名称。文中的问题的来源主要有两个途径，第一是网上的面经，第二是读书过程中自己的提问。因为问题难以进行细致的分">
@@ -227,7 +227,7 @@
 <hr>
 <h3 id="Q-解释-HTTP-和-HTTPS-的区别"><a href="#Q-解释-HTTP-和-HTTPS-的区别" class="headerlink" title="Q: 解释 HTTP 和 HTTPS 的区别"></a>Q: 解释 HTTP 和 HTTPS 的区别</h3><p><strong>A:</strong> HTTPS = HTTP + SSL。HTTP一般是对信息都是进行明文传播，很容易泄漏敏感信息。HTTPS通过SSL对传输层(transport layer)的信息进行加密，可以保证敏感信息的安全。<em>扩展:</em> SSL的作业流程为：Server到certificate authority申请注册证书，并提供entity information + public key，然后certificate authority认证真实性后进行签章并且发放certificate。然后server把certificate部署在系统上。Client发起SSL handshake protocol进行身份验证(authentication)和密匙交换(key exchange)。双方建立其一条安全通道，然后通过SSL record protocol进行数据传输。</p>
 <hr>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//TODO</span><br></pre></td></tr></table></figure>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TODO</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><h3 id="Q-解释User-thread-与-Kernel-thread-的区别"><a href="#Q-解释User-thread-与-Kernel-thread-的区别" class="headerlink" title="Q: 解释User thread 与 Kernel thread 的区别"></a>Q: 解释User thread 与 Kernel thread 的区别</h3><p><strong>A:</strong> User thread 的实现来自于thread library的支持，对于thread的操作和管理都是在user mode下完成。例如TCB的管理，program counter, stack pointer等信息的记录都由thread library统一管理。优点是快，缺点是当一个process中有一个thread被block后，其余所有在同一个process的thread都会被block。Kernel thread的实现由kernel提供支持，缺点是速度较慢，优点是同一个process的thread被block后，不会影响其他thread的运行。</p>
 <hr>
@@ -273,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjpha7ry00019bu0z0gfsek9c" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjphbe3d5001bwy0zq4isxg6m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Career/">Career</a></li></ul>
@@ -309,6 +309,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+    </div>
+  </div>
+
 
   
     
