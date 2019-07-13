@@ -92,10 +92,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="What-is-Ping"><a href="#What-is-Ping" class="headerlink" title="What is Ping"></a>What is Ping</h2><p>Ping is a computer network utility that is used to test the reachability of a host on an Internet Protocol (IP) network. Ping operates by sending Internet Control Message Protocol (ICMP) <strong>echo request</strong> packets to the target host and waiting for an ICMP <strong>echo reply</strong>.</p>
+        <h2 id="What-is-Ping"><a href="#What-is-Ping" class="headerlink" title="What is Ping"></a>What is Ping</h2><p>Ping is a computer network utility that is used to test the reachability of a host on an Internet Protocol (IP) network. Ping operates by sending Internet Control Message Protocol (ICMP) <strong>echo request</strong> packets to the target host and waiting for an ICMP <strong>echo reply</strong>. But, What’s ICMP? It’s a transport layer protocol as TCP and UDP. But it’s not used for regular communication. ICMP is used for sending error messages or controling information between network devices.</p>
 <h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><p>When we ping a remote host, what lies behind the scene is that we send a ICMP packet to the remote host. When the remote host receive the packet, it will send back a reply to notify us that it’s reachable. Here is the information we need to specify in a ICMP packet.</p>
-<p><img src="/resources/res/WhatIsPingAndHowItWorks/Ip_ICMP_header.jpg" alt="IPV4 Datagram"></p>
-<p>The IPV4 datagram shows what we actually send out to the network when we ping a remote host.The blue part of the table is IPV4 header. The red part of the table is ICMP header which is wrapped inside IPV4 datagram. There are many fields that we need to specify in the datagram. But the most important field of ICMP header is <strong>Type of message</strong>. The most important fields of IPV4 header are <strong>Source IP address</strong> and <strong>Destination IP address</strong>.</p>
+<p><img src="/resources/res/WhatIsPingAndHowItWorks/Ip_ICMP_header.jpg" alt="IPV4 Datagram + ICMP"></p>
+<p>This IPV4 datagram shows what we actually send out to the network when we ping a remote host.The datagram can be divided into two parts by its background color. The blue part of the table is IPV4 header. The red part of the table is ICMP header which is wrapped inside IPV4 datagram. There are many fields that we need to specify in the datagram. But the most important field of ICMP header is <strong>Type of message</strong>. The most important fields of IPV4 header are <strong>Source IP address</strong> and <strong>Destination IP address</strong>.</p>
 <p>Suppose the <strong>Bob</strong> want to ping <strong>kelvin.ink</strong> and we have the following parameters.</p>
 <pre><code>Bob&apos;s IP address : 192.168.1.100
 Kelvin.ink IP address : 192.168.2.102
@@ -118,7 +118,7 @@ Destination IP address = 192.168.2.100
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/06/WhatIsPingAndHowItWorks/" data-id="cjpmp3avn000qyt0z2uz30vu8" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/06/WhatIsPingAndHowItWorks/" data-id="cjy1svpmy0011t30znuw3lkcq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -179,7 +179,7 @@ A large number known to both of Alice and Bob : n
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/06/BlidingSignature/" data-id="cjpmp3av50004yt0z3if4mhi0" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/06/BlidingSignature/" data-id="cjy1svpmf0008t30zwzzce1f2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
@@ -229,7 +229,7 @@ A large number known to both of Alice and Bob : n
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/06/ML1_DefinitionOfMachineLearning/" data-id="cjpmp3avb000byt0zlrckmdyx" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/06/ML1_DefinitionOfMachineLearning/" data-id="cjy1svpmo000mt30zznog7wjw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
@@ -329,7 +329,7 @@ A large number known to both of Alice and Bob : n
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Kelvin . Liang<span> @ The University of HongKong</span><br>
+      &copy; 2019 Kelvin . Liang<span> @ The University of HongKong</span><br>
       <span>Email: ziyoustep@gmail.com</span> <br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
