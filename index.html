@@ -3,6 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-120456720-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
 
   
   <title>Kelvin.Liang</title>
@@ -115,6 +128,7 @@
 <p>The following figure shows the detail format of a HTTP datagram. <strong>Method</strong> can be one of <em>GET</em>, <em>PUT</em>, <em>POST</em>, <em>DELETE</em> .etc. And for the <strong>header</strong> field, you can specify some basic info such as <em>host</em>, <em>Accept-Language</em>, <em>Content-Type</em> for the request. Other fields are for advanced users, for example, if you want to crawl web content with spider, you can frequently change your User-Agent to pretend to be a normal human. You may also want to keep the connection alive by specifying the Connection field.</p>
 <p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components_details_method.png" width="470px"></p>
 <p>After constructing the request message, we establish a TCP connection and send the message to the server, and then receive a HTTP response from it. We start to talk about the format of HTTP response in next section.</p>
+<h2 id="Methods-Explain-Them"><a href="#Methods-Explain-Them" class="headerlink" title="Methods? Explain Them!"></a>Methods? Explain Them!</h2><p>It’s highty recommend to read through the RFC doc of <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.6" target="_blank" rel="noopener">HTTP request methods</a>. </p>
 <h1 id="Response-message-format"><a href="#Response-message-format" class="headerlink" title="Response message format"></a>Response message format</h1><p>The format of HTTP response is similar to that of HTTP request.</p>
 <p>Let’s checkout a typical http response first:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sun, 30 Jun 2019 14:55:19 GMT</span><br><span class="line">Expires: -1</span><br><span class="line">Cache-Control: private, max-age=0</span><br><span class="line">Content-Type: text/html; charset=ISO-8859-1</span><br><span class="line">P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span><br><span class="line">Server: gws</span><br><span class="line">X-XSS-Protection: 0</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">Set-Cookie: 1P_JAR=2019-06-30-14; expires=Tue, 30-Jul-2019 14:55:19 GMT; path=/; domain=.google.com</span><br><span class="line">Set-Cookie: NID=186=Igr9gPUb8HL-S-iDsDtkEqrqPdEsWE19BA4R-EZ3gUeCnbE1tdG1t0irtfiiEOL7ZenA3ukMB7l4qG9TBwcKXrra7GLPmMpuShtKWaCrH1nnGJbqysRB8mvtPcAp9LC4nAmuYU6xG78FAnkNCaAOKrIiSqi7rseO9_w4JPBjW8Y; expires=Mon, 30-Dec-2019 14:55:19 GMT; path=/; domain=.google.com; HttpOnly</span><br><span class="line">Accept-Ranges: none</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span><span class="tag">&lt;<span class="name">html</span> <span class="attr">itemscope</span>=<span class="string">""</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WebPage"</span> <span class="attr">lang</span>=<span class="string">"zh-HK"</span>&gt;</span><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"/images/br ..........</span></span></span><br></pre></td></tr></table></figure>
@@ -126,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjy2qkgln000ea20z2z01infq" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjy37i1nf000gpq0z24yz0nhg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -217,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjy2qkgnk001na20zb8yrm29e" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjy37i1o5001opq0zhsyz6uyf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
@@ -274,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/20/DM_Note1/" data-id="cjy2qkgli0005a20zcp7v4x9g" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/20/DM_Note1/" data-id="cjy37i1nb0008pq0zsawb6pec" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li></ul>
