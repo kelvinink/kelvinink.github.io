@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>HTTP Introduction | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What’s HTTPHTTP is a protocol that is used for the communication in world wide web. For example, when you try to google something, you need to enter http://www.google.com in your web browser address b">
+<meta name="keywords" content="Network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP Introduction">
+<meta property="og:url" content="http://kelvin.ink/2019/07/14/HttpIntroduction/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="What’s HTTPHTTP is a protocol that is used for the communication in world wide web. For example, when you try to google something, you need to enter http://www.google.com in your web browser address b">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_client_server.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_request_components.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_request_components_details_method.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_response_components_details.png">
+<meta property="og:updated_time" content="2019-07-14T09:06:12.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP Introduction">
+<meta name="twitter:description" content="What’s HTTPHTTP is a protocol that is used for the communication in world wide web. For example, when you try to google something, you need to enter http://www.google.com in your web browser address b">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_client_server.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HttpIntroduction" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/14/HttpIntroduction/" class="article-date">
+  <time datetime="2019-07-14T05:57:00.000Z" itemprop="datePublished">2019-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP Introduction
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What’s-HTTP"><a href="#What’s-HTTP" class="headerlink" title="What’s HTTP"></a>What’s HTTP</h1><p>HTTP is a protocol that is used for the communication in world wide web. For example, when you try to google something, you need to enter <code>http://www.google.com</code> in your web browser address bar. Then your browser start talking to the server of google on behalf of you by following the rules of http protocol.</p>
+<p><img src="/resources/res/HttpIntroduction/http_client_server.png" alt="HTTP client server"></p>
+<p>HTTP is an application protocol in the <a href="https://en.wikipedia.org/wiki/OSI_model" target="_blank" rel="noopener">OSI seven layers model</a>. So, it’s the protocol for application-to-application communication. For the case of accessing google website, it’s the protocol that enables the communication between client web browser and google server (apache, nginx). Until now, there are three versions of HTTP protocols, they are <em>HTTP1.0</em>, <em>HTTP1.1</em> and <em>HTTP2.0</em>. This article will mainly focus on version <em>1.0</em> and <em>1.1</em>.</p>
+<p>The official documents of HTTP1.1 can be found <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html" target="_blank" rel="noopener">here</a>. (Afraid? XXD)</p>
+<h1 id="Characteristics"><a href="#Characteristics" class="headerlink" title="Characteristics"></a>Characteristics</h1><ul>
+<li><strong>Connectionless</strong></li>
+<li><strong>Stateless</strong></li>
+</ul>
+<p>HTTP is connectionless, because for each http request/response pair, a <strong>new</strong> tcp connection is set up (HTTP1.0). After that, the tcp connection is closed. Since HTTP1.1, the tcp connection is allowed to be reused by multiple request/response pair.</p>
+<p>HTTP is stateless, because there is <strong>no link</strong> between two requests. But we can use session and cookies to keep the state or context of user interactions.</p>
+<h1 id="Comparing-HTTP1-0-with-HTTP1-1"><a href="#Comparing-HTTP1-0-with-HTTP1-1" class="headerlink" title="Comparing HTTP1.0 with HTTP1.1"></a>Comparing HTTP1.0 with HTTP1.1</h1><ol>
+<li>HTTP1.1 allows http connection to be reused(persistent connection) by multiple request/response pairs. In http1.0, you have to open a new http connection for each request/response pair.</li>
+<li>HTTP1.1 Uses Etag to replace If-Modified-Since</li>
+<li>HTTP1.1 Supports chunk transfer</li>
+</ol>
+<h1 id="Request-message-format"><a href="#Request-message-format" class="headerlink" title="Request message format"></a>Request message format</h1><p>Let’s take a look at a typical example of http request:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /path/to/resource HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)</span><br><span class="line">Host: www.kelvin.ink</span><br><span class="line">Content-Type: text/xml; charset=utf-8</span><br><span class="line">Content-Length: length</span><br><span class="line">Accept-Language: en-us</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">xmlns</span>=<span class="string">"http://hello.com/"</span>&gt;</span>string<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>A http request is composed of three parts: <em>request line</em>, <em>header</em> and <em>request body</em>. Where<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Request-Line = <span class="function"><span class="keyword">Method</span> <span class="title">SP</span> <span class="title">Request</span>-<span class="title">URI</span> <span class="title">SP</span> <span class="title">HTTP</span>-<span class="title">Version</span> <span class="title">CRLF</span></span></span><br></pre></td></tr></table></figure></p>
+<p>Where SP represents space and CRLF represents carrige return line feed.</p>
+<p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components.png" width="350px"></p>
+<p>The following figure shows the detail format of a HTTP datagram. <strong>Method</strong> can be one of <em>GET</em>, <em>PUT</em>, <em>POST</em>, <em>DELETE</em> .etc. And for the <strong>header</strong> field, you can specify some basic info such as <em>host</em>, <em>Accept-Language</em>, <em>Content-Type</em> for the request. Other fields are for advanced users, for example, if you want to crawl web content with spider, you can frequently change your User-Agent to pretend to be a normal human. You may also want to keep the connection alive by specifying the Connection field.</p>
+<p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components_details_method.png" width="470px"></p>
+<p>After constructing the request message, we establish a TCP connection and send the message to the server, and then receive a HTTP response from it. We start to talk about the format of HTTP response in next section.</p>
+<h1 id="Response-message-format"><a href="#Response-message-format" class="headerlink" title="Response message format"></a>Response message format</h1><p>The format of HTTP response is similar to that of HTTP request.</p>
+<p>Let’s checkout a typical http response first:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sun, 30 Jun 2019 14:55:19 GMT</span><br><span class="line">Expires: -1</span><br><span class="line">Cache-Control: private, max-age=0</span><br><span class="line">Content-Type: text/html; charset=ISO-8859-1</span><br><span class="line">P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span><br><span class="line">Server: gws</span><br><span class="line">X-XSS-Protection: 0</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">Set-Cookie: 1P_JAR=2019-06-30-14; expires=Tue, 30-Jul-2019 14:55:19 GMT; path=/; domain=.google.com</span><br><span class="line">Set-Cookie: NID=186=Igr9gPUb8HL-S-iDsDtkEqrqPdEsWE19BA4R-EZ3gUeCnbE1tdG1t0irtfiiEOL7ZenA3ukMB7l4qG9TBwcKXrra7GLPmMpuShtKWaCrH1nnGJbqysRB8mvtPcAp9LC4nAmuYU6xG78FAnkNCaAOKrIiSqi7rseO9_w4JPBjW8Y; expires=Mon, 30-Dec-2019 14:55:19 GMT; path=/; domain=.google.com; HttpOnly</span><br><span class="line">Accept-Ranges: none</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span><span class="tag">&lt;<span class="name">html</span> <span class="attr">itemscope</span>=<span class="string">""</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WebPage"</span> <span class="attr">lang</span>=<span class="string">"zh-HK"</span>&gt;</span><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"/images/br ..........</span></span></span><br></pre></td></tr></table></figure>
+<p>A http response include three major components: <em>status line</em>, <em>header</em>, <em>reponse body</em>. Where<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Status-Line</span> = HTTP-Version <span class="keyword">SP</span> Status-Code <span class="keyword">SP</span> Reason-Phrase <span class="keyword">CRLF</span></span><br></pre></td></tr></table></figure></p>
+<p><img alt="HTTP Response" src="/resources/res/HttpIntroduction/http_response_components_details.png" width="470px"></p>
+<p>Basically, fields in a HTTP response tells us about the status of the http connection, information about the server, and some useful info for further access. For example, <em>Status-Code</em> tells us the healthiness of the connection, <em>Server</em> field tells us the identity of response server, and <em>Set-Cookie</em> sets a cookie on client side for later access.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>We have talked about <em>HTTP1.0</em> and <em>HTTP1.1</em>. What they are and for what purpose. We have also compared the differences between the two. But we haven’t discussed <em>HTTP2.0</em> yet, this may be included in other posts or be expanded in this post later. Thanks!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjy2qkgln000ea20z2z01infq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/27/IPC_and_Synchronization/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Interprocess Communication and Synchronization</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Kelvin . Liang<span> @ The University of HongKong</span><br>
+      <span>Email: ziyoustep@gmail.com</span> <br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

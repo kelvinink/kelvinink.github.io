@@ -70,6 +70,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-DatabaseSystem" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/06/DatabaseSystem/" class="article-date">
+  <time datetime="2018-10-06T13:30:33.000Z" itemprop="datePublished">2018-10-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/06/DatabaseSystem/">Phases of Database System Design</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>This article is gonna give a brief overview to the phases of database system design which is the kernel of database life cycle. The whole article here is discussing what we need to do and how to do in each phases of database design.</p>
+<p>After each phase, we will get the corresponding deliverable–The so called schema. In the following section, we will introduce the data model first, and then the phases of database design. A <strong>data model</strong> is collection of concepts for describing the data in a database. While A <strong>schema</strong> is a description of a particular collection of data, using a given data model. The relationship between data model, schema, and phases of design are as follow:<br>Before we start the design process, we choose a data model for our database. Then, we do the design. In each step of our design process, we obtain the corresponding schema such as conceptual schema, logical schema .etc.</p>
+<p>The following figure shows the database design and application development in parallel:<br><img src="/resources/res/DatabaseSystem/PhasesOfDatabaseDesign.png" alt="Phases of Database Design" width="70%"></p>
+<p>Lets start with data models.</p>
+<h1 id="Data-Models"><a href="#Data-Models" class="headerlink" title="Data Models"></a>Data Models</h1><p>There are three kinds of data models whose abstraction level are from high to low:</p>
+<ul>
+<li>Conceptual model [e.g: ER-model]</li>
+<li>Logical model [e.g: Relational-model]</li>
+<li>Physical model</li>
+</ul>
+<ol>
+<li><strong>Conceptual Model</strong><br>A data model that is independent of <em>all</em> implementation details like target DBMS, storage structure, security, performance issue.<br>Example: ER model</li>
+<li><strong>Logical Model</strong><br>A logical data model describes the data in as much detail as possible, without regard to how they will be physical implemented in the DBMS.<br>Examples: By ANSI -&gt; Hierarchical Model, Network Model, Relational Model and Object Oriented Model</li>
+<li><strong>Physical Model</strong><br>Data model that involved data management technology.</li>
+</ol>
+<h1 id="The-Four-Database-Design-Phases"><a href="#The-Four-Database-Design-Phases" class="headerlink" title="The Four Database Design Phases"></a>The Four Database Design Phases</h1><p>There are four steps in database design procedure:</p>
+<h2 id="1-Requirements-collection-and-analysis"><a href="#1-Requirements-collection-and-analysis" class="headerlink" title="1. Requirements collection and analysis"></a>1. Requirements collection and analysis</h2><p>   <strong>Task:</strong> Analyse user requirements.<br>   <strong>Deliverables:</strong> Data requirements, Functional requirements</p>
+<h2 id="2-Conceptual-design"><a href="#2-Conceptual-design" class="headerlink" title="2. Conceptual design"></a>2. Conceptual design</h2><p>   <strong>Task:</strong> Create conceptual model<br>   <strong>Deliverables:</strong> Conceptual schema(Conceptual model) e.g: ER-Model</p>
+<h2 id="3-Logical-design-Data-model-mapping"><a href="#3-Logical-design-Data-model-mapping" class="headerlink" title="3. Logical design(Data model mapping)"></a>3. Logical design(Data model mapping)</h2><p>   <strong>Task:</strong> Maps conceptual model to the implemented logical model of target DBMS.<br>   <strong>Deliverables:</strong> Logical schema(Logical model) e.g: Relational Schema<br>   <strong>Remarks:</strong> What we need to do(focus) on in this phase: <em>Integrity, Constraints, Normalization</em><br>   <em>Note1: You may assume that the logical schema is just a conceptual schema with more details</em><br>   <em>Note2: Logical design may or may not DBMS independent.</em></p>
+<h2 id="4-Physical-design"><a href="#4-Physical-design" class="headerlink" title="4. Physical design"></a>4. Physical design</h2><p>   <strong>Task:</strong> Determines how a database is implemented in a DBMS.The internal storage structures, file organizations, indexes, access paths, and physical design parameters are completed in this phase.<br>   <strong>Deliverables:</strong> Internal schema(Physical model) e.g: File organization, Indexes<br>   <strong>Remarks:</strong> What we need to do(focus on) in this phase: <em>Denormalization, Indexing, Derived data, Storage structure, Partitioning, View, Security, Query Optimization, Backup, Recovery, Concurrency control, Access control</em></p>
+<p>It’s hard to distinguish conceptual and logical model, the boundary is blur. It will be safe to think logical model as a conceptual model with more details.</p>
+<p>Or, we can see it from another point of view:</p>
+<p>Different DBMS are using different data model, we can consider these data model as logical model. For example, MongoDB is using document-oriented model, Oracle Berkeley DB XML is using XML model and MySQL is using relational model. These are all so called logical model. Note that the abstraction level of conceptual model is higher than that of logical model. So, it’s hard to transform from one logical model to another logical model. But, transforming from conceptual model to the three logical models above is fairy easy. This is one main difference between conceptual model and logical model.<br>This concludes the discussion.</p>
+<h1 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a>Further Discussion</h1><p>Further discussion of databases are all based on the phases of database design. For example: normalization and constraints checking resides in logical design; while denormalization, indexing and query optimization resides in physical design. We will give more discussion to these topics in other posts of <a href="kelvin.ink">kelvin.ink</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/06/DatabaseSystem/" data-id="cjy2qkgll0009a20z77tpto20" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/">Database</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ReliableDataTransfer" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/04/ReliableDataTransfer/" class="article-date">
@@ -116,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjy1svpmu000ut30z8a8zhdzf" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjy2qkgm1000ya20zignqjqr5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -162,213 +224,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/09/28/ProbabilitySummarization/" data-id="cjy1svpmq000pt30z6ss57yj5" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/09/28/ProbabilitySummarization/" data-id="cjy2qkglz000wa20zwgsmoc0n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-BackendSoftwareDevQA" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/23/BackendSoftwareDevQA/" class="article-date">
-  <time datetime="2018-08-22T17:07:58.000Z" itemprop="datePublished">2018-08-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/23/BackendSoftwareDevQA/">Backend Developer Interview Q&amp;A</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="软件后台开发面试准备（问答形式）—-简介"><a href="#软件后台开发面试准备（问答形式）—-简介" class="headerlink" title="软件后台开发面试准备（问答形式）—- 简介"></a>软件后台开发面试准备（问答形式）—- 简介</h1><p><strong>原文出自 <a href="http://kelvin.ink">kelvin.ink</a> Aug/30/2018—-[转载请注明出处]</strong></p>
-<p><em>最近更新[Oct/03/2018]</em></p>
-<p>为了更加高效地准备工作面试，我决定写下这篇问答形式的总结性的博文。因为面向的公司是中国公司，所以全文使用中文进行组织,关键术语会注明英文名称。文中的问题的来源主要有两个途径，第一是网上的面经，第二是读书过程中自己的提问。因为问题难以进行细致的分类，所以在本文增长到足够长之前，只会对其进行粗略的分类。文中的答案不会把方方面面都回答完整，它是一个高度客制化的答案（针对作者），只会回答到问题的核心，而忽略掉一些无关紧要的细节。这篇文章的主要目的是为这几年来学习的计算机知识重新勾勒一个框架。本文会尽量保持适度的严谨，但是限于作者个人水平无法保证答案的绝对正确性。因此请在阅读时保持批判性的态度。 欢迎一切批评！ (本文将持续更新）</p>
-<hr>
-<h1 id="C-or-C"><a href="#C-or-C" class="headerlink" title="C or C++"></a>C or C++</h1><h3 id="Q-Macro-是什么？Preprocessor-如何处理-Macro-关于-Macro-要注意什么"><a href="#Q-Macro-是什么？Preprocessor-如何处理-Macro-关于-Macro-要注意什么" class="headerlink" title="Q: Macro 是什么？Preprocessor 如何处理 Macro? 关于 Macro 要注意什么"></a>Q: Macro 是什么？Preprocessor 如何处理 Macro? 关于 Macro 要注意什么</h3><p><strong>A:</strong> Macro <code>#define name value</code> 定义了name与value的对应关系，程序每个出现name的地方在经过preprocessor后都会被替换成为value。Preproceessor只会对macro进行 <strong>文本</strong> 替换,程序运行时不会为macro分配储存空间，事实上经过preprocessor处理后macro已经不可见。有argument的macro可以被用来替代函数，但是它缺少类型检查(type check)，容易出错，应减少对其使用。可以使用constexpr与lambda代替macro的功能。</p>
-<hr>
-<h3 id="Q-什么是nullptr，它相对于NULL有何优越性"><a href="#Q-什么是nullptr，它相对于NULL有何优越性" class="headerlink" title="Q: 什么是nullptr，它相对于NULL有何优越性"></a>Q: 什么是nullptr，它相对于NULL有何优越性</h3><p><strong>A:</strong> 类型安全(type safety)是nullptr优越于NULL的最大特性。NULL 被macro定义为 <code>#define NULL 0</code> 而nullptr为一个pointer。假设有函数overloading<code>foo(int n) and foo(int* p)</code>。假设我想要调用的是第二个函数，如果使用NULL，匹配的函数有两个，出现function resolve problem。 如果使用nullptr，匹配的函数只有一个：<code>foo(int* p)</code>程序运行正常。</p>
-<hr>
-<h3 id="Q-什么是inline-function-对比它与一般的function"><a href="#Q-什么是inline-function-对比它与一般的function" class="headerlink" title="Q: 什么是inline function? 对比它与一般的function"></a>Q: 什么是inline function? 对比它与一般的function</h3><p><strong>A:</strong> Inline function在编译的时候会被展开(expand)到程序中。也就是程序中调用inline function的时候会被inline function的内容替换掉。Inline function的好处是充分利用data locality，不需要为它开辟call stack。因此它有三个突出的特性，第一是:免除了function call overhead， 第二是程序运行时不需要save process1–load process2–run process2–save process2–load process1–run process1的流程。减少了instruction pointer的大幅度跳转(jumping)。充分利用了data locality。第三个特性是相对于argument macro而言，inline function会进行类型检查，而argument macro不会，因而inline function更加可靠。</p>
-<hr>
-<h3 id="Q-什么是constexpr，与const有何区别"><a href="#Q-什么是constexpr，与const有何区别" class="headerlink" title="Q: 什么是constexpr，与const有何区别"></a>Q: 什么是constexpr，与const有何区别</h3><p><strong>A:</strong> constexpr的值必须在编译的时候就已经确定，不会在改变；而const的值是在赋值后不能再改变。以下的代码可以显示其区别：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. using const(This code works)</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num = n;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; num &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. using constexpr(Compile error)</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> num = n;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; num &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure></p>
-<p>第一个版本是可以按预期运行的，因为const num赋值后我们不对它进行任何改变。第二个版本有编译错误，因为n的值是在runtime时确定的而不是constexpr所要求的compile time。</p>
-<hr>
-<h3 id="Q-解释-reference-与-pointer-的区别"><a href="#Q-解释-reference-与-pointer-的区别" class="headerlink" title="Q: 解释 reference 与 pointer 的区别"></a>Q: 解释 reference 与 pointer 的区别</h3><p><strong>A：</strong> 总的来说reference有的pointer都有，而pointer有的reference不一定有。pointer可以重新赋值(reassignment)而reference不能。pointer可以有自己的memory space而reference没有。pointer可以指向pointer，而reference都是direct access。可以认为reference是由pointer实现的特殊版本。</p>
-<hr>
-<h3 id="Q-解释-i-与-i-的区别"><a href="#Q-解释-i-与-i-的区别" class="headerlink" title="Q: 解释 ++i 与 i++ 的区别"></a>Q: 解释 ++i 与 i++ 的区别</h3><p><strong>A:</strong> 区别可以分为行为上的区别和速度上的区别。速度上++i更快，因为++i是原地进行操作，而i++需要一个辅助变量的帮助。行为上，当它们被用在表达式上时++i会使用到i+1的值， 而i++会使用到当前值。</p>
-<hr>
-<h3 id="Q：-i-i-是-atomic-吗"><a href="#Q：-i-i-是-atomic-吗" class="headerlink" title="Q：++i, i++ 是 atomic 吗"></a>Q：++i, i++ 是 atomic 吗</h3><p><strong>A:</strong> 不是。维基百科<a href="https://en.wikipedia.org/wiki/Linearizability" target="_blank" rel="noopener">Linearizability</a>有非常详尽的分析。</p>
-<hr>
-<h3 id="Q-解释-enum-与-union-的区别"><a href="#Q-解释-enum-与-union-的区别" class="headerlink" title="Q: 解释 enum 与 union 的区别"></a>Q: 解释 enum 与 union 的区别</h3><p><strong>A:</strong> 一般情况下enum都被实现为特殊的整数(interger)，因此一般而言它的大小(sizeof())都是与int一致。与int不同的是enum的值(value set)是有限的，这些值被定义在enum definition中。enum搭配switch语句可以很容易实现逻辑清晰的条件控制。Union类型有点像hulk与danny的关系，一个身体，两种形态。Union的size为最大的那种类型的size。</p>
-<hr>
-<h3 id="Q：解释-auto-与-decltype-的区别"><a href="#Q：解释-auto-与-decltype-的区别" class="headerlink" title="Q：解释 auto 与 decltype 的区别"></a>Q：解释 auto 与 decltype 的区别</h3><p><strong>A:</strong> auto通过initializer推测出能够装下它的类型，auto会去除top level const 和 reference。decltype会 <strong>严格</strong> 推出 <strong>一模一样</strong> 的类型(包括reference和const)。</p>
-<hr>
-<h3 id="Q-解释-const-member-function-有什么特别之处，什么时候使用"><a href="#Q-解释-const-member-function-有什么特别之处，什么时候使用" class="headerlink" title="Q: 解释 const member function 有什么特别之处，什么时候使用"></a>Q: 解释 const member function 有什么特别之处，什么时候使用</h3><p><strong>A:</strong> 类似<code>int foo()const;</code>的为const member function。这个const所针对的参数是 <code>*this</code> 指针，也就是限制这个函数修改object的内容。经常使用在member function overloading中, 原因是一个const object只能调用const member function。为了使const object与一般object的操作统一，我们需要定义这样的overloading function。</p>
-<hr>
-<h3 id="Q-解释-virtual-function-dynamic-binding-的实现原理"><a href="#Q-解释-virtual-function-dynamic-binding-的实现原理" class="headerlink" title="Q: 解释 virtual function(dynamic binding) 的实现原理"></a>Q: 解释 virtual function(dynamic binding) 的实现原理</h3><p><strong>A:</strong> vitrual function实现了多态（polymorphism)，主要利用了dynamic binding的机制。不同编译器的具体实现不同，但是基本思想是一致的，一个通常的Dynamic binding的实现如下：</p>
-<p>Compiler维护一个vtable，这个table储存着所有与该class相关的virtual function地址。这个table的地址被储存在vptr中。Compiler同时维护一个offset，以vptr+offset来决定指向的vitual function的位置。当用derived object对base object赋值时，相应的offset会被赋值到base object。例如<code>Base&amp; baseObj = deriveObj</code>，这时，当我们调用<code>baseObj.virtualMethod()</code>时，会根据vptr+offset来resolve到相应的<code>deriveObj.virtualMethod()</code>。这就是整个dynamic binding机制的实现，也就是动态地把derive class的virtualMethod()绑定到base class。以下为图示：<br><img src="/resources/res/BackendSoftwareDevQA/DynamicBindingImplement.jpg" alt="Dynamic Binding Implementation"></p>
-<hr>
-<h3 id="Q-解释为何要内存对齐-data-alignment"><a href="#Q-解释为何要内存对齐-data-alignment" class="headerlink" title="Q: 解释为何要内存对齐(data alignment)"></a>Q: 解释为何要内存对齐(data alignment)</h3><p><strong>A:</strong> 为了提升程序运行效率。这个问题与cpu的memory acess有关。cpu每次读取数据时都是以memory word作为最小单位（比primitive type要大)，如果没有进行内存对齐(data alignment)，那么一份数据（例如一个double）可能需要进行多次memory access。这样增加了TLB miss与page fault的机率，使得程序效率变低。因此我们要进行内存对齐，使得我们的数据总是存放在memory word的倍数位置，避免上述情形发生。解决的方案是进行data structure padding，也就是compiler在data structure内部增加一些无名的数据，以使原本的数据总是存放在memory word的倍数位置上。这样会造成内存空间浪费，因此编程人员需要时刻注意数据的排列顺序(data ordering)，避免不必要的data structure padding。以下有一个事例说明data structure padding 如何使得原本的data structure的size变大：（注意到C++中进行data structure padding时，以最大的data member的size为基准)</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span>&#123;</span></span><br><span class="line">        <span class="keyword">char</span> ch1;</span><br><span class="line">        <span class="keyword">char</span> ch2;</span><br><span class="line">        <span class="keyword">char</span> ch3;</span><br><span class="line">        <span class="keyword">char</span> ch4;</span><br><span class="line">        <span class="keyword">double</span> thisIsDouble;</span><br><span class="line">        <span class="keyword">char</span> ch5;</span><br><span class="line">        <span class="keyword">char</span> ch6;</span><br><span class="line">        <span class="keyword">char</span> ch7;</span><br><span class="line">        <span class="keyword">char</span> ch8;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span>&#123;</span></span><br><span class="line">        <span class="keyword">char</span> ch1;</span><br><span class="line">        <span class="keyword">char</span> ch2;</span><br><span class="line">        <span class="keyword">char</span> ch3;</span><br><span class="line">        <span class="keyword">char</span> ch4;</span><br><span class="line">        <span class="keyword">char</span> ch5;</span><br><span class="line">        <span class="keyword">char</span> ch6;</span><br><span class="line">        <span class="keyword">char</span> ch7;</span><br><span class="line">        <span class="keyword">char</span> ch8;</span><br><span class="line">        <span class="keyword">double</span> thisIsDouble;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"A: "</span> &lt;&lt; <span class="keyword">sizeof</span>(A) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"B: "</span> &lt;&lt; <span class="keyword">sizeof</span>(B) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  The output is :</span></span><br><span class="line"><span class="comment"> *  A: 24</span></span><br><span class="line"><span class="comment"> *  B: 16</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="Q：Operator-function-overloading-时为什么有些定义为member-function，而有些定义为friend-function？区别是什么，需要考虑什么问题"><a href="#Q：Operator-function-overloading-时为什么有些定义为member-function，而有些定义为friend-function？区别是什么，需要考虑什么问题" class="headerlink" title="Q：Operator function overloading 时为什么有些定义为member function，而有些定义为friend function？区别是什么，需要考虑什么问题?"></a>Q：Operator function overloading 时为什么有些定义为member function，而有些定义为friend function？区别是什么，需要考虑什么问题?</h3><p><strong>A:</strong> 原则上是，与该class type高度相关的operator（也就是那些如果不是在该class type下，所定义的operator没有意义）应该定义为member function。例如 <code>[] () = -&gt; ++ *</code> 等等。对于与class type联系不是那么紧密的，例如 <code>+ - * / &lt; &gt; &lt;= &gt;= == !=</code>等，可以定义为friend function。 这些都是symetric operator，因为它们都接受两个参数，并且两个参数的类型相同。把symetric operator定义为friend function有一个重要的好处就是当两边的参数不一致时，左右两边都可以进行隐式类型转换(implicit type conversion)。如果是定义为member function的话，左边的参数无法进行隐式类型转换。</p>
-<hr>
-<h3 id="Q：-无聊的一个问题：既然STL-container都有-operator-函数，为什么还要提供那么多-assign-函数"><a href="#Q：-无聊的一个问题：既然STL-container都有-operator-函数，为什么还要提供那么多-assign-函数" class="headerlink" title="Q： 无聊的一个问题：既然STL container都有 operator=() 函数，为什么还要提供那么多 assign() 函数"></a>Q： 无聊的一个问题：既然STL container都有 operator=() 函数，为什么还要提供那么多 assign() 函数</h3><p><strong>A:</strong> 因为operator=()的功能相对有限，只能把右边参数的值复制到左边的参数。而assign()可以提供像constructor一样灵活多样的赋值方式。如assign(n,elem) , assign(beg, end) 和 assign(initlist)等等。</p>
-<hr>
-<h3 id="Q-C-STL-中各个container如何分配和管理内存资源"><a href="#Q-C-STL-中各个container如何分配和管理内存资源" class="headerlink" title="Q: C++ STL 中各个container如何分配和管理内存资源"></a>Q: C++ STL 中各个container如何分配和管理内存资源</h3><p><strong>Answer 分述如下：</strong></p>
-<ol>
-<li><p><strong>Vector</strong><br> Vector的储存结构如图所示。每次Vector的空间被填满(filled)时，都会重新开辟一块原来两倍大的空间，把原来的内容复制到新的储存空间里。所有的pointer,reference,iterator因此失效。</p>
-<p> <img src="/resources/res/BackendSoftwareDevQA/VectorStructureModel.jpg" alt="Vector Structure Model"></p>
-</li>
-<li><p><strong>Deque</strong><br> Deque的逻辑储存结构与真正的储存结构如下所示。可以把deque想像为vector+linkedList实现的。在deque内部，管理着首尾相接的一堆内存块(a bunch of memory blocks)，当向头部(front)插入元素的时候向左边发展，当向尾部插入的时候向右边发展。当插入元素使得头部或者尾部的memory block溢出时，deque会新开辟一个新的memory block把它接入到原来那堆memory blocks上。此时某些pointer ,reference失效，iterator全部失效。可以看到当因为在首尾插入元素导致reallocate memory时，deque比vector高效。但是当插入位置为中间时，vector比deque高效。</p>
- <!---
- ![Deque Logical Model](/resources/res/BackendSoftwareDevQA/DequeConceptionModel.jpg)
- -->
-<p> <img src="/resources/res/BackendSoftwareDevQA/DequeConceptionModel.jpg" alt="Deque Logical Model" width="60%"></p>
- <!---
- ![Deque Structure Model](/resources/res/BackendSoftwareDevQA/DequeStructureModel.jpg)
- -->
-<p> <img src="/resources/res/BackendSoftwareDevQA/DequeStructureModel.jpg" alt="Deque Structure Model" width="60%"></p>
-</li>
-<li><p><strong>List</strong><br> 在STL中list被实现为doubly linked list，因此其iterator可以在任何位置前进后退。在插入新元素时，会在内存找到一份内存空间，初始化后把该元素接入list中。<em>扩展:</em> 因为效率的考量list重新实现了许多 algorithm 的函数例如<code>remove() sort() unique</code>等。</p>
-<p> <img src="/resources/res/BackendSoftwareDevQA/ListStructureModel.jpg" alt="List Structure Model"></p>
-</li>
-<li><p><strong>Forward List</strong><br> 在STL中forward list被实现为singly linked list,因此其iterator只能前进，不能后退。在插入新元素时，会在内存找到一份内存空间，初始化后把该元素接入forward list中。<em>扩展：</em> 由于singly linked list的特殊性，forward list提供的API与其他container稍有不同。例如<code>insert_after() emplace_after() erase_after() splice_after() begin_before()</code> 等等。</p>
-<p> <img src="/resources/res/BackendSoftwareDevQA/ForwardListStructureModel.jpg" alt="Forward List Structure Model"></p>
-</li>
-<li><p><strong>Set/Mutiset</strong><br> Set/Multiset 一般由红黑树等平衡二叉树(balanced binary tree)实现，查找效率为<code>O(n)</code>。</p>
-<p> <img src="/resources/res/BackendSoftwareDevQA/SetMultiSetStructureModel.jpg" alt="Set/Multiset Structure Model"></p>
-</li>
-<li><p><strong>Map/Multimap</strong><br> Map/Multimap 一般由红黑树等平衡二叉树(balanced binary tree)实现，查找效率为<code>O(n)</code>。</p>
-<p> <img src="/resources/res/BackendSoftwareDevQA/MapMultiMapStructureModel.jpg" alt="Map/Multimap Structure Model"></p>
-</li>
-</ol>
-<hr>
-<h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><h3 id="Q-解释-Dynamic-Programming-与-Greedy-Algorithm-的区别"><a href="#Q-解释-Dynamic-Programming-与-Greedy-Algorithm-的区别" class="headerlink" title="Q: 解释 Dynamic Programming 与 Greedy Algorithm 的区别"></a>Q: 解释 Dynamic Programming 与 Greedy Algorithm 的区别</h3><p><strong>A:</strong> Greedy algorithm 是 DP 的一个特例。DP的使用场合需要满足两个条件：第一是Optimal Substructure ；第二是Overlapping Subproblems。DP实现的核心概念是每一步都猜(guess)一个位置作为分割点，把问题分为两个或者多个子问题。然后解决这些子问题，再对比这一堆答案中哪个最好。在猜答案的过程中会出现很多重复对子问题，我们就把答案先记下来下次直接使用。Greedy的做法与DP基本一致，不同之处是Greedy不需要对比一堆答案，它每次直接就猜中最好的分割方案。因此Greedy通常比DP快一个数量级。<em>扩展：</em> MIT opencourseware 6.006有非常精彩的DP五部曲讲解可以参考。</p>
-<hr>
-<h3 id="Q-为什么-Quick-Sort-比较快"><a href="#Q-为什么-Quick-Sort-比较快" class="headerlink" title="Q: 为什么 Quick Sort 比较快"></a>Q: 为什么 Quick Sort 比较快</h3><p><strong>A:</strong> 根据渐近时间复杂度分析(asymptotic time complexity analysis), quick sort 的复杂度upper bound为 <strong>O(n<sup>2</sup>)</strong> 。但是这并不影响它是一个一般情况下较快的算法。主要原因有两个，第一个是：worst case出现的几率很小；第二个是：因为有data locality的原因，quick sort是相比其他算法更cahe efficient的排序算法。因为quick sort每次做完partition后都只会access左边的数据，或者只access右边的数据。</p>
-<hr>
-<h3 id="Q-为何-symetric-encryption-比-asymetric-encryption-快"><a href="#Q-为何-symetric-encryption-比-asymetric-encryption-快" class="headerlink" title="Q: 为何 symetric encryption 比 asymetric encryption 快"></a>Q: 为何 symetric encryption 比 asymetric encryption 快</h3><p><strong>A:</strong> 因为symetric encryption大多在做位操作(Bit operation)和简单的加减乘除。例如：AES的 <code>SubBytes ShiftRows MixColumns AddRoundKey</code> 四个操作。而asymetric encryption都在试图计算一个复杂的数学问题，例如：RSA在计算分解因数(factoring)问题，Diffie Hellman 和 ECC 在计算离散对数(discret logarithm)问题。</p>
-<!---
-![AES Encryption](/resources/res/BackendSoftwareDevQA/AES_Encryption.jpeg)
--->
-<p><img src="/resources/res/BackendSoftwareDevQA/AES_Encryption.jpeg" alt="AES Encryption" width="25%"></p>
-<hr>
-<h3 id="Q-说明-Hash-table-的-collision-resolution-方法"><a href="#Q-说明-Hash-table-的-collision-resolution-方法" class="headerlink" title="Q: 说明 Hash table 的 collision resolution 方法"></a>Q: 说明 Hash table 的 collision resolution 方法</h3><p><strong>A:</strong> 可分为两大类的方法，第一种是 <strong>open address</strong>，也就是当collision发生时以probing的方法寻找其他空闲位置。简单形象的比喻就是别人占了我的座位，我也找其他空位坐下。 Open address有三大probing方法，分别是 <code>linear probe</code> , <code>quadratic probe</code> , <code>double hash</code>。这三种方法在data locality与collision clustering中做出权衡。Data locality越高的，collision clustering越低；反之，data locality越低的collision clustering越高。第二种方法是 <strong>chaining</strong>, 也就是collision发生时把它们串成linked list插在bucket后面。这种方法的查找效率较低，并且会浪费bucket的空间。</p>
-<hr>
-<h3 id="Q-说明-Single-source-all-destination-shortest-path-与-All-pairs-shortest-path-都有哪些常见的算法"><a href="#Q-说明-Single-source-all-destination-shortest-path-与-All-pairs-shortest-path-都有哪些常见的算法" class="headerlink" title="Q: 说明 Single source all destination shortest path 与 All pairs shortest path 都有哪些常见的算法"></a>Q: 说明 Single source all destination shortest path 与 All pairs shortest path 都有哪些常见的算法</h3><p><strong>A:</strong> Single source all destination shortest path有<strong>Dijkstra algorithm</strong>。实现方式为把所有node分为 <strong>S</strong>, <strong>T</strong> 两个set。 其中source在 <strong>S</strong> 中。每一步都从 <strong>T</strong> 中选择到source distance最小的点并加入 <strong>S</strong>，并更新 <strong>T</strong> 中distance的值直到结束。 All pairs shortest path的方法为<strong>Bellman-ford</strong>算法。实现方法为，只要 dist[v] 和 dist[u] 满足 <code>dist[v] &gt; dist[u] + cost[u][v]</code> 反复更新 dist[v] 直至整张图的distance稳定为止。</p>
-<hr>
-<h3 id="Q-说明-Minimum-cost-spanning-tree-都有哪些常见的算法"><a href="#Q-说明-Minimum-cost-spanning-tree-都有哪些常见的算法" class="headerlink" title="Q: 说明 Minimum cost spanning tree 都有哪些常见的算法"></a>Q: 说明 Minimum cost spanning tree 都有哪些常见的算法</h3><p><strong>A:</strong> 主要有 Prim’s algorithm 以及 Kruskal algorithm。 <strong>Prim’s algorithm</strong> 的实现方法为把nodes分为 <strong>S</strong>, <strong>T</strong> 两个set。每次从 <strong>T</strong> 中找到离 <strong>S</strong> 最近的node并加入 <strong>S</strong>。 Prim’s algorithm的思想与Dijkstra algorithm非常类似，都是针对node进行处理。 但是它们求解的问题是完全不同的。 一个求minimum spanning tree, 另一个求shortest path。有一个可以区别这两个算法的关键点是Dijkstra algorithm会维护一个从source到node的distance table。而Prim’s algorithm只使用到原graph上信息。另一个minimum spanning tree的算法是 <strong>Kruskal algorithm</strong>。实现方法为根据edge cost大小对edge进行排序。然后从小到大取出edge并加入solution set，每次操作保证不形成cycle。</p>
-<hr>
-<h1 id="Computer-Network"><a href="#Computer-Network" class="headerlink" title="Computer Network"></a>Computer Network</h1><hr>
-<h3 id="Q-TCP-protocol-为何一定要-Three-way-handshake-有何必要性"><a href="#Q-TCP-protocol-为何一定要-Three-way-handshake-有何必要性" class="headerlink" title="Q: TCP protocol 为何一定要 Three-way handshake 有何必要性"></a>Q: TCP protocol 为何一定要 Three-way handshake 有何必要性</h3><p><strong>A:</strong> 为了对双方的sequence number达成共识。其实原本是Four-way handshake，只不过为了节省资源合并了中间的两个handshake过程。过程如下 <strong>第一步</strong> ：Client发SYN message,包含其sequence number。<strong>第二步</strong>：Server ACK Client的sequence number。<strong>第三步</strong>：Server发SYN message,包含其sequence number。 <strong>第四步</strong>：Client ACK Server的sequence number。这四步使得client 和 server都对双方的sequence number达成共识，缺一不可。为了简化流程，第二部和第三步可以合并为SYN/ACK message因此就变成了Three-way handshake。然后第四步中完成了整个handshake过程，所以可以在这一步中就开始从client向server传送data。</p>
-<hr>
-<h3 id="Q-为何-TCP-Three-way-handshake-中要交换-Sequence-Number-为何不直接从0开始"><a href="#Q-为何-TCP-Three-way-handshake-中要交换-Sequence-Number-为何不直接从0开始" class="headerlink" title="Q: 为何 TCP Three-way handshake 中要交换 Sequence Number, 为何不直接从0开始"></a>Q: 为何 TCP Three-way handshake 中要交换 Sequence Number, 为何不直接从0开始</h3><p><strong>A：</strong> 为了防止client和server在之前所建立并已经关闭了的TCP连线中还有一些packet在网络上漂流，并且回到新的TCP连线时被误判为合法的packet。</p>
-<hr>
-<h3 id="Q-解释-TCP-和-UDP-的区别"><a href="#Q-解释-TCP-和-UDP-的区别" class="headerlink" title="Q: 解释 TCP 和 UDP 的区别"></a>Q: 解释 TCP 和 UDP 的区别</h3><p><strong>Answer:</strong> </p>
-<ul>
-<li><p>TCP chracteristics:</p>
-<ol>
-<li>Connection oriented</li>
-<li>With Three-way handshake</li>
-<li>Congestion control</li>
-<li>Flow control</li>
-<li>Reliable</li>
-</ol>
-</li>
-<li><p>TCP advantages:</p>
-<ol>
-<li>适应对传输的数据要求不能出现错误的应用</li>
-<li>Guarantee packets in ordering</li>
-<li>No data loss or corrupted</li>
-</ol>
-</li>
-<li><p>UDP characteristics：</p>
-<ol>
-<li>Connection less</li>
-<li>No handshaking</li>
-<li>Best effort</li>
-<li>Unreliable</li>
-</ol>
-</li>
-<li><p>UDP advantages：</p>
-<ol>
-<li>适应低延迟，可容忍data loss的应用</li>
-<li>No connection establishment</li>
-<li>No connection state(server负载小，运行高效)</li>
-<li>Small packet header overhead</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h3 id="Q-解释-HTTP-和-HTTPS-的区别"><a href="#Q-解释-HTTP-和-HTTPS-的区别" class="headerlink" title="Q: 解释 HTTP 和 HTTPS 的区别"></a>Q: 解释 HTTP 和 HTTPS 的区别</h3><p><strong>A:</strong> HTTPS = HTTP + SSL。HTTP一般是对信息都是进行明文传播，很容易泄漏敏感信息。HTTPS通过SSL对传输层(transport layer)的信息进行加密，可以保证敏感信息的安全。<em>扩展:</em> SSL的作业流程为：Server到certificate authority申请注册证书，并提供entity information + public key，然后certificate authority认证真实性后进行签章并且发放certificate。然后server把certificate部署在系统上。Client发起SSL handshake protocol进行身份验证(authentication)和密匙交换(key exchange)。双方建立其一条安全通道，然后通过SSL record protocol进行数据传输。</p>
-<hr>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TODO</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><h3 id="Q-解释User-thread-与-Kernel-thread-的区别"><a href="#Q-解释User-thread-与-Kernel-thread-的区别" class="headerlink" title="Q: 解释User thread 与 Kernel thread 的区别"></a>Q: 解释User thread 与 Kernel thread 的区别</h3><p><strong>A:</strong> User thread 的实现来自于thread library的支持，对于thread的操作和管理都是在user mode下完成。例如TCB的管理，program counter, stack pointer等信息的记录都由thread library统一管理。优点是快，缺点是当一个process中有一个thread被block后，其余所有在同一个process的thread都会被block。Kernel thread的实现由kernel提供支持，缺点是速度较慢，优点是同一个process的thread被block后，不会影响其他thread的运行。</p>
-<hr>
-<h3 id="Q-说明有几种-Multithreading-Model-各自有什么优缺点"><a href="#Q-说明有几种-Multithreading-Model-各自有什么优缺点" class="headerlink" title="Q: 说明有几种 Multithreading Model, 各自有什么优缺点"></a>Q: 说明有几种 Multithreading Model, 各自有什么优缺点</h3><p><strong>A:</strong> 由于user thread的实现一定是由kernel作为底层实现。所以必然存在着user thread和kernel thread之间的某种对应关系。这种关系就是multithreading model。Multithreading model一共有三种，分别为：<strong>many-to-one</strong> , <strong>one-to-one</strong> , <strong>many-to-many</strong>。Many-to-one对应于上一问中的user thread，优缺点与其一致。One-to-one对应于上一问中的kernel thread,优缺点与其一致。Many-to-many是一种折衷的方法，吸收了前面两种方法的长处，同时抵消了其短处，是一种比较flexible的方法。</p>
-<hr>
-<h3 id="Q-解释-Interprocess-Communication-的方法"><a href="#Q-解释-Interprocess-Communication-的方法" class="headerlink" title="Q: 解释 Interprocess Communication 的方法"></a>Q: 解释 Interprocess Communication 的方法</h3><p><strong>A:</strong> 一图胜千言：<br><img src="/resources/res/BackendSoftwareDevQA/IPC.png" alt="Interprocess Communication" width="75%"></p>
-<h4 id="Linux-Process-Communication"><a href="#Linux-Process-Communication" class="headerlink" title="Linux Process Communication"></a>Linux Process Communication</h4><p><img src="/resources/res/BackendSoftwareDevQA/LinuxIPC.png" alt="Linux Interprocess Communication" width="65%"></p>
-<hr>
-<h3 id="Q-说明-Critical-Section-Solution-的要求"><a href="#Q-说明-Critical-Section-Solution-的要求" class="headerlink" title="Q: 说明 Critical Section Solution 的要求"></a>Q: 说明 Critical Section Solution 的要求</h3><p><strong>A:</strong> 所有的critical section solution都必须满足一下三个要求才能保证不出现race condition。 <strong>第一:</strong> Mutual Exclusion; <strong>第二:</strong> Progress; <strong>第三:</strong> Bounded Waiting。</p>
-<h3 id="Q：-说明-Process-Scheduling-的算法"><a href="#Q：-说明-Process-Scheduling-的算法" class="headerlink" title="Q： 说明 Process Scheduling 的算法"></a>Q： 说明 Process Scheduling 的算法</h3><p><strong>A:</strong> <strong>Process Scheduling Algorithm:</strong><br><img src="/resources/res/BackendSoftwareDevQA/ProcessScheduling.png" alt="Process Scheduling" width="75%"></p>
-<hr>
-<h1 id="Interview-Tips"><a href="#Interview-Tips" class="headerlink" title="Interview Tips"></a>Interview Tips</h1><h3 id="Google-Software-Engineering-Interview"><a href="#Google-Software-Engineering-Interview" class="headerlink" title="Google Software Engineering Interview"></a>Google Software Engineering Interview</h3><ol>
-<li>Think about the problem step by step</li>
-<li>Ask for clarification</li>
-<li>Think out loud(explain your code and what you have thought)</li>
-<li>Think through every thing before write your code</li>
-<li>Test you program by using simple example</li>
-<li>Be careful edge cases.</li>
-</ol>
-<hr>
-<h3 id="函数不合法输入时通知用户的4种形式"><a href="#函数不合法输入时通知用户的4种形式" class="headerlink" title="函数不合法输入时通知用户的4种形式"></a>函数不合法输入时通知用户的4种形式</h3><ol>
-<li>Global variable</li>
-<li>Parameter(reference or pointer)</li>
-<li>return value</li>
-<li>Exception</li>
-</ol>
-<hr>
-<h3 id="需要向面试官请求澄清-clarify-的问题"><a href="#需要向面试官请求澄清-clarify-的问题" class="headerlink" title="需要向面试官请求澄清(clarify)的问题"></a>需要向面试官请求澄清(clarify)的问题</h3><ol>
-<li>排序是否可以原地（inplace)进行</li>
-<li>是否可以增删改传入的参数(parameter)</li>
-<li>代码的目标平台对时间，空间的限制（以此为依据确定是否可以以空间换时间或者时间换空间）</li>
-<li>要处理的数据的类型(data type)</li>
-<li>再三确认要求解的究竟是什么，而不是浪费精力去解出一个自己臆想的问题</li>
-</ol>
-<hr>
-<h3 id="Coding时要考虑的问题"><a href="#Coding时要考虑的问题" class="headerlink" title="Coding时要考虑的问题"></a>Coding时要考虑的问题</h3><ol>
-<li>Edge cases</li>
-<li>Data type overflow</li>
-<li>不合法输入(Garbage input)</li>
-<li>递归深度(recursive depth)是否超出容许的范围（以32层为参考值）</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjy1svpol001ot30zit2ib1ym" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Career/">Career</a></li></ul>
 
     </footer>
   </div>
@@ -381,7 +240,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -412,7 +271,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -421,7 +280,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -432,6 +291,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
+          </li>
         
           <li>
             <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
@@ -447,10 +310,6 @@
         
           <li>
             <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
           </li>
         
       </ul>

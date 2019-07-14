@@ -70,6 +70,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-HttpIntroduction" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/14/HttpIntroduction/" class="article-date">
+  <time datetime="2019-07-14T05:57:00.000Z" itemprop="datePublished">2019-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What’s-HTTP"><a href="#What’s-HTTP" class="headerlink" title="What’s HTTP"></a>What’s HTTP</h1><p>HTTP is a protocol that is used for the communication in world wide web. For example, when you try to google something, you need to enter <code>http://www.google.com</code> in your web browser address bar. Then your browser start talking to the server of google on behalf of you by following the rules of http protocol.</p>
+<p><img src="/resources/res/HttpIntroduction/http_client_server.png" alt="HTTP client server"></p>
+<p>HTTP is an application protocol in the <a href="https://en.wikipedia.org/wiki/OSI_model" target="_blank" rel="noopener">OSI seven layers model</a>. So, it’s the protocol for application-to-application communication. For the case of accessing google website, it’s the protocol that enables the communication between client web browser and google server (apache, nginx). Until now, there are three versions of HTTP protocols, they are <em>HTTP1.0</em>, <em>HTTP1.1</em> and <em>HTTP2.0</em>. This article will mainly focus on version <em>1.0</em> and <em>1.1</em>.</p>
+<p>The official documents of HTTP1.1 can be found <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html" target="_blank" rel="noopener">here</a>. (Afraid? XXD)</p>
+<h1 id="Characteristics"><a href="#Characteristics" class="headerlink" title="Characteristics"></a>Characteristics</h1><ul>
+<li><strong>Connectionless</strong></li>
+<li><strong>Stateless</strong></li>
+</ul>
+<p>HTTP is connectionless, because for each http request/response pair, a <strong>new</strong> tcp connection is set up (HTTP1.0). After that, the tcp connection is closed. Since HTTP1.1, the tcp connection is allowed to be reused by multiple request/response pair.</p>
+<p>HTTP is stateless, because there is <strong>no link</strong> between two requests. But we can use session and cookies to keep the state or context of user interactions.</p>
+<h1 id="Comparing-HTTP1-0-with-HTTP1-1"><a href="#Comparing-HTTP1-0-with-HTTP1-1" class="headerlink" title="Comparing HTTP1.0 with HTTP1.1"></a>Comparing HTTP1.0 with HTTP1.1</h1><ol>
+<li>HTTP1.1 allows http connection to be reused(persistent connection) by multiple request/response pairs. In http1.0, you have to open a new http connection for each request/response pair.</li>
+<li>HTTP1.1 Uses Etag to replace If-Modified-Since</li>
+<li>HTTP1.1 Supports chunk transfer</li>
+</ol>
+<h1 id="Request-message-format"><a href="#Request-message-format" class="headerlink" title="Request message format"></a>Request message format</h1><p>Let’s take a look at a typical example of http request:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /path/to/resource HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)</span><br><span class="line">Host: www.kelvin.ink</span><br><span class="line">Content-Type: text/xml; charset=utf-8</span><br><span class="line">Content-Length: length</span><br><span class="line">Accept-Language: en-us</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">xmlns</span>=<span class="string">"http://hello.com/"</span>&gt;</span>string<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>A http request is composed of three parts: <em>request line</em>, <em>header</em> and <em>request body</em>. Where<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Request-Line = <span class="function"><span class="keyword">Method</span> <span class="title">SP</span> <span class="title">Request</span>-<span class="title">URI</span> <span class="title">SP</span> <span class="title">HTTP</span>-<span class="title">Version</span> <span class="title">CRLF</span></span></span><br></pre></td></tr></table></figure></p>
+<p>Where SP represents space and CRLF represents carrige return line feed.</p>
+<p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components.png" width="350px"></p>
+<p>The following figure shows the detail format of a HTTP datagram. <strong>Method</strong> can be one of <em>GET</em>, <em>PUT</em>, <em>POST</em>, <em>DELETE</em> .etc. And for the <strong>header</strong> field, you can specify some basic info such as <em>host</em>, <em>Accept-Language</em>, <em>Content-Type</em> for the request. Other fields are for advanced users, for example, if you want to crawl web content with spider, you can frequently change your User-Agent to pretend to be a normal human. You may also want to keep the connection alive by specifying the Connection field.</p>
+<p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components_details_method.png" width="470px"></p>
+<p>After constructing the request message, we establish a TCP connection and send the message to the server, and then receive a HTTP response from it. We start to talk about the format of HTTP response in next section.</p>
+<h1 id="Response-message-format"><a href="#Response-message-format" class="headerlink" title="Response message format"></a>Response message format</h1><p>The format of HTTP response is similar to that of HTTP request.</p>
+<p>Let’s checkout a typical http response first:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sun, 30 Jun 2019 14:55:19 GMT</span><br><span class="line">Expires: -1</span><br><span class="line">Cache-Control: private, max-age=0</span><br><span class="line">Content-Type: text/html; charset=ISO-8859-1</span><br><span class="line">P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span><br><span class="line">Server: gws</span><br><span class="line">X-XSS-Protection: 0</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">Set-Cookie: 1P_JAR=2019-06-30-14; expires=Tue, 30-Jul-2019 14:55:19 GMT; path=/; domain=.google.com</span><br><span class="line">Set-Cookie: NID=186=Igr9gPUb8HL-S-iDsDtkEqrqPdEsWE19BA4R-EZ3gUeCnbE1tdG1t0irtfiiEOL7ZenA3ukMB7l4qG9TBwcKXrra7GLPmMpuShtKWaCrH1nnGJbqysRB8mvtPcAp9LC4nAmuYU6xG78FAnkNCaAOKrIiSqi7rseO9_w4JPBjW8Y; expires=Mon, 30-Dec-2019 14:55:19 GMT; path=/; domain=.google.com; HttpOnly</span><br><span class="line">Accept-Ranges: none</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span><span class="tag">&lt;<span class="name">html</span> <span class="attr">itemscope</span>=<span class="string">""</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WebPage"</span> <span class="attr">lang</span>=<span class="string">"zh-HK"</span>&gt;</span><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"/images/br ..........</span></span></span><br></pre></td></tr></table></figure>
+<p>A http response include three major components: <em>status line</em>, <em>header</em>, <em>reponse body</em>. Where<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Status-Line</span> = HTTP-Version <span class="keyword">SP</span> Status-Code <span class="keyword">SP</span> Reason-Phrase <span class="keyword">CRLF</span></span><br></pre></td></tr></table></figure></p>
+<p><img alt="HTTP Response" src="/resources/res/HttpIntroduction/http_response_components_details.png" width="470px"></p>
+<p>Basically, fields in a HTTP response tells us about the status of the http connection, information about the server, and some useful info for further access. For example, <em>Status-Code</em> tells us the healthiness of the connection, <em>Server</em> field tells us the identity of response server, and <em>Set-Cookie</em> sets a cookie on client side for later access.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>We have talked about <em>HTTP1.0</em> and <em>HTTP1.1</em>. What they are and for what purpose. We have also compared the differences between the two. But we haven’t discussed <em>HTTP2.0</em> yet, this may be included in other posts or be expanded in this post later. Thanks!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjy2qkgln000ea20z2z01infq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-IPC_and_Synchronization" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/27/IPC_and_Synchronization/" class="article-date">
@@ -149,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjy1svpo1001mt30zle6lyqha" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjy2qkgnk001na20zb8yrm29e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
@@ -206,91 +274,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/20/DM_Note1/" data-id="cjy1svpmc0004t30zblbbd1t1" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/20/DM_Note1/" data-id="cjy2qkgli0005a20zcp7v4x9g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-UniprocessorSchedulingAlgorithm" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/" class="article-date">
-  <time datetime="2018-10-14T09:19:44.000Z" itemprop="datePublished">2018-10-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Your may download all of the tables(key points) of this article by clicking this link:<br>PDF Quick Reference:<br><a href="/resources/res/UniprocessorSchedulingAlgorithm/UniprocessorSchedulingAlgorithmsTables.pdf">Download tables</a></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this article, we are going to introduce several short-term scheduling algorithms that are widely used in uniprocessor computers. After reading this article, your should be able to answer the following questions: What’s process state? What’s short-term scheduling? When to do short-term scheduling? What kinds of scheduling algorithms do we currently have? How do we choose a scheduling algorithm and based on what criteria? The following table indicates which sections in this article are trying to answer these questions correspondingly.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/TableOfContents.png" alt="Contents Indicating Table" width="70%"></p>
-<h1 id="Process-States"><a href="#Process-States" class="headerlink" title="Process States"></a>Process States</h1><ul>
-<li><strong>New</strong>: A process is created.<br>  Program code are moved from disk to main memory.</li>
-<li><strong>Ready</strong>: The process is waiting to be scheduling to a processor.<br>  Pprogram code reside in main memory.</li>
-<li><strong>Running</strong>: Instructions are being executed in CPU.<br>  Instructions reside in CPU.</li>
-<li><strong>Waiting</strong>: The process is blocked and waiting for some events to occur(signal)<br>  Program code are in main memory or has been swapped out to virtual memory.</li>
-<li><strong>Terminated</strong>: The process has finished execution.<br>  Program code are removed from memory.</li>
-</ul>
-<p>This is the state transition diagram of the process states.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/StateTransitionDiagram.png" alt="State Transition Diagram" width="70%"></p>
-<p>The table below shows where do program code mainly reside at each state.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/ProgramCodeReside.png" alt="Program Code Location" width="70%"></p>
-<h1 id="Types-of-Scheduling"><a href="#Types-of-Scheduling" class="headerlink" title="Types of Scheduling"></a>Types of Scheduling</h1><p>There are three kinds of scheduling including <code>long-term scheduling</code> , <code>medium-term scheduling</code> and <code>short-term scheduling</code>. This article is mainly focus on short-term scheduling.</p>
-<p>This table shows when do we do the three scheduling in terms of state transitions.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAndStateTransition1.png" alt="Scheduling and State Transition" width="70%"></p>
-<p>We mark them on the state transition diagram:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAndStateTransition2.png" alt="Scheduling on State Transition" width="70%"></p>
-<h1 id="Short-Term-Scheduling"><a href="#Short-Term-Scheduling" class="headerlink" title="Short-Term Scheduling"></a>Short-Term Scheduling</h1><h2 id="Scheduling-Criteria"><a href="#Scheduling-Criteria" class="headerlink" title="Scheduling Criteria"></a>Scheduling Criteria</h2><p>There are a bunch of scheduling criteria that we need to consider when choosing a scheduling algorithm.</p>
-<ul>
-<li>CPU utilization (u%)</li>
-<li>Throughput (process/second)</li>
-<li>Turnaround time (seconds/process)</li>
-<li>Waiting time (seconds)</li>
-<li>Response time (seconds)</li>
-<li>Deadline</li>
-<li>Fairness</li>
-<li>Predictability</li>
-<li>Policy enforcement</li>
-<li>Balance</li>
-</ul>
-<h2 id="Criteria-for-Different-Systems"><a href="#Criteria-for-Different-Systems" class="headerlink" title="Criteria for Different Systems"></a>Criteria for Different Systems</h2><p>Different systems should follow different criteria based on their own requirements.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/CriteriasforDifferentSystems.png" alt="Criteria for Different Systems" width="70%"></p>
-<h2 id="Scheduling-Algorithms"><a href="#Scheduling-Algorithms" class="headerlink" title="Scheduling Algorithms"></a>Scheduling Algorithms</h2><p>We will introduce four scheduling algorithms with examples. In next section, we will explain the details of these algorithms.</p>
-<h3 id="1-First-Come-First-Serve-FCFS"><a href="#1-First-Come-First-Serve-FCFS" class="headerlink" title="1. First-Come-First-Serve (FCFS)"></a>1. First-Come-First-Serve (FCFS)</h3><p><strong>Selection Function:</strong> Select the process with the minimum arrival time. (Non-preemptive)<br><strong>Example for FCFS:</strong><br>Suppose there are four processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/FCFS_table.png" alt="FCFS Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/FCFS_scheduling.png" alt="FCFS Scheduling Result" width="50%"></p>
-<h3 id="2-Round-Robin-RR"><a href="#2-Round-Robin-RR" class="headerlink" title="2. Round-Robin (RR)"></a>2. Round-Robin (RR)</h3><p><strong>Selection Function:</strong> Each process execute for fixed length of time quantum. (Preemptive)<br><strong>Example for RR:</strong><br>Suppose there are four processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/RR_table.png" alt="Round-Robin Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/RR_scheduling.png" alt="Round-Robin Scheduling Result" width="70%"></p>
-<h3 id="3-Shortest-Job-First-SJF"><a href="#3-Shortest-Job-First-SJF" class="headerlink" title="3. Shortest-Job-First (SJF)"></a>3. Shortest-Job-First (SJF)</h3><p><strong>Selection Function:</strong> Select the process with the minimum service time (Non-preemptive)<br><strong>Example for SJF:</strong><br>Suppose there are four processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SJF_table.png" alt="SJF Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SJF_scheduling.png" alt="SJF Scheduling Result" width="50%"></p>
-<h3 id="4-Preemptive-Shortest-Job-First-PSJF"><a href="#4-Preemptive-Shortest-Job-First-PSJF" class="headerlink" title="4. Preemptive-Shortest-Job-First (PSJF)"></a>4. Preemptive-Shortest-Job-First (PSJF)</h3><p><strong>Selection Function:</strong> Select the process with the minimum <strong>remaining</strong> service time (Preemptive)<br><strong>Example for PSJF:</strong><br>Suppose there are three processes whose arrival time and service time are listed in the table.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/PSJF_table.png" alt="PSJF Processes Table" width="70%"><br>The scheduling result in Gantt chart:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/PSJF_scheduling.png" alt="PSJF Scheduling Result" width="50%"></p>
-<h2 id="Scheduling-Algorithm-Properties"><a href="#Scheduling-Algorithm-Properties" class="headerlink" title="Scheduling Algorithm Properties"></a>Scheduling Algorithm Properties</h2><p>We define some terms first.</p>
-<ul>
-<li><strong>a</strong> : arrival time of a process</li>
-<li><strong>e</strong> : time spent in execution so far</li>
-<li><strong>s</strong> : total service time required by the process, including e</li>
-</ul>
-<p>The following table shows the corresponding properties to the scheduling algorithms.<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SchedulingAlgorithmProperties.png" alt="Scheduling Algorithm Properties" width="75%"></p>
-<h2 id="Scheduling-Algorithm-Selection"><a href="#Scheduling-Algorithm-Selection" class="headerlink" title="Scheduling Algorithm Selection"></a>Scheduling Algorithm Selection</h2><p>Based on the criteria for different systems and scheduling algorithm properties, we can decide what kind of algorithms we should choose for each kind of systems. As is shown from below:<br><img src="/resources/res/UniprocessorSchedulingAlgorithm/SystemsAndCorrespondingAlgorithm.png" alt="Systems and Scheduling Algorithms" width="70%"></p>
-<h1 id="Why-Why-Why"><a href="#Why-Why-Why" class="headerlink" title="Why Why Why"></a>Why Why Why</h1><h2 id="Why-Multiprograming"><a href="#Why-Multiprograming" class="headerlink" title="Why Multiprograming"></a>Why Multiprograming</h2><p>Some processes are <strong>CPU bound</strong>, and some are <strong>I/O bound</strong>. An I/O bound process will be blocked when it tries to do I/O. <strong>To improve CPU utilization rate</strong>, engineers proposed the concept of Multiprograming. That is to say — we load many processes into the main memory at the same time. When a running process is blocked by I/O operation, we switch to run other processes. Multiprograming is the root cause that we need to do short-term scheduling.</p>
-<h2 id="What’s-the-differences-between-Multiprograming-and-Multithreading"><a href="#What’s-the-differences-between-Multiprograming-and-Multithreading" class="headerlink" title="What’s the differences between Multiprograming and Multithreading"></a>What’s the differences between Multiprograming and Multithreading</h2><p>Multiprograming is for improving CPU utilization, while Multithreading is for many other reasons. For example: share resources, parallelism, simplify code structure, improve concurrency and many others.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/14/UniprocessorSchedulingAlgorithm/" data-id="cjy1svpmw000yt30z5rpnejsi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
 
     </footer>
   </div>
@@ -303,7 +290,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -334,7 +321,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -343,7 +330,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -354,6 +341,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
+          </li>
         
           <li>
             <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
@@ -369,10 +360,6 @@
         
           <li>
             <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
           </li>
         
       </ul>
