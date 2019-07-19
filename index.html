@@ -150,14 +150,14 @@ ga('send', 'pageview');
 <h1 id="树的区别"><a href="#树的区别" class="headerlink" title="树的区别"></a>树的区别</h1><h3 id="比较AVL与红黑树的优缺点"><a href="#比较AVL与红黑树的优缺点" class="headerlink" title="比较AVL与红黑树的优缺点"></a>比较AVL与红黑树的优缺点</h3><p>在前面已经比较过了这两者的优缺点，为了突出它们的区别，特意把上面一段文字复制到本问题下：</p>
 <p>AVL是历史上出现的第一种平衡二叉树，它现在的很多应用都已经被红黑树代替。主要原因是它的平衡限制比较红黑树严格，在插入或者删除节点的时候很容易超出平衡限制条件，造成频繁的树结构调整和重新平衡。AVL限制对每个节点左子树和右子树的高度相差不超过一，所以它是高度平衡的二叉树，因而在进行查找的时候效率很高。而红黑树的平衡限制比AVL要弱，甚至左右子树的高度差等于2倍，所以红黑树的查找效率被AVL要低。但是，红黑树不需要频繁重平衡(得益于其宽松的限制条件)，所以在插入删除较频繁的环境中红黑树胜出。<a href="https://web.stanford.edu/~blp/papers/libavl.pdf" target="_blank" rel="noopener">REF</a></p>
 <p>同时我们看看Knuth对于AVL的评价：<br><img alt="Knuth AVL Tree Comment" src="/resources/res/Interview1/Interview1_knuth_AVL_comment.png" width="580"></p>
-<h3 id="为何数据库索引使用B-树而不是红黑树-或其他"><a href="#为何数据库索引使用B-树而不是红黑树-或其他" class="headerlink" title="为何数据库索引使用B+树而不是红黑树(或其他)"></a>为何数据库索引使用B+树而不是红黑树(或其他)</h3><p>要理解这个问题，我们先分析一下数据库的性质。数据库的数据被分割为多个Page以文件的形式储存在硬盘上的。因此我们每次进行数据库查询其实是在做Disk IO，而Disk IO是时间开销较大的操作(关键!)。而数据库在进行索引lookup的时候每次access一个page都是一次IO。因此我们需要选择一种能够尽量少做Disk IO的数据结构来构建索引。B+树之所以被选中主要是因为它的branch factor较大，树高较小。因而在进行索引搜索的时候需要进行的IO数量也较其他树的数量小，所以是最合适的做索引的数据结构。基于上述原因，在应用场景需要选树的时候我们都会做如下的思考：基于内存操作的我们考虑红黑树，AVL和BST，基于磁盘操作的我们优先考虑B或B+树。<a href="https://web.stanford.edu/class/cs166/lectures/05/Small05.pdf" target="_blank" rel="noopener">REF</a></p>
+<h3 id="为何数据库索引使用B-树而不是红黑树-或其他"><a href="#为何数据库索引使用B-树而不是红黑树-或其他" class="headerlink" title="为何数据库索引使用B+树而不是红黑树(或其他)"></a>为何数据库索引使用B+树而不是红黑树(或其他)</h3><p>要理解这个问题，我们先分析一下数据库的性质。数据库的数据被分割为多个Page以文件的形式储存在磁盘上的。因此我们每次进行数据库查询其实是在做Disk IO，而Disk IO是时间开销较大的操作(关键!)。而数据库在进行索引lookup的时候每次access一个page都是一次IO。因此我们需要选择一种能够尽量少做Disk IO的数据结构来构建索引。B+树之所以被选中主要是因为它的branch factor较大，树高较小。因而在进行索引搜索的时候需要进行的IO数量也较其他树的数量小，所以是最合适的做索引的数据结构。基于上述原因，在应用场景需要选树的时候我们都会做如下的思考：基于内存操作的我们考虑红黑树，AVL和BST，基于磁盘操作的我们优先考虑B或B+树。<a href="https://web.stanford.edu/class/cs166/lectures/05/Small05.pdf" target="_blank" rel="noopener">REF</a></p>
 <p>我们在这边引用一段Knuth对于B+树的精彩评价来佐证我们的观点：<br><img alt="Knuth B+ Tree Comment" src="/resources/res/Interview1/Interview1_knuth_bplustree_comment.png" width="580"></p>
 <h1 id="References"><a href="#References" class="headerlink" title="References:"></a>References:</h1><p><strong>Key References</strong><br>Knuth Donald(1997) 6.2.2:Binary Tree Searching. The Art of Computer Programming<br>Ben Pfaff <a href="https://web.stanford.edu/~blp/papers/libavl.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~blp/papers/libavl.pdf</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="cjya5j1nh000hzz0z6f3esooo" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="cjya5kpi8000g2z0zs9qo46hp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,7 +224,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjya5j1ne000fzz0zn33eyjcr" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjya5kpia000i2z0zgo4ggb67" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -315,7 +315,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjya5j1pw001tzz0z03cw1s48" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjya5kpkm001r2z0zctz13nnl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
