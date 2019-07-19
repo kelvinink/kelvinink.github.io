@@ -83,6 +83,56 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-ML3_TypesOfLearning" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/11/ML3_TypesOfLearning/" class="article-date">
+  <time datetime="2018-06-11T04:34:34.000Z" itemprop="datePublished">2018-06-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/11/ML3_TypesOfLearning/">Machine Learning Note 3 Types of Machine Learning</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This page requires some PDF plugins. If you cannot see anything, please click this link: <a href="/resources/res/ML3_TypesOfLearning/ML3_TypesOfLearning.pdf">Download PDF</a><br>
+
+	<div class="row">
+    <embed src="/resources/res/ML3_TypesOfLearning/ML3_TypesOfLearning.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/06/11/ML3_TypesOfLearning/" data-id="cjy9zriji000q770zwuucqr42" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ML2_PerceptronAlgorithm" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/10/ML2_PerceptronAlgorithm/" class="article-date">
@@ -121,7 +171,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/10/ML2_PerceptronAlgorithm/" data-id="cjy39eegw000jkf0zsgq38tt0" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/10/ML2_PerceptronAlgorithm/" data-id="cjy9zrijg000n770zc6610epy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
@@ -181,71 +231,10 @@ Destination IP address = 192.168.2.100
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/06/WhatIsPingAndHowItWorks/" data-id="cjy39eeh5000ykf0zm6j067yl" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/06/WhatIsPingAndHowItWorks/" data-id="cjy9zrijt0016770z9pjo3u8w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-BlidingSignature" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/06/BlidingSignature/" class="article-date">
-  <time datetime="2018-06-06T04:27:33.000Z" itemprop="datePublished">2018-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/06/BlidingSignature/">Blinding Signature</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Blind signature is a cryptography scheme introduced by David Chaum. Blind signature scheme is used when the author and the signer of a message are not the same. For example, when voters want to cast their votes to voting center , they need a signature from election authority to prove that they are one of the citizens of the nation. Why do we need blind signature? In this voting example, we want to keep the privacy of all the voters. We don’t want anybody, including the election authority knowing the choices of voters.</p>
-<p>I will introduce some background of blind signature first.</p>
-<h2 id="Hash-function"><a href="#Hash-function" class="headerlink" title="Hash function"></a>Hash function</h2><p>A hash function H(x) can map arbitrary number of bits into fixed number of bits, like SHA256 or SHA3.</p>
-<p><img src="/resources/res/BlidingSignature/hash.jpg" alt="IMG.1 Hash Function"></p>
-<p>Hash functions are required to satisfied some properties. The most mentionable one of the properties is preimage resistant. That is when H(x) is known to adversary, it’s infeasible to find out x. This property can protect the voter from adversary attack as we will show below.</p>
-<p>##Asymmetric encryption scheme ##<br>Asymmetric encryption scheme is also called public key cryptography. In asymmetric encryption scheme, a person has a pair of keys : public key and private key. Public key is known to everyone, but private key is only known to himself. Whoever want to send messages to him should encrypt those messages with his public key. When he receives those messages, he can decrypt it with his private key. RSA is a typical a symmetric encryption scheme developed by Ron Rivest, Adi Shamir, and Leonard Adleman.<br>Here is how RSA works:</p>
-<pre><code>Alice&apos;s public key : e
-Alice&apos;s private key: d
-Message from Bob: m
-A large number known to both of Alice and Bob : n
-</code></pre><p><img src="/resources/res/BlidingSignature/rsa_encrypt.jpg" alt="IMG.2 RSA Encryption"></p>
-<p>In the formula, what Bob send to Alice is <strong>m<sup>e</sup>(mod)n</strong>. Alice decrypt it with d:   <strong>(m<sup>e</sup>)<sup>d</sup>(mod n)</strong> ,and get the original message m. I don’t want to show the details or to prove RSA works correctly. If you are interested in it, you may refer to wikipedia. What you are required to know here is how private key and public key interact with each other and get the original message.</p>
-<p>RSA can be used as a <strong>signature</strong> scheme to authenticate that a message is send from a particular part.<br>Suppose m is a message that Alice wants to send to everybody. How can others assure that the message really come from Alice?</p>
-<p>Here is how it works:</p>
-<p><img src="/resources/res/BlidingSignature/rsa_decrypt.jpg" alt="IMG.3 RSA Decryption"></p>
-<p>Alice do not only send <strong>m</strong> , but also concatenate <strong>s = m<sup>d</sup> (mod n)</strong> with it. When others receive the message , they check whether <strong>s<sup>e</sup></strong> equals <strong>m</strong>. If it’s true, people will believe that the message really come from Alice.  Because Alice is  the only person who holds private key <strong>d</strong>.</p>
-<p>Now that you have learned all of the background of blind signature.</p>
-<h2 id="Let’s-get-started"><a href="#Let’s-get-started" class="headerlink" title="Let’s get started!"></a>Let’s get started!</h2><p>The blind signature procedure can be categorized into 3 stages: <strong>blinding</strong>, <strong>signing</strong> and <strong>unblinding</strong> as you can find below:</p>
-<p><img src="/resources/res/BlidingSignature/blidingSignatureProcedure.jpg" alt="IMG.4 Procedure"></p>
-<p>The first step is <strong>blinding</strong>. Assume the voter’s message is M, the private key and public key of election authority is d and e respectively. What the voter needed is a signature from election authority : <strong>H(M)<sup>d</sup>(mod n)</strong>. The voter randomly choose a number <strong>r</strong>, then send election authority <strong>H(M).r<sup>e</sup>(mod n)</strong>.</p>
-<p>The next step is signing, the election authority check the identity  of the voter. If it’s valid for the voter to cast a vote, the election will send back to the voter   <strong>(H(M).r<sup>e</sup>)<sup>d</sup> = H(M)<sup>d</sup>.r (mod n)</strong> .</p>
-<p>The final step is <strong>unblinding</strong>. Because voter know <strong>r</strong> , he can remove r from  <strong>H(M)<sup>d</sup>.r (mod n)</strong> and finally get  <strong>H(M)<sup>d</sup>(mod n)</strong>. What he can do now is to send <strong>M</strong> concatenate  <strong>H(M)<sup>d</sup>(mod n)</strong> to the voting center.</p>
-<p>That’s the end of the story.<br>The most important feature of blind signature is that it protects the privacy of every voters and provide a solid technological foundation for democracy election.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/06/BlidingSignature/" data-id="cjy39eegb0001kf0zsjfohkk3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -269,7 +258,7 @@ A large number known to both of Alice and Bob : n
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Interview-Questions/">Interview Questions</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
     </div>
   </div>
 
@@ -311,6 +300,10 @@ A large number known to both of Alice and Bob : n
       <ul>
         
           <li>
+            <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
           </li>
         
@@ -324,10 +317,6 @@ A large number known to both of Alice and Bob : n
         
           <li>
             <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
           </li>
         
       </ul>

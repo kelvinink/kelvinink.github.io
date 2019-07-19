@@ -83,6 +83,52 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-ProbabilitySummarization" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/28/ProbabilitySummarization/" class="article-date">
+  <time datetime="2018-09-28T12:46:55.000Z" itemprop="datePublished">2018-09-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/28/ProbabilitySummarization/">Probability Summarization(Quick Reference)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This page requires some PDF plugins. If you cannot see anything, please click this link: <a href="/resources/res/ProbabilitySummarization/ProbabilitySummarization.pdf">Download PDF</a><br>
+
+	<div class="row">
+    <embed src="/resources/res/ProbabilitySummarization/ProbabilitySummarization.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/09/28/ProbabilitySummarization/" data-id="cjy9zrijo000x770zx96mmwde" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-BackendSoftwareDevQA" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/23/BackendSoftwareDevQA/" class="article-date">
@@ -228,7 +274,7 @@ ga('send', 'pageview');
 <hr>
 <h3 id="Q-解释-HTTP-和-HTTPS-的区别"><a href="#Q-解释-HTTP-和-HTTPS-的区别" class="headerlink" title="Q: 解释 HTTP 和 HTTPS 的区别"></a>Q: 解释 HTTP 和 HTTPS 的区别</h3><p><strong>A:</strong> HTTPS = HTTP + SSL。HTTP一般是对信息都是进行明文传播，很容易泄漏敏感信息。HTTPS通过SSL对传输层(transport layer)的信息进行加密，可以保证敏感信息的安全。<em>扩展:</em> SSL的作业流程为：Server到certificate authority申请注册证书，并提供entity information + public key，然后certificate authority认证真实性后进行签章并且发放certificate。然后server把certificate部署在系统上。Client发起SSL handshake protocol进行身份验证(authentication)和密匙交换(key exchange)。双方建立其一条安全通道，然后通过SSL record protocol进行数据传输。</p>
 <hr>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TODO</span></span><br></pre></td></tr></table></figure>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TODO</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><h3 id="Q-解释User-thread-与-Kernel-thread-的区别"><a href="#Q-解释User-thread-与-Kernel-thread-的区别" class="headerlink" title="Q: 解释User thread 与 Kernel thread 的区别"></a>Q: 解释User thread 与 Kernel thread 的区别</h3><p><strong>A:</strong> User thread 的实现来自于thread library的支持，对于thread的操作和管理都是在user mode下完成。例如TCB的管理，program counter, stack pointer等信息的记录都由thread library统一管理。优点是快，缺点是当一个process中有一个thread被block后，其余所有在同一个process的thread都会被block。Kernel thread的实现由kernel提供支持，缺点是速度较慢，优点是同一个process的thread被block后，不会影响其他thread的运行。</p>
 <hr>
@@ -274,7 +320,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjy39eeiq001pkf0zr9x1codl" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/08/23/BackendSoftwareDevQA/" data-id="cjy9zrim1001r770zvihn7qia" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Career/">Career</a></li></ul>
@@ -380,69 +426,10 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/18/ExplainingTCP_IP/" data-id="cjy39eegq0008kf0z8aulpw3j" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/18/ExplainingTCP_IP/" data-id="cjy9zrij9000d770zjrg9phrh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-FindConsecutiveSequnces" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/16/FindConsecutiveSequnces/" class="article-date">
-  <time datetime="2018-06-16T05:51:33.000Z" itemprop="datePublished">2018-06-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/16/FindConsecutiveSequnces/">Using sets to find out all of the consecutive sequences</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="About-this-series-of-posts"><a href="#About-this-series-of-posts" class="headerlink" title="About this series of posts"></a>About this series of posts</h3><p>This series of posts are to introduce some simple and elegant problem solving skills of algorithm related problems. The contents would be updated regularly.</p>
-<h2 id="Problem-1-Return-the-number-of-consecutive-sequences"><a href="#Problem-1-Return-the-number-of-consecutive-sequences" class="headerlink" title="Problem 1: Return the number of consecutive sequences"></a>Problem 1: Return the number of consecutive sequences</h2><p>Given an array of <em>unique</em> integers <strong>nums</strong>, please find out the number of consecutive sequences in the array. For example, for <code>num={1,2,3,4,33,11,9,8,7}</code>, there are 4 consecutive sequences <code>{1,2,3,4}</code> , <code>{33}</code> , <code>{11}</code> and <code>{7,8,9}</code>. So, the returned value should be 4.</p>
-<p>We will start by jotting down some facts of the problem.</p>
-<p><strong>Facts</strong></p>
-<ol>
-<li>In a consecutive sequence, there must exist one smallest number called <strong>minNum</strong>. For example, in the consecutive sequence <code>{1,2,3,4}</code>, the smallest number is <strong>1</strong>.</li>
-</ol>
-<ul>
-<li>If <strong>minNum</strong> is known to us, we can claim that <strong>minNum-1</strong> is not in the array <strong>nums</strong>. This fact can be proved by contradiction.</li>
-<li>If we can find out the smallest number of a consecutive sequence, will can easily find the other numbers within the same consecutive sequence <strong>by using set</strong>.(explanation: we do this by maintaining a set)</li>
-</ul>
-<p>With the 3 facts above, we can write down our pseudocode</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">consecutiveSequenceNum(nums)</span><br><span class="line">	nums_set = make <span class="keyword">set</span> <span class="keyword">from</span> nums</span><br><span class="line">	ret = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> n <span class="keyword">in</span> nums</span><br><span class="line">		<span class="keyword">if</span> n<span class="number">-1</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">in</span> nums_set</span><br><span class="line">			ret++</span><br><span class="line"><span class="built_in">	return</span> ret</span><br></pre></td></tr></table></figure>
-<p>In our algorithm, we have used fact.1 and fact.2. What it does is just scan through the <strong>nums</strong> array, if the predecessor of <strong>n</strong> is not in the set, we know that <strong>n</strong> is the smallest number of the corresponding consecutive sequence. So, we increment <strong>ret</strong> by 1. Note that, the input array contains only <strong>unique</strong> integers, so we don’t need to worry about duplicate numbers.</p>
-<p>Additionally, we can get the same result by finding the maximum number. The only thing we need to change is the condition of the if clause.</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">consecutiveSequenceNum(nums)</span><br><span class="line">	nums_set = make <span class="keyword">set</span> <span class="keyword">from</span> nums</span><br><span class="line">	ret = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> n <span class="keyword">in</span> nums</span><br><span class="line">		<span class="keyword">if</span> n+<span class="number">1</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">in</span> nums_set</span><br><span class="line">			ret++</span><br><span class="line"><span class="built_in">	return</span> ret</span><br></pre></td></tr></table></figure>
-<h2 id="Problem-2-Return-the-number-of-elements-in-each-consecutive-sequences"><a href="#Problem-2-Return-the-number-of-elements-in-each-consecutive-sequences" class="headerlink" title="Problem 2: Return the number of elements in each consecutive sequences"></a>Problem 2: Return the number of elements in each consecutive sequences</h2><p>Given an array of <em>unique</em> integers <strong>nums</strong>, please find out the number of elements in each consecutive sequence. The order of the returned result is not important. For example, for <code>num={1,2,3,4,33,11,9,8,7}</code>, there are 4 consecutive sequences <code>{1,2,3,4}</code> , <code>{33}</code> , <code>{11}</code> and <code>{7,8,9}</code>. The returned value should be <code>{4,1,1,3}</code>.(you can return the result in any order)</p>
-<p>In this case, we need to use fact.1 , fact.2 and fact.3. If we have found a <strong>minNum</strong> of a consecutive sequence, we can find out the other members by testing whether <code>{minNum+1, minNum+2, ... }</code> are in <code>nums_set</code>. The psudocode are shown below</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">consecutiveSequenceElementNum</span><span class="params">(nums)</span></span></span><br><span class="line">	nums_set = make set from nums</span><br><span class="line">	<span class="keyword">for</span> n <span class="keyword">in</span> nums</span><br><span class="line">		<span class="keyword">if</span> n-<span class="number">1</span> is not <span class="keyword">in</span> nums_set</span><br><span class="line">			elementNum = <span class="number">0</span></span><br><span class="line">			<span class="selector-tag">i</span> = n</span><br><span class="line">			while <span class="selector-tag">i</span> <span class="keyword">in</span> nums_set</span><br><span class="line">				elementNum++</span><br><span class="line">				i++</span><br><span class="line">			ret.push(elementNum)</span><br><span class="line">	return ret</span><br></pre></td></tr></table></figure>
-<p>The psudocode above is self explained. We can extend the problem to return the <a href="https://leetcode.com/problems/longest-consecutive-sequence/description/" target="_blank" rel="noopener">longest consecutive sequences</a> or return all of members of longest consecutive sequences. The solution to these problems need only some minor changes from the above code.</p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Set is an effective data structure to check the existence of an element in <em>O(1)</em> time. By using set, we can find the minimum number of a consecutive sequence. With the minimum number, we can easily find the other elements within the same consecutive sequence. The same logic can be applied to similar problems of sequences. For example, the problems above can be generalized as sequences with <strong>steps</strong> equal to <strong>k</strong>. We will explorer more characteristics and applications of sets. If you are interested in it, please see the other posts of kelvin.ink</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/16/FindConsecutiveSequnces/" data-id="cjy39eegs000bkf0zfq5tkb27" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -466,7 +453,7 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Interview-Questions/">Interview Questions</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
     </div>
   </div>
 
@@ -508,6 +495,10 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
       <ul>
         
           <li>
+            <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
           </li>
         
@@ -521,10 +512,6 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
         
           <li>
             <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
           </li>
         
       </ul>

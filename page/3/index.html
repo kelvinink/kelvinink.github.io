@@ -83,6 +83,139 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-OOAnalysisUML1" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/08/OOAnalysisUML1/" class="article-date">
+  <time datetime="2018-10-08T08:23:48.000Z" itemprop="datePublished">2018-10-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/08/OOAnalysisUML1/">Object Oriented Analysis with UML 1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Object-Oriented-Analysis-Procedure"><a href="#Object-Oriented-Analysis-Procedure" class="headerlink" title="Object Oriented Analysis Procedure"></a>Object Oriented Analysis Procedure</h1><p>This is the first part of our <strong>OO analysis</strong> series posts. What we are going to talk about here is how to construct <code>use case diagram</code>, <code>use case description</code> and <code>class diagram</code>. First, we construct the use case diagram from user requirements. This will give us an overview to the system that we are going to build. Base on the use case diagram and user requirements, we then finish the use case description. This will show us more details about each use cases. This phase also helps to identify the potential classes and attributes of each class in the next phase. Finally we make the class diagram, this is the blue print of the system that we are gonna develop. (Note: This article reference from professor T.H Tse’s lecture notes , The university of Hong Kong)</p>
+<ol>
+<li>Construct Use Case Diagram</li>
+<li>Construct Use Case Description</li>
+<li>Construct Class Diagram</li>
+</ol>
+<h1 id="Constructing-Use-Case-Diagram"><a href="#Constructing-Use-Case-Diagram" class="headerlink" title="Constructing Use Case Diagram"></a>Constructing Use Case Diagram</h1><h2 id="Steps-of-Constructing-Use-Case-Diagram"><a href="#Steps-of-Constructing-Use-Case-Diagram" class="headerlink" title="Steps of Constructing Use Case Diagram"></a>Steps of Constructing Use Case Diagram</h2><p>The following are the recommended procedure for constructing use case diagram:</p>
+<ol>
+<li>Identify actors and use cases.</li>
+<li>Identify use case relationships.</li>
+<li>Construct use case diagram.</li>
+</ol>
+<h2 id="Structure-of-Use-Case-Diagram"><a href="#Structure-of-Use-Case-Diagram" class="headerlink" title="Structure of Use Case Diagram"></a>Structure of Use Case Diagram</h2><p>This figure shows the structure and elements of a use case diagram:<br><img src="/resources/res/OOAnalysisUML1/UseCaseDiagramStructure.png" alt="Use Case Diagram Structure" width="90%"></p>
+<h1 id="Constructing-Use-Case-Discription-For-each-use-case"><a href="#Constructing-Use-Case-Discription-For-each-use-case" class="headerlink" title="Constructing Use Case Discription (For each use case)"></a>Constructing Use Case Discription (For each use case)</h1><h2 id="Steps-of-Constructing-Use-Case-Discription"><a href="#Steps-of-Constructing-Use-Case-Discription" class="headerlink" title="Steps of Constructing Use Case Discription"></a>Steps of Constructing Use Case Discription</h2><p>The following are the recommended procedure for constructing use case description:</p>
+<ol>
+<li>Document use case name, actors, descriptions .etc.</li>
+<li>Document preconditions, postconditions, assumptions.</li>
+<li>Document normal course.</li>
+<li>Document alternative course.</li>
+<li>Add-in include use cases.</li>
+<li>Add-in extend use cases.</li>
+<li>Add-in exceptions.</li>
+<li>Finish.</li>
+</ol>
+<h2 id="Use-Case-Description-Template"><a href="#Use-Case-Description-Template" class="headerlink" title="Use Case Description Template"></a>Use Case Description Template</h2><p>This figure shows the template of use case description:<br><img src="/resources/res/OOAnalysisUML1/UseCaseDescriptionTemplate.jpg" alt="Use Case Description Template" width="90%"></p>
+<h1 id="Constructing-Class-Diagram"><a href="#Constructing-Class-Diagram" class="headerlink" title="Constructing Class Diagram"></a>Constructing Class Diagram</h1><h2 id="Structure-of-Class-Diagram"><a href="#Structure-of-Class-Diagram" class="headerlink" title="Structure of Class Diagram"></a>Structure of Class Diagram</h2><p>This figure shows the structure and elements of a class diagram:<br><img src="/resources/res/OOAnalysisUML1/ClassDiagramStructure.png" alt="Class Diagram Structure" width="90%"></p>
+<h2 id="Steps-of-Constructing-Class-Diagram"><a href="#Steps-of-Constructing-Class-Diagram" class="headerlink" title="Steps of Constructing Class Diagram"></a>Steps of Constructing Class Diagram</h2><p>The following are the recommended procedure for constructing class diagram:</p>
+<ol>
+<li>Identify classes.</li>
+<li>Keeping the right classes.</li>
+<li>Identify class relationships.</li>
+<li>Keeping the right class relationships.</li>
+<li>Identify attributes and methods.</li>
+<li>Keiiping the right attriutes and methods.</li>
+<li>Constructing class Diagram.</li>
+</ol>
+<h2 id="Indentify-Classes"><a href="#Indentify-Classes" class="headerlink" title="Indentify Classes"></a>Indentify Classes</h2><ul>
+<li>Usually be nouns.</li>
+<li>Must Meaningful in application domain.</li>
+<li>Must be persistance.</li>
+</ul>
+<h2 id="Keeping-the-Right-Classes"><a href="#Keeping-the-Right-Classes" class="headerlink" title="Keeping the Right Classes"></a>Keeping the Right Classes</h2><ul>
+<li>Eliminate redundant classes.</li>
+<li>Eliminate irrelevant classes.</li>
+<li>Eliminate vague classes.</li>
+<li>Eliminate attributes.</li>
+<li>Eliminate operations(methods).</li>
+<li>Eliminate role(relationship).</li>
+<li>Eliminate implementation constructs.</li>
+</ul>
+<h2 id="Identify-Relationships"><a href="#Identify-Relationships" class="headerlink" title="Identify Relationships"></a>Identify Relationships</h2><h3 id="Identify-Association"><a href="#Identify-Association" class="headerlink" title="Identify Association"></a>Identify Association</h3><p>Maybe related to:</p>
+<ul>
+<li>Ownership<ul>
+<li>Has-a</li>
+<li>Has-many</li>
+<li>Uses-a</li>
+<li>Uses-many</li>
+</ul>
+</li>
+<li>Directed actions</li>
+<li>Physical location</li>
+<li>Communication</li>
+</ul>
+<h3 id="Identify-Aggeregation"><a href="#Identify-Aggeregation" class="headerlink" title="Identify Aggeregation"></a>Identify Aggeregation</h3><ul>
+<li>Indicated by Is-part-of relationship<ul>
+<li>Has-a</li>
+<li>Has-many</li>
+</ul>
+</li>
+</ul>
+<h3 id="Identify-Inheritance"><a href="#Identify-Inheritance" class="headerlink" title="Identify Inheritance"></a>Identify Inheritance</h3><ul>
+<li>Indicated by Is-a relationship</li>
+<li>Generalization(Bottom-up)</li>
+<li>Specialization(Top-down)</li>
+</ul>
+<h3 id="Keeping-the-Right-Association"><a href="#Keeping-the-Right-Association" class="headerlink" title="Keeping the Right Association"></a>Keeping the Right Association</h3><ul>
+<li>Eliminate implementation construct associations.</li>
+<li>Eliminate actions.</li>
+<li>Eliminate missnamed associations.</li>
+<li>Add-in role names.</li>
+<li>Add-in multiplicity.</li>
+<li>Add-in missing associations.</li>
+</ul>
+<h3 id="Identify-Attributes"><a href="#Identify-Attributes" class="headerlink" title="Identify Attributes"></a>Identify Attributes</h3><ul>
+<li>Usually be nouns.</li>
+<li>Indicated by possessive phrases.</li>
+<li>Indicated by adjectives.</li>
+</ul>
+<h3 id="Keeping-the-Right-Attributes"><a href="#Keeping-the-Right-Attributes" class="headerlink" title="Keeping the Right Attributes"></a>Keeping the Right Attributes</h3><ul>
+<li>Eliminate discordant attributes.</li>
+<li>Eliminate classes.</li>
+<li>Eliminate internal values.</li>
+<li>Indentifiers may or may not be attributes.</li>
+</ul>
+<h1 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a>Further Discussion</h1><p>There is still one thing we haven’t discussed yet. That’s how to identify methods(operations) of class diagram. Before doing so, we need the help of other dynamic models like sequence diagram and state diagram. And these topics will be covered in OO analysis with UML 2 on <a href="kelvin.ink">kelvin.ink</a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/10/08/OOAnalysisUML1/" data-id="cjy9zrijl000u770zxwmxvuru" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-DatabaseSystem" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/06/DatabaseSystem/" class="article-date">
@@ -133,7 +266,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/06/DatabaseSystem/" data-id="cjy39eegr0009kf0zqawo6xyv" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/06/DatabaseSystem/" data-id="cjy9zrij8000b770zrwfg6jcw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/">Database</a></li></ul>
@@ -191,56 +324,10 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjy39eeh60011kf0z73j8j0c6" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/10/04/ReliableDataTransfer/" data-id="cjy9zrijp000z770zqndjay4y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ProbabilitySummarization" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/28/ProbabilitySummarization/" class="article-date">
-  <time datetime="2018-09-28T12:46:55.000Z" itemprop="datePublished">2018-09-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/28/ProbabilitySummarization/">Probability Summarization(Quick Reference)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This page requires some PDF plugins. If you cannot see anything, please click this link: <a href="/resources/res/ProbabilitySummarization/ProbabilitySummarization.pdf">Download PDF</a><br>
-
-	<div class="row">
-    <embed src="/resources/res/ProbabilitySummarization/ProbabilitySummarization.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/09/28/ProbabilitySummarization/" data-id="cjy39eeh2000tkf0zneoc232h" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
 
     </footer>
   </div>
@@ -264,7 +351,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Interview-Questions/">Interview Questions</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
     </div>
   </div>
 
@@ -306,6 +393,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
           </li>
         
@@ -319,10 +410,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/09/HowToReadABook_zh/">如何阅读数学著作</a>
           </li>
         
       </ul>
