@@ -20,21 +20,21 @@ ga('send', 'pageview');
   
   <title>BST(非平衡),AVL,红黑树,B+树的区别与应用 | Kelvin.Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文出自kelvin.ink转载请注明出处 问题要点这个问题要探究的要点是： 1231. 这四种树的定义的了解2. 这些树的主要区别，特性3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替 事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜">
+  <meta name="description" content="本文出自kelvin.ink转载请注明出处 问题要点这个问题要探究的要点是： 1. 这四种树的定义的了解2. 这些树的主要区别，特性3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替  事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜索6">
 <meta name="keywords" content="Machine Learning, Blockchain, Math, Operating System, C++, Python, Software Engineering">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BST(非平衡),AVL,红黑树,B+树的区别与应用">
 <meta property="og:url" content="http://kelvin.ink/2019/07/18/Interview1/index.html">
 <meta property="og:site_name" content="Kelvin.Liang">
-<meta property="og:description" content="本文出自kelvin.ink转载请注明出处 问题要点这个问题要探究的要点是： 1231. 这四种树的定义的了解2. 这些树的主要区别，特性3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替 事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜">
+<meta property="og:description" content="本文出自kelvin.ink转载请注明出处 问题要点这个问题要探究的要点是： 1. 这四种树的定义的了解2. 这些树的主要区别，特性3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替  事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜索6">
 <meta property="og:locale" content="En, ZH">
 <meta property="og:image" content="http://kelvin.ink/resources/res/Interview1/Interview1_tree_complexity.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/Interview1/Interview1_knuth_AVL_comment.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/Interview1/Interview1_knuth_bplustree_comment.png">
-<meta property="og:updated_time" content="2019-07-19T16:33:54.254Z">
+<meta property="og:updated_time" content="2019-11-19T14:22:37.400Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BST(非平衡),AVL,红黑树,B+树的区别与应用">
-<meta name="twitter:description" content="本文出自kelvin.ink转载请注明出处 问题要点这个问题要探究的要点是： 1231. 这四种树的定义的了解2. 这些树的主要区别，特性3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替 事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜">
+<meta name="twitter:description" content="本文出自kelvin.ink转载请注明出处 问题要点这个问题要探究的要点是： 1. 这四种树的定义的了解2. 这些树的主要区别，特性3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替  事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜索6">
 <meta name="twitter:image" content="http://kelvin.ink/resources/res/Interview1/Interview1_tree_complexity.png">
   
     <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
@@ -114,18 +114,25 @@ ga('send', 'pageview');
       
         <p>本文出自<a href="kelvin.ink">kelvin.ink</a><br>转载请注明出处</p>
 <h1 id="问题要点"><a href="#问题要点" class="headerlink" title="问题要点"></a>问题要点</h1><p>这个问题要探究的要点是：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>这四种树的定义的了解</span><br><span class="line"><span class="bullet">2. </span>这些树的主要区别，特性</span><br><span class="line"><span class="bullet">3. </span>每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替</span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 这四种树的定义的了解<br>2. 这些树的主要区别，特性<br>3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替<br></td></tr></table>
+
 <p>事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜索<code>6.2.2Binary Tree Search</code>找到相应的章节。本文在此基础上结合其他资源对这个问题进行简要说明，并尽量保证self contained。</p>
 <h1 id="简明定义"><a href="#简明定义" class="headerlink" title="简明定义"></a>简明定义</h1><p>我们先回顾一下这几种树的定义，为继续下一步的讨论建立共识。</p>
 <h3 id="二叉搜索树-BST"><a href="#二叉搜索树-BST" class="headerlink" title="二叉搜索树(BST)"></a>二叉搜索树(BST)</h3><p>简明BST递归定义(Knuth Donald)：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对于任意一个节点均满足：</span><br><span class="line"><span class="bullet">1. </span>所有位于左子树的节点值均比该节点值小</span><br><span class="line"><span class="bullet">2. </span>所有位于右子树的节点值均大于等于该节点值</span><br><span class="line"><span class="bullet">3. </span>所有左子树和右子树也必须是BST</span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>对于任意一个节点均满足：<br>1. 所有位于左子树的节点值均比该节点值小<br>2. 所有位于右子树的节点值均大于等于该节点值<br>3. 所有左子树和右子树也必须是BST<br></td></tr></table>
+
 <h3 id="AVL"><a href="#AVL" class="headerlink" title="AVL"></a>AVL</h3><p>简明AVL定义(Knuth Donald)：</p>
 <p>对于任意一个节点均满足：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 左子树和右子树的高度差小于等于<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 左子树和右子树的高度差小于等于1<br></td></tr></table>
+
 <h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><p>简明RBTREE定义(Knuth Donald)：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>每个节点要么是红色，要么是黑色</span><br><span class="line"><span class="bullet">2. </span>根节点是黑色</span><br><span class="line"><span class="bullet">3. </span>所有叶节点(NIL)都是黑色</span><br><span class="line"><span class="bullet">4. </span>如果一个节点是红色，那么它的两个孩子都是黑色</span><br><span class="line"><span class="bullet">5. </span>从任意一个节点出发，到达其后代NIL节点的路径中都包含相同个数的黑节点</span><br></pre></td></tr></table></figure>
-<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>定义Branch Factor: <strong>b</strong> 为一个节点可以拥有的最大子节点的个数，那么：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 对于根节点，如果整棵树的节点个数大于<span class="number">1</span>，那么根节点的子节点数量大于等于<span class="number">2</span></span><br><span class="line"><span class="number">2.</span> 对于内部节点，其子节点个数m必须满足 b/<span class="number">2</span> &lt;= m &lt;= b</span><br><span class="line"><span class="number">3.</span> 对于叶节点，其子节点个数m必须满足 b/<span class="number">2</span> &lt;= m &lt;= b</span><br><span class="line"><span class="number">4.</span> 每个节点内部的<span class="type">key</span>值是已经排序的</span><br><span class="line"><span class="number">5.</span> 叶节点之间以linked <span class="type">list</span>方式相连并且是有序的</span><br><span class="line"><span class="number">6.</span> 从根节点到叶节点的路径长度均相同</span><br></pre></td></tr></table></figure></p>
-<h3 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">BST:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/Binary_search_tree</span></span><br><span class="line"><span class="string">AVL:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/AVL_tree</span></span><br><span class="line"><span class="string">RBTREE:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/Red%E2%80%93black_tree</span></span><br><span class="line">B+<span class="string">TREE:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/B%2B_tree</span></span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 每个节点要么是红色，要么是黑色<br>2. 根节点是黑色<br>3. 所有叶节点(NIL)都是黑色<br>4. 如果一个节点是红色，那么它的两个孩子都是黑色<br>5. 从任意一个节点出发，到达其后代NIL节点的路径中都包含相同个数的黑节点<br></td></tr></table>
+
+<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>定义Branch Factor: <strong>b</strong> 为一个节点可以拥有的最大子节点的个数，那么：</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 对于根节点，如果整棵树的节点个数大于1，那么根节点的子节点数量大于等于2<br>2. 对于内部节点，其子节点个数m必须满足 b/2 &lt;= m &lt;= b<br>3. 对于叶节点，其子节点个数m必须满足 b/2 &lt;= m &lt;= b<br>4. 每个节点内部的key值是已经排序的<br>5. 叶节点之间以linked list方式相连并且是有序的<br>6. 从根节点到叶节点的路径长度均相同<br></td></tr></table>
+
+<h3 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h3><table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>BST: <a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Binary_search_tree</a><br>AVL: <a href="https://en.wikipedia.org/wiki/AVL_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/AVL_tree</a><br>RBTREE: <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Red%E2%80%93black_tree</a><br>B+TREE: <a href="https://en.wikipedia.org/wiki/B%2B_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/B%2B_tree</a><br></td></tr></table>
+
 <h1 id="树的特性"><a href="#树的特性" class="headerlink" title="树的特性"></a>树的特性</h1><p>基于上面对各种树的定义，我们可以推出它们的一些相关特性，本节我们将会罗列并解析这几种树的一些相关特性。</p>
 <h2 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h2><p>我们先比较一下它的在进行各种操作时的复杂度：<br><img src="/resources/res/Interview1/Interview1_tree_complexity.png" alt="Complexity"></p>
 <p>上面表格每个单元格显示的是<code>平均复杂度/最差复杂度</code>。我们可以看到除了BST外，其他树在查找，插入和删除操作时的复杂度均为O(logn)，因为它们都是平衡树，而BST不是。相同的渐近复杂度并不意味着它们毫无区别，毕竟它们可能会相差数倍的关系。接下来我们会描述这些树的一些具体特性，并突出它们的主要区别。</p>
@@ -160,7 +167,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="cjyabpi81000ioi0zird7e8pw" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="ck35wll8i000dqw0zovo9p0ed" class="article-share-link">Share</a>
       
       
     </footer>
@@ -168,6 +175,15 @@ ga('send', 'pageview');
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/11/19/LinklistCycle/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          寻找链表环入口的算法证明
+        
+      </div>
+    </a>
   
   
     <a href="/2019/07/14/HttpIntroduction/" id="article-nav-older" class="article-nav-link-wrap">
@@ -208,7 +224,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -217,7 +233,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -228,6 +244,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+          </li>
         
           <li>
             <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
@@ -243,10 +263,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
           </li>
         
       </ul>

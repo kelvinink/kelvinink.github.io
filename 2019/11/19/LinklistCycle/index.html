@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-120456720-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>寻找链表环入口的算法证明 | Kelvin.Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="寻找链表环入口是一道经典算法题目Linked List Cycle II，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。 先回顾下题目：给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节">
+<meta name="keywords" content="Operating System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寻找链表环入口的算法证明">
+<meta property="og:url" content="http://kelvin.ink/2019/11/19/LinklistCycle/index.html">
+<meta property="og:site_name" content="Kelvin.Liang">
+<meta property="og:description" content="寻找链表环入口是一道经典算法题目Linked List Cycle II，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。 先回顾下题目：给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节">
+<meta property="og:locale" content="En, ZH">
+<meta property="og:image" content="http://kelvin.ink/resources/res/LinklistCycle/circularlinkedlist.png">
+<meta property="og:image" content="http://kelvin.ink/resources/res/LinklistCycle/list_decomposite.png">
+<meta property="og:updated_time" content="2019-11-19T14:33:29.372Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="寻找链表环入口的算法证明">
+<meta name="twitter:description" content="寻找链表环入口是一道经典算法题目Linked List Cycle II，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。 先回顾下题目：给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节">
+<meta name="twitter:image" content="http://kelvin.ink/resources/res/LinklistCycle/circularlinkedlist.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Kelvin.Liang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Kelvin.Liang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ziyoustep@gmail.com</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kelvin.ink"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-LinklistCycle" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/19/LinklistCycle/" class="article-date">
+  <time datetime="2019-11-19T13:12:45.000Z" itemprop="datePublished">2019-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      寻找链表环入口的算法证明
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>寻找链表环入口是一道经典算法题目<a href="https://leetcode.com/problems/linked-list-cycle-ii" target="_blank" rel="noopener">Linked List Cycle II</a>，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。</p>
+<h3 id="先回顾下题目："><a href="#先回顾下题目：" class="headerlink" title="先回顾下题目："></a>先回顾下题目：</h3><p>给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节点值为2的指针。<br><img src="/resources/res/LinklistCycle/circularlinkedlist.png" alt="Circular Linked List" width="80%"></p>
+<p>本题的最优解法是使用<strong>快慢两个指针</strong>，都从head开始出发，慢指针每次走一步，快指针每次走两步。<strong>当他们相撞的时候把快指针重新指向head</strong>，慢指针保留在相撞位置。并且从此时开始快慢指针的前进速度都改成一步，直到他们再次相撞的位置就是环的入口。详细代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!head)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//寻找碰撞点</span></span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(slow == fast) </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(fast==<span class="literal">nullptr</span> || fast-&gt;next==<span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//寻找环入口</span></span><br><span class="line">        fast = head;</span><br><span class="line">        <span class="keyword">while</span>(slow != fast)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>接下来我们将会对这种解法进行证明，如下图我们将一个环形链表分为三个部分，分别为a,b和c代表此部分链表的长度(length),其中a的末端是环入口。<br><img src="/resources/res/LinklistCycle/list_decomposite.png" alt="Circular Linked List" width="80%"></p>
+<ol>
+<li>定义slow, fast分别为链表的快慢指针，slow每次前进一步，fast每次前进两步。</li>
+<li>可以证明当快慢指针相撞的时候，它们相撞的时间点必定是慢指针进入环后的第一圈。(提示：根据快慢指针的定义并使用矛盾证法:proof-by-contradiction)。我们假设它们在图示的碰撞点处碰撞，那么此时slow,fast两个指针走过的步数分别为：</li>
+</ol>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>slow : a+b<br>fast : 2(a+b)<br></td></tr></table>
+
+<ol start="3">
+<li>假设我们有环形链表指针<strong>p1</strong>, <strong>p2</strong>，我们定义符号<font color="red"><strong>:=</strong></font>的意义为:<br>若<code>p1 := p2</code>则p1和p2指向环形链表的同一个节点。根据环形链表指针加减法的定义，我们有如下的法则：</li>
+</ol>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>若p1 := p2，且k为一个整数，则：<br>p1+k := p2+k<br></td></tr></table>
+
+
+<ol start="4">
+<li>因为快慢指针在碰撞点相撞，且他们都是从head开始出发，所以我们可以有下面的等式：</li>
+</ol>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>head+(a+b) := head+2(a+b)<br></td></tr></table>
+
+
+<p>观察我们的环形链表我们可以有下列等式:</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>head+(a) := head+(a+b+c)<br></td></tr></table>
+
+<p>值得提醒的是我们的a,b,c为整数长度(length)，而head为指针，我们上面的等式进行的是指针的加减法(pointer arithmetic)。<br><strong>为了方便表示，我们省略head，并默认等式两边都加上了head</strong>，那么可以得到下面的简化表示：</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>a+b := 2(a+b)<br>a := a+b+c<br></td></tr></table>
+
+<p>我们上面有描述过我们的算法在找到碰撞点后把fast重新指向head然后再向前一次走一步，直到快慢指针碰撞，那么如果它们碰撞时的位置的确为环入口的话那么必定有这个等式成立：<code>a+b+a := a</code>。你会问为什么？解析是：碰撞时slow走的步数为a+b,此时fast指向了头结点，那么当再次碰撞的时候fast和slow都走了a步(别忘了此时它们的速度已经变成一样了)，那么<code>head+a+b+a</code>指向了环入口，<code>head+a</code>也指向了环入口，所以我们有简化式子<code>a+b+a := a</code>。</p>
+<ol start="5">
+<li>我们现在集中精力来证明这个等式是成立的：</li>
+</ol>
+<p><strong>核心部分</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//别忘了这只是为了方便我们观察的简化表示，<br>//完整表达式中:=的左右应该都是指针<br><br>我们有：<br>a+b := 2(a+b)  (1)<br>a := a+b+c     (2)<br><br>那么<br>a+b+a := a+b+(a+b+c)  //利用(2)<br>      := 2(a+b)+c<br>      := a+b+c        //利用(1)<br>      := a            //利用(2)<br><br>证明完毕<br></td></tr></table>
+
+<p>到此我们对于上述算法的确环入口的证明完毕，其实上面一大段都只是为了保持文章的完整性做的详细说明，真正的证明其实非常简短，就是核心部分，只要你对符号<code>:=</code>的定义了解，那么很容易就能够通过纯数学变换重新写出这份证明。我们的思路具有普适性，同样使用定义的符号<code>:=</code>可以证明寻找相交链表交点的算法正确性<a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">Intersection of Two Linked Lists</a>，有机会(通常隐含的意思是我懒得写）我会对此进行扩展说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35wll8l000gqw0zp3mxd1hd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/18/Interview1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">BST(非平衡),AVL,红黑树,B+树的区别与应用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Interview-Questions/">Interview Questions</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Career/">Career</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Mining/">Data Mining</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Operating-System/">Operating System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/">Software Engineering</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/14/HttpIntroduction/">HTTP Introduction</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Kelvin . Liang<span> @ The University of HongKong</span><br>
+      <span>Email: ziyoustep@gmail.com</span> <br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

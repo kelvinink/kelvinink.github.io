@@ -83,6 +83,81 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-LinklistCycle" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/19/LinklistCycle/" class="article-date">
+  <time datetime="2019-11-19T13:12:45.000Z" itemprop="datePublished">2019-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>寻找链表环入口是一道经典算法题目<a href="https://leetcode.com/problems/linked-list-cycle-ii" target="_blank" rel="noopener">Linked List Cycle II</a>，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。</p>
+<h3 id="先回顾下题目："><a href="#先回顾下题目：" class="headerlink" title="先回顾下题目："></a>先回顾下题目：</h3><p>给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节点值为2的指针。<br><img src="/resources/res/LinklistCycle/circularlinkedlist.png" alt="Circular Linked List" width="80%"></p>
+<p>本题的最优解法是使用<strong>快慢两个指针</strong>，都从head开始出发，慢指针每次走一步，快指针每次走两步。<strong>当他们相撞的时候把快指针重新指向head</strong>，慢指针保留在相撞位置。并且从此时开始快慢指针的前进速度都改成一步，直到他们再次相撞的位置就是环的入口。详细代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!head)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//寻找碰撞点</span></span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(slow == fast) </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(fast==<span class="literal">nullptr</span> || fast-&gt;next==<span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//寻找环入口</span></span><br><span class="line">        fast = head;</span><br><span class="line">        <span class="keyword">while</span>(slow != fast)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>接下来我们将会对这种解法进行证明，如下图我们将一个环形链表分为三个部分，分别为a,b和c代表此部分链表的长度(length),其中a的末端是环入口。<br><img src="/resources/res/LinklistCycle/list_decomposite.png" alt="Circular Linked List" width="80%"></p>
+<ol>
+<li>定义slow, fast分别为链表的快慢指针，slow每次前进一步，fast每次前进两步。</li>
+<li>可以证明当快慢指针相撞的时候，它们相撞的时间点必定是慢指针进入环后的第一圈。(提示：根据快慢指针的定义并使用矛盾证法:proof-by-contradiction)。我们假设它们在图示的碰撞点处碰撞，那么此时slow,fast两个指针走过的步数分别为：</li>
+</ol>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>slow : a+b<br>fast : 2(a+b)<br></td></tr></table>
+
+<ol start="3">
+<li>假设我们有环形链表指针<strong>p1</strong>, <strong>p2</strong>，我们定义符号<font color="red"><strong>:=</strong></font>的意义为:<br>若<code>p1 := p2</code>则p1和p2指向环形链表的同一个节点。根据环形链表指针加减法的定义，我们有如下的法则：</li>
+</ol>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>若p1 := p2，且k为一个整数，则：<br>p1+k := p2+k<br></td></tr></table>
+
+
+<ol start="4">
+<li>因为快慢指针在碰撞点相撞，且他们都是从head开始出发，所以我们可以有下面的等式：</li>
+</ol>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>head+(a+b) := head+2(a+b)<br></td></tr></table>
+
+
+<p>观察我们的环形链表我们可以有下列等式:</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>head+(a) := head+(a+b+c)<br></td></tr></table>
+
+<p>值得提醒的是我们的a,b,c为整数长度(length)，而head为指针，我们上面的等式进行的是指针的加减法(pointer arithmetic)。<br><strong>为了方便表示，我们省略head，并默认等式两边都加上了head</strong>，那么可以得到下面的简化表示：</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>a+b := 2(a+b)<br>a := a+b+c<br></td></tr></table>
+
+<p>我们上面有描述过我们的算法在找到碰撞点后把fast重新指向head然后再向前一次走一步，直到快慢指针碰撞，那么如果它们碰撞时的位置的确为环入口的话那么必定有这个等式成立：<code>a+b+a := a</code>。你会问为什么？解析是：碰撞时slow走的步数为a+b,此时fast指向了头结点，那么当再次碰撞的时候fast和slow都走了a步(别忘了此时它们的速度已经变成一样了)，那么<code>head+a+b+a</code>指向了环入口，<code>head+a</code>也指向了环入口，所以我们有简化式子<code>a+b+a := a</code>。</p>
+<ol start="5">
+<li>我们现在集中精力来证明这个等式是成立的：</li>
+</ol>
+<p><strong>核心部分</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//别忘了这只是为了方便我们观察的简化表示，<br>//完整表达式中:=的左右应该都是指针<br><br>我们有：<br>a+b := 2(a+b)  (1)<br>a := a+b+c     (2)<br><br>那么<br>a+b+a := a+b+(a+b+c)  //利用(2)<br>      := 2(a+b)+c<br>      := a+b+c        //利用(1)<br>      := a            //利用(2)<br><br>证明完毕<br></td></tr></table>
+
+<p>到此我们对于上述算法的确环入口的证明完毕，其实上面一大段都只是为了保持文章的完整性做的详细说明，真正的证明其实非常简短，就是核心部分，只要你对符号<code>:=</code>的定义了解，那么很容易就能够通过纯数学变换重新写出这份证明。我们的思路具有普适性，同样使用定义的符号<code>:=</code>可以证明寻找相交链表交点的算法正确性<a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">Intersection of Two Linked Lists</a>，有机会(通常隐含的意思是我懒得写）我会对此进行扩展说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35wll8l000gqw0zp3mxd1hd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Interview1" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/18/Interview1/" class="article-date">
@@ -111,18 +186,25 @@ ga('send', 'pageview');
       
         <p>本文出自<a href="kelvin.ink">kelvin.ink</a><br>转载请注明出处</p>
 <h1 id="问题要点"><a href="#问题要点" class="headerlink" title="问题要点"></a>问题要点</h1><p>这个问题要探究的要点是：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>这四种树的定义的了解</span><br><span class="line"><span class="bullet">2. </span>这些树的主要区别，特性</span><br><span class="line"><span class="bullet">3. </span>每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替</span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 这四种树的定义的了解<br>2. 这些树的主要区别，特性<br>3. 每种树的具体应用场景是什么，为何它适合于这种场景，为什么不用其他树代替<br></td></tr></table>
+
 <p>事实上Knuth Donald在《计算机编程艺术》中已经对这些树都作了非常深刻的说明，建议想要深入探究的读者可以自行找到这本书进行阅读。Google books有这本书的影印版。可以搜索<code>6.2.2Binary Tree Search</code>找到相应的章节。本文在此基础上结合其他资源对这个问题进行简要说明，并尽量保证self contained。</p>
 <h1 id="简明定义"><a href="#简明定义" class="headerlink" title="简明定义"></a>简明定义</h1><p>我们先回顾一下这几种树的定义，为继续下一步的讨论建立共识。</p>
 <h3 id="二叉搜索树-BST"><a href="#二叉搜索树-BST" class="headerlink" title="二叉搜索树(BST)"></a>二叉搜索树(BST)</h3><p>简明BST递归定义(Knuth Donald)：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对于任意一个节点均满足：</span><br><span class="line"><span class="bullet">1. </span>所有位于左子树的节点值均比该节点值小</span><br><span class="line"><span class="bullet">2. </span>所有位于右子树的节点值均大于等于该节点值</span><br><span class="line"><span class="bullet">3. </span>所有左子树和右子树也必须是BST</span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>对于任意一个节点均满足：<br>1. 所有位于左子树的节点值均比该节点值小<br>2. 所有位于右子树的节点值均大于等于该节点值<br>3. 所有左子树和右子树也必须是BST<br></td></tr></table>
+
 <h3 id="AVL"><a href="#AVL" class="headerlink" title="AVL"></a>AVL</h3><p>简明AVL定义(Knuth Donald)：</p>
 <p>对于任意一个节点均满足：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 左子树和右子树的高度差小于等于<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 左子树和右子树的高度差小于等于1<br></td></tr></table>
+
 <h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><p>简明RBTREE定义(Knuth Donald)：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>每个节点要么是红色，要么是黑色</span><br><span class="line"><span class="bullet">2. </span>根节点是黑色</span><br><span class="line"><span class="bullet">3. </span>所有叶节点(NIL)都是黑色</span><br><span class="line"><span class="bullet">4. </span>如果一个节点是红色，那么它的两个孩子都是黑色</span><br><span class="line"><span class="bullet">5. </span>从任意一个节点出发，到达其后代NIL节点的路径中都包含相同个数的黑节点</span><br></pre></td></tr></table></figure>
-<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>定义Branch Factor: <strong>b</strong> 为一个节点可以拥有的最大子节点的个数，那么：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 对于根节点，如果整棵树的节点个数大于<span class="number">1</span>，那么根节点的子节点数量大于等于<span class="number">2</span></span><br><span class="line"><span class="number">2.</span> 对于内部节点，其子节点个数m必须满足 b/<span class="number">2</span> &lt;= m &lt;= b</span><br><span class="line"><span class="number">3.</span> 对于叶节点，其子节点个数m必须满足 b/<span class="number">2</span> &lt;= m &lt;= b</span><br><span class="line"><span class="number">4.</span> 每个节点内部的<span class="type">key</span>值是已经排序的</span><br><span class="line"><span class="number">5.</span> 叶节点之间以linked <span class="type">list</span>方式相连并且是有序的</span><br><span class="line"><span class="number">6.</span> 从根节点到叶节点的路径长度均相同</span><br></pre></td></tr></table></figure></p>
-<h3 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">BST:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/Binary_search_tree</span></span><br><span class="line"><span class="string">AVL:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/AVL_tree</span></span><br><span class="line"><span class="string">RBTREE:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/Red%E2%80%93black_tree</span></span><br><span class="line">B+<span class="string">TREE:</span> <span class="string">https:</span><span class="comment">//en.wikipedia.org/wiki/B%2B_tree</span></span><br></pre></td></tr></table></figure>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 每个节点要么是红色，要么是黑色<br>2. 根节点是黑色<br>3. 所有叶节点(NIL)都是黑色<br>4. 如果一个节点是红色，那么它的两个孩子都是黑色<br>5. 从任意一个节点出发，到达其后代NIL节点的路径中都包含相同个数的黑节点<br></td></tr></table>
+
+<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>定义Branch Factor: <strong>b</strong> 为一个节点可以拥有的最大子节点的个数，那么：</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. 对于根节点，如果整棵树的节点个数大于1，那么根节点的子节点数量大于等于2<br>2. 对于内部节点，其子节点个数m必须满足 b/2 &lt;= m &lt;= b<br>3. 对于叶节点，其子节点个数m必须满足 b/2 &lt;= m &lt;= b<br>4. 每个节点内部的key值是已经排序的<br>5. 叶节点之间以linked list方式相连并且是有序的<br>6. 从根节点到叶节点的路径长度均相同<br></td></tr></table>
+
+<h3 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h3><table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>BST: <a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Binary_search_tree</a><br>AVL: <a href="https://en.wikipedia.org/wiki/AVL_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/AVL_tree</a><br>RBTREE: <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Red%E2%80%93black_tree</a><br>B+TREE: <a href="https://en.wikipedia.org/wiki/B%2B_tree" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/B%2B_tree</a><br></td></tr></table>
+
 <h1 id="树的特性"><a href="#树的特性" class="headerlink" title="树的特性"></a>树的特性</h1><p>基于上面对各种树的定义，我们可以推出它们的一些相关特性，本节我们将会罗列并解析这几种树的一些相关特性。</p>
 <h2 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h2><p>我们先比较一下它的在进行各种操作时的复杂度：<br><img src="/resources/res/Interview1/Interview1_tree_complexity.png" alt="Complexity"></p>
 <p>上面表格每个单元格显示的是<code>平均复杂度/最差复杂度</code>。我们可以看到除了BST外，其他树在查找，插入和删除操作时的复杂度均为O(logn)，因为它们都是平衡树，而BST不是。相同的渐近复杂度并不意味着它们毫无区别，毕竟它们可能会相差数倍的关系。接下来我们会描述这些树的一些具体特性，并突出它们的主要区别。</p>
@@ -157,7 +239,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="cjyabpi81000ioi0zird7e8pw" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="ck35wll8i000dqw0zovo9p0ed" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +288,9 @@ ga('send', 'pageview');
 </ol>
 <h1 id="Request-message-format"><a href="#Request-message-format" class="headerlink" title="Request message format"></a>Request message format</h1><p>Let’s take a look at a typical example of http request:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /path/to/resource HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)</span><br><span class="line">Host: www.kelvin.ink</span><br><span class="line">Content-Type: text/xml; charset=utf-8</span><br><span class="line">Content-Length: length</span><br><span class="line">Accept-Language: en-us</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">xmlns</span>=<span class="string">"http://hello.com/"</span>&gt;</span>string<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>A http request is composed of three parts: <em>request line</em>, <em>header</em> and <em>request body</em>. Where<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Request-Line = <span class="function"><span class="keyword">Method</span> <span class="title">SP</span> <span class="title">Request</span>-<span class="title">URI</span> <span class="title">SP</span> <span class="title">HTTP</span>-<span class="title">Version</span> <span class="title">CRLF</span></span></span><br></pre></td></tr></table></figure></p>
+<p>A http request is composed of three parts: <em>request line</em>, <em>header</em> and <em>request body</em>. Where</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>Request-Line = Method SP Request-URI SP HTTP-Version CRLF<br></td></tr></table>
+
 <p>Where SP represents space and CRLF represents carrige return line feed.</p>
 <p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components.png" width="350px"></p>
 <p>The following figure shows the detail format of a HTTP datagram. <strong>Method</strong> can be one of <em>GET</em>, <em>PUT</em>, <em>POST</em>, <em>DELETE</em> .etc. And for the <strong>header</strong> field, you can specify some basic info such as <em>host</em>, <em>Accept-Language</em>, <em>Content-Type</em> for the request. Other fields are for advanced users, for example, if you want to crawl web content with spider, you can frequently change your User-Agent to pretend to be a normal human. You may also want to keep the connection alive by specifying the Connection field.</p>
@@ -216,7 +300,9 @@ ga('send', 'pageview');
 <h1 id="Response-message-format"><a href="#Response-message-format" class="headerlink" title="Response message format"></a>Response message format</h1><p>The format of HTTP response is similar to that of HTTP request.</p>
 <p>Let’s checkout a typical http response first:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sun, 30 Jun 2019 14:55:19 GMT</span><br><span class="line">Expires: -1</span><br><span class="line">Cache-Control: private, max-age=0</span><br><span class="line">Content-Type: text/html; charset=ISO-8859-1</span><br><span class="line">P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span><br><span class="line">Server: gws</span><br><span class="line">X-XSS-Protection: 0</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">Set-Cookie: 1P_JAR=2019-06-30-14; expires=Tue, 30-Jul-2019 14:55:19 GMT; path=/; domain=.google.com</span><br><span class="line">Set-Cookie: NID=186=Igr9gPUb8HL-S-iDsDtkEqrqPdEsWE19BA4R-EZ3gUeCnbE1tdG1t0irtfiiEOL7ZenA3ukMB7l4qG9TBwcKXrra7GLPmMpuShtKWaCrH1nnGJbqysRB8mvtPcAp9LC4nAmuYU6xG78FAnkNCaAOKrIiSqi7rseO9_w4JPBjW8Y; expires=Mon, 30-Dec-2019 14:55:19 GMT; path=/; domain=.google.com; HttpOnly</span><br><span class="line">Accept-Ranges: none</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span><span class="tag">&lt;<span class="name">html</span> <span class="attr">itemscope</span>=<span class="string">""</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WebPage"</span> <span class="attr">lang</span>=<span class="string">"zh-HK"</span>&gt;</span><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"/images/br ..........</span></span></span><br></pre></td></tr></table></figure>
-<p>A http response include three major components: <em>status line</em>, <em>header</em>, <em>reponse body</em>. Where<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Status-Line</span> = HTTP-Version <span class="keyword">SP</span> Status-Code <span class="keyword">SP</span> Reason-Phrase <span class="keyword">CRLF</span></span><br></pre></td></tr></table></figure></p>
+<p>A http response include three major components: <em>status line</em>, <em>header</em>, <em>reponse body</em>. Where </p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF<br></td></tr></table>
+
 <p><img alt="HTTP Response" src="/resources/res/HttpIntroduction/http_response_components_details.png" width="470px"></p>
 <p>Basically, fields in a HTTP response tells us about the status of the http connection, information about the server, and some useful info for further access. For example, <em>Status-Code</em> tells us the healthiness of the connection, <em>Server</em> field tells us the identity of response server, and <em>Set-Cookie</em> sets a cookie on client side for later access.</p>
 <h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>We have talked about <em>HTTP1.0</em> and <em>HTTP1.1</em>. What they are and for what purpose. We have also compared the differences between the two. But we haven’t discussed <em>HTTP2.0</em> yet, this may be included in other posts or be expanded in this post later. Thanks!</p>
@@ -224,101 +310,10 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjyabpi7z000goi0zpzxft9ff" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="ck35wll8o000mqw0zaem8pmzg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-IPC_and_Synchronization" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/27/IPC_and_Synchronization/" class="article-date">
-  <time datetime="2018-10-27T11:12:45.000Z" itemprop="datePublished">2018-10-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/27/IPC_and_Synchronization/">Interprocess Communication and Synchronization</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this article, we are going to introduce interprocess communication(IPC)—a mechanism for processes to <strong>synchronize</strong> and <strong>communicate</strong> with each other. After reading this article you will understand:</p>
-<ul>
-<li>Why do we need interprocess communication(IPC)<br>[Ans: Synchronization &amp; Communication]</li>
-<li>Two approaches for IPC<br>[Ans: Shared memory &amp; Message passing]</li>
-<li>Why do we need synchronization for shared memory methods<br>[Ans: Race condition]</li>
-<li>Methods for shared memory synchronization<br>[Ans: Mutex, Semaphore, Monitor]</li>
-<li>Differences among shared memory synchronization methods </li>
-<li>What message passing methods do we have<br>[Ans: In linux: Pipe, Message queue, socket…]</li>
-<li>How to categorize message passing methods<br>[Ans: Blocking, Addressing, Queuing]</li>
-</ul>
-<p>Let me show you a mind map for interprocess communication. It also shows the structure of this article.<br>You may download the <a href="/resources/res/IPC_and_Synchronization/IPC_MindMap.pdf">PDF Version Here</a><br><img src="/resources/res/IPC_and_Synchronization/IPC_MindMap.png" alt=""></p>
-<h1 id="Why-Interprocess-Communication"><a href="#Why-Interprocess-Communication" class="headerlink" title="Why Interprocess Communication"></a>Why Interprocess Communication</h1><p>Cooperating processes frequently need to communicate with each other to ensure works are correctly done. Sometimes,the correctness of the executing results depend on the executing sequence of cooperating processes. At this scenario, we need to enforce <strong>synchronization</strong> to make sure we can get the correct results. Sometimes the execution of one process may require the result of another process. At this scenario, we need a <strong>communication</strong> mechanism for those processes to talk to each other.</p>
-<h1 id="Two-Approaches-for-IPC"><a href="#Two-Approaches-for-IPC" class="headerlink" title="Two Approaches for IPC"></a>Two Approaches for IPC</h1><p>Here is where IPC comes to rescue. There are two approaches that can be used for IPC. One is <strong>shared memory</strong>, and the other is <strong>message passing</strong>. We will address the details of them in the following sections.</p>
-<h1 id="Shared-Memory-IPC"><a href="#Shared-Memory-IPC" class="headerlink" title="Shared Memory IPC"></a>Shared Memory IPC</h1><p>Cooperating processes may communicate by <strong>sharing</strong> the same piece of memory. One process can write some data to a piece of shared memory, and another process can read from the same piece of memory directly. When doing so, you need to be careful. Otherwise, The executing result may not be the same as your expectation. To understand why, we explain the concept of race condition first.</p>
-<h2 id="Race-Condition"><a href="#Race-Condition" class="headerlink" title="Race Condition"></a>Race Condition</h2><p>A race condition occurs when multiple processes or threads try to read and write data items at the same piece of shared memory, so that the <strong>final result</strong> depends on the <strong>order</strong> of execution of instructions.</p>
-<p><strong>Example:</strong><br>Suppose process 1 and process 2 are sharing the same data <code>counter</code> , race condition may happens as follows:<br><img src="/resources/res/IPC_and_Synchronization/RaceCondition1.png" alt="Race Condition 1" width="35%"><br>The satements can be break down into three lines of assembly instructions correspondingly:<br><img src="/resources/res/IPC_and_Synchronization/RaceCondition2.png" alt="Race Condition2" width="33%"><br>When <strong>context switch</strong> happens in the <strong>middle</strong> of the three lines of instructions, unexpected results may happens(Try it!). This demonstrate the so called race condition.</p>
-<h2 id="Critical-Section-Problem"><a href="#Critical-Section-Problem" class="headerlink" title="Critical Section Problem"></a>Critical Section Problem</h2><p>To solve race condition problem, we define a problem called critical section problem.<br><strong>Definition:</strong><br>Critical section is the part of program where shared memory is accessed.<br><strong>Definition:</strong><br>Critical section problem: Find solutions that arrange the cooperating processes properly, so that no two processes were ever in their critical sections at the same time.</p>
-<h2 id="Solution-Criteria"><a href="#Solution-Criteria" class="headerlink" title="Solution Criteria"></a>Solution Criteria</h2><p>To satisfy the requirements of critical section problems and other concerns like fairness, efficiency, our solutions should try to fulfill the three criteria below:</p>
-<ol>
-<li><strong>Mutual Exclusion:</strong> No two processes can enter their critical sections at the same time.</li>
-<li><strong>Progress:</strong> If no process is executing its critical section, then one of the waiting processes can enter its critical section.</li>
-<li><strong>Bounded Waiting:</strong> No infinite wait for a process.</li>
-</ol>
-<h2 id="Hardware-Supports-for-Shared-Memory-Synchronization"><a href="#Hardware-Supports-for-Shared-Memory-Synchronization" class="headerlink" title="Hardware Supports for Shared Memory Synchronization"></a>Hardware Supports for Shared Memory Synchronization</h2><p>We are going to introduce two hardware supports for shared memory synchronization. They may be used for implementing software synchronization algorithms like mutex, semaphore. You may wonder what is hardware supporting for software synchronization algorithms. The answer is that hardware provides <strong>atomic operation</strong> for software algorithms. So the following hardware functionalities are all atomic operations.</p>
-<h3 id="Test-and-Set"><a href="#Test-and-Set" class="headerlink" title="Test and Set"></a>Test and Set</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/testAndSet.png" alt="" width="35%"><br><em>Notes: Test and set is supported by hardware, which ensures that it runs atomically.</em></p>
-<h3 id="Compare-and-Swap"><a href="#Compare-and-Swap" class="headerlink" title="Compare and Swap"></a>Compare and Swap</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/CAS.png" alt="" width="55%"><br><em>Notes: Compare and swap is supported by hardware, which ensures that it runs atomically.</em></p>
-<h2 id="Software-solutions-for-Shared-Memory-Synchronization"><a href="#Software-solutions-for-Shared-Memory-Synchronization" class="headerlink" title="Software solutions for Shared Memory Synchronization"></a>Software solutions for Shared Memory Synchronization</h2><p>Remind you again, this article is not explaining the details of these algorithms, but to <strong>relate</strong> them together. We divide them into two parts— <strong>primitive</strong> and <strong>advanced</strong>. Advanced algorithms are supported by primitive algorithms/mechanisms as well as hardware algorithms like test and set. There are four primitive algorithms/mechanisms: Lock variables, Taking turns, Peterson’s algorithm and Bakery algorithm; and three advanced algorithms: Mutex, Semaphore and Monitor. We will illustrate them one by one in the following sections. Before then, we would like to show you the relationships among them first:<br><img src="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmRelationship.png" alt="Synchronization Algorithm Relationship" width="70%"></p>
-<p>Now, let’s define them one by one:</p>
-<h3 id="Lock-Variable-Mechanism"><a href="#Lock-Variable-Mechanism" class="headerlink" title="Lock Variable Mechanism"></a>Lock Variable Mechanism</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/lockVariable.png" alt="" width="48%"></p>
-<h3 id="Taking-Turns-Mechanism"><a href="#Taking-Turns-Mechanism" class="headerlink" title="Taking Turns Mechanism"></a>Taking Turns Mechanism</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/takingTurns.png" alt="" width="48%"></p>
-<h3 id="Peterson’s-Algorithm"><a href="#Peterson’s-Algorithm" class="headerlink" title="Peterson’s Algorithm"></a>Peterson’s Algorithm</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/peterson.png" alt="" width="48%"></p>
-<h3 id="Bakery-Algorithm"><a href="#Bakery-Algorithm" class="headerlink" title="Bakery Algorithm"></a>Bakery Algorithm</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/bakery.png" alt="" width="48%"></p>
-<h3 id="Mutex"><a href="#Mutex" class="headerlink" title="Mutex"></a>Mutex</h3><p><strong>Difinition:</strong><br><img src="/resources/res/IPC_and_Synchronization/mutex.png" alt="" width="48%"><br><em>Notes: The two operations(entry_section() and exit_section()) must be atomic, which can be implemented by test and set or compare and swap.</em></p>
-<h3 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h3><p><strong>Definition:</strong><br><img src="/resources/res/IPC_and_Synchronization/semaphore.png" alt="" width="48%"><br><em>Notes: The two operations must be atomic, which can be implemented by test and set or compare and swap.</em></p>
-<h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h3><p><strong>Definition:</strong><br>Monitor is an <strong>abstract data type</strong> that provides mutual exclusive operations. The monitor construct ensures that <strong>only one</strong> process at a time is <strong>active</strong> within the monitor. Monitors are provided by operating systems, programmers do not need to worry about how to implement them.</p>
-<h3 id="Put-them-Altogether"><a href="#Put-them-Altogether" class="headerlink" title="Put them Altogether"></a>Put them Altogether</h3><p>Putting all of the synchronization algorithms/mechanisms together:<br>You may download the <a href="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithms.pdf">PDF Version Here</a><br><img src="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithms.png" alt="Synchronization Algorithm Properties" width="68%"></p>
-<p>The following table shows the properties of those software synchronization algorithms above:<br>You can also download its <a href="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmProperties.pdf">PDF Version Here</a><br><img src="/resources/res/IPC_and_Synchronization/SynchronizationAlgorithmProperties.png" alt="Synchronization Algorithm Properties" width="80%"></p>
-<h1 id="Message-Passing-IPC"><a href="#Message-Passing-IPC" class="headerlink" title="Message Passing IPC"></a>Message Passing IPC</h1><p>To communicate with other processes, shared memory IPC enforces many synchronization constraints. For message passing IPC, we do not need to care much about synchronization problems(we do, but not much). We can categorize message passing IPC methods from three dimensions: <strong>blocking</strong> , <strong>addressing</strong>, <strong>queuing</strong>.</p>
-<h2 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h2><p>The blocking property describes how message passing processes are <strong>synchronized</strong>.</p>
-<p><strong>Sender:</strong></p>
-<ul>
-<li>Blocking: The sending process is blocked until message is received.</li>
-<li>Nonblocking: Send and go away.</li>
-</ul>
-<p><strong>Receiver:</strong></p>
-<ul>
-<li>Blocking: If no waiting message present, the receiver process is blocked until message come.</li>
-<li>Nonblocking: Try to receive, and go away.</li>
-</ul>
-<h2 id="Addressing"><a href="#Addressing" class="headerlink" title="Addressing"></a>Addressing</h2><p>The addressing property describes the <strong>destination</strong> of the message. A message may be delivered to the receiver <strong>directly</strong> or to a <strong>mail-box</strong> for the receiver to collect later on(Indirectly).</p>
-<h2 id="Queuing"><a href="#Queuing" class="headerlink" title="Queuing"></a>Queuing</h2><p>The queuing property describes the <strong>receiving order</strong> of messages on the receiver side. It may be FIFO or priority based.</p>
-<h2 id="Linux-Message-Passing-IPC"><a href="#Linux-Message-Passing-IPC" class="headerlink" title="Linux Message Passing IPC"></a>Linux Message Passing IPC</h2><p>In linux system, there are about five basic types of message passing IPC methods: anonymous pipe, named pipe, signal, message queue and socket. The following table is trying to compare them by the three properties discussed above.<br><img src="/resources/res/IPC_and_Synchronization/LinuxIPCProperties.png" alt="Linux IPC Methods Properties" width="90%"></p>
-<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>//Todo</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/10/27/IPC_and_Synchronization/" data-id="cjyabpi9o001soi0z556t40oq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
 
     </footer>
   </div>
@@ -362,7 +357,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -371,7 +366,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -382,6 +377,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+          </li>
         
           <li>
             <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
@@ -397,10 +396,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
           </li>
         
       </ul>

@@ -32,7 +32,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://kelvin.ink/resources/res/ExplainingTCP_IP/TCP_header.jpeg">
 <meta property="og:image" content="http://kelvin.ink/resources/res/ExplainingTCP_IP/WebBrowserScenario.jpg">
 <meta property="og:image" content="http://kelvin.ink/resources/res/ExplainingTCP_IP/Tcp_connection_close.png">
-<meta property="og:updated_time" content="2018-12-09T19:25:05.360Z">
+<meta property="og:updated_time" content="2019-11-19T14:21:48.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Explaining TCP&#x2F;IP">
 <meta name="twitter:description" content="TCP/IP HeaderUDP Header UDP Header Terms Explanation Source port : Sender’s port number, for de/multiplexing  Destination port : Receiver’s port number, for de/multiplexing  Length : Length in bytes i">
@@ -150,38 +150,40 @@ ga('send', 'pageview');
 </ul>
 <p>If you got confused with the terms above, please refer to this <a href="https://nmap.org/book/tcpip-ref.html" target="_blank" rel="noopener">Internet protocol header quick reference</a></p>
 <h2 id="TCP-UDP-Multiplexing-and-Demultiplexing"><a href="#TCP-UDP-Multiplexing-and-Demultiplexing" class="headerlink" title="TCP/UDP Multiplexing and Demultiplexing"></a>TCP/UDP Multiplexing and Demultiplexing</h2><h3 id="UDP-De-Multiplexing"><a href="#UDP-De-Multiplexing" class="headerlink" title="UDP De/Multiplexing"></a>UDP De/Multiplexing</h3><p>The de/multiplexing of UDP protocol is done by recognizing 2 tuples:</p>
-<pre><code>1. Destination IP
-2. Destination Port Number
-</code></pre><p>When a segment is received by the receiver’s transport layer. It will be direct to the socket which bind on the destination port. Note that in principle, one process(may have multiple thread and multiple sockets) can only bind on one port.</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. Destination IP<br>2. Destination Port Number<br></td></tr></table>
+
+<p>When a segment is received by the receiver’s transport layer. It will be direct to the socket which bind on the destination port. Note that in principle, one process(may have multiple thread and multiple sockets) can only bind on one port.</p>
 <h3 id="TCP-De-Multiplexing"><a href="#TCP-De-Multiplexing" class="headerlink" title="TCP De/Multiplexing"></a>TCP De/Multiplexing</h3><p>The de/multiplexing of TCP protocol is done by recognizing 4 tuples:</p>
-<pre><code>1. Source IP
-2. Source Port Number
-3. Destination IP
-4. Destination Port Number
-</code></pre><p>The TCP protocol will create a distinct socket for each connection with different 4 tuples. This characteristic has been used by web browsers to download web page objects in parallel. When a segment is received by the receiver’s transport layer. It will be direct to the socket whose 4 tuples match the 4 tuples of the segment.</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. Source IP<br>2. Source Port Number<br>3. Destination IP<br>4. Destination Port Number<br></td></tr></table>
+
+<p>The TCP protocol will create a distinct socket for each connection with different 4 tuples. This characteristic has been used by web browsers to download web page objects in parallel. When a segment is received by the receiver’s transport layer. It will be direct to the socket whose 4 tuples match the 4 tuples of the segment.</p>
 <h4 id="Web-Browser-Scenario"><a href="#Web-Browser-Scenario" class="headerlink" title="Web Browser Scenario"></a>Web Browser Scenario</h4><p>In this scenario, we are going to show how web browsers download web page objects in parallel. </p>
 <p><img src="/resources/res/ExplainingTCP_IP/WebBrowserScenario.jpg" alt="UDP Header"></p>
 <p>As can be seen from the image, <strong>n</strong> sockets are binding on port <strong>80</strong>. All of these sockets are belong to the web service process of the server. While in the client side, the web browser process created multiple threads which each has its own socket. If you are careful enough, you can notice that the only difference between the n TCP headers is the <strong>Source port</strong> field. This is how the parallel downloading works. In words, the client side create multi-thread at the first step. Then it establish multiple TCP connections by changing only the source port number field.</p>
 <h2 id="TCP-Connection-Establishment-and-Tear-Down"><a href="#TCP-Connection-Establishment-and-Tear-Down" class="headerlink" title="TCP Connection Establishment and Tear Down"></a>TCP Connection Establishment and Tear Down</h2><h3 id="TCP-Connection-Establish"><a href="#TCP-Connection-Establish" class="headerlink" title="TCP Connection Establish"></a>TCP Connection Establish</h3><p>The TCP connection establishment procedure is also referred as <strong>three-way handshake</strong>. </p>
-<p><strong>Step 1. (SYN segment)</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Client Side</span></span><br><span class="line"><span class="comment">//Set "SYN" header field</span></span><br><span class="line">SYN = <span class="number">1</span></span><br><span class="line"><span class="comment">//Choose an initial sequence number "client_initialSequenceNum"</span></span><br><span class="line">client_initialSequenceNum = random()</span><br><span class="line"><span class="comment">//Set "Sequence number" header field</span></span><br><span class="line">Sequence number = client_initialSequenceNum</span><br><span class="line"><span class="comment">//Fill the other fields and send the packet</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>Step 2. (SYNACK segment)</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Server Side</span></span><br><span class="line"><span class="comment">//Allocate buffers and variables for the connection</span></span><br><span class="line"><span class="comment">//Set "SYN" header field</span></span><br><span class="line">SYN = <span class="number">1</span></span><br><span class="line"><span class="comment">//Set "Acknowledgment number" header field</span></span><br><span class="line">Acknowledgment number = client_initialSequenceNum + <span class="number">1</span></span><br><span class="line"><span class="comment">//Choose an initial sequence number "server_initialSequenceNum"</span></span><br><span class="line">server_initialSequenceNum = random()</span><br><span class="line"><span class="comment">//Set "Sequence number" header field</span></span><br><span class="line">Sequence number = server_initialSequenceNum</span><br><span class="line"><span class="comment">//Fill the other fields and send the packet</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>Step 3. (ACK segment)</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Client Side</span></span><br><span class="line"><span class="comment">//Set "SYN" header field</span></span><br><span class="line">SYN = <span class="number">0</span></span><br><span class="line"><span class="comment">//Set "Acknowledgment number" header field</span></span><br><span class="line">Acknowledgment number = server_initialSequenceNum + <span class="number">1</span></span><br><span class="line"><span class="comment">//Set "Sequence number" header field</span></span><br><span class="line">Sequence number = client_initialSequenceNum</span><br><span class="line"><span class="comment">//Fill the other fields and send the packet</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Step 1. (SYN segment)</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//Client Side<br>//Set “SYN” header field<br>SYN = 1<br>//Choose an initial sequence number “client_initialSequenceNum”<br>client_initialSequenceNum = random()<br>//Set “Sequence number” header field<br>Sequence number = client_initialSequenceNum<br>//Fill the other fields and send the packet<br></td></tr></table>
+
+<p><strong>Step 2. (SYNACK segment)</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//Server Side<br>//Allocate buffers and variables for the connection<br>//Set “SYN” header field<br>SYN = 1<br>//Set “Acknowledgment number” header field<br>Acknowledgment number = client_initialSequenceNum + 1<br>//Choose an initial sequence number “server_initialSequenceNum”<br>server_initialSequenceNum = random()<br>//Set “Sequence number” header field<br>Sequence number = server_initialSequenceNum<br>//Fill the other fields and send the packet<br></td></tr></table>
+
+<p><strong>Step 3. (ACK segment)</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//Client Side<br>//Set “SYN” header field<br>SYN = 0<br>//Set “Acknowledgment number” header field<br>Acknowledgment number = server_initialSequenceNum + 1<br>//Set “Sequence number” header field<br>Sequence number = client_initialSequenceNum<br>//Fill the other fields and send the packet<br></td></tr></table>
+
 <h3 id="TCP-Connection-Tear-Down"><a href="#TCP-Connection-Tear-Down" class="headerlink" title="TCP Connection Tear Down"></a>TCP Connection Tear Down</h3><p>This image is already self explanatory.</p>
 <p><img src="/resources/res/ExplainingTCP_IP/Tcp_connection_close.png" alt="TCP Connection Tear Down"></p>
 <h3 id="TCP-Connection-Reject"><a href="#TCP-Connection-Reject" class="headerlink" title="TCP Connection Reject"></a>TCP Connection Reject</h3><p>If there is no socket binding on the destination port or the application bound on the port reject to serve the host. The server will reply a packet with</p>
-<pre><code>RST = 1
-</code></pre><h2 id="Mechanism-used-in-TCP"><a href="#Mechanism-used-in-TCP" class="headerlink" title="Mechanism used in TCP"></a>Mechanism used in TCP</h2><h3 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h3><p>Timeout interval is set by</p>
-<pre><code>EstimateRoundTripTime = (1-a)EstimateRoundTripTime + a * SampleRoundTripTime
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>RST = 1<br></td></tr></table>
 
-DeviateRoundTripTime = (1-b)DeviateRoundTripTime + b * |SampleRoundTripTime-EstimateRoundTripTime|
+<h2 id="Mechanism-used-in-TCP"><a href="#Mechanism-used-in-TCP" class="headerlink" title="Mechanism used in TCP"></a>Mechanism used in TCP</h2><h3 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h3><p>Timeout interval is set by</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>EstimateRoundTripTime = (1-a)EstimateRoundTripTime + a <em> SampleRoundTripTime<br><br>DeviateRoundTripTime = (1-b)DeviateRoundTripTime + b </em> |SampleRoundTripTime-EstimateRoundTripTime|<br><br>TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime<br></td></tr></table>
 
-TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
-</code></pre><p>Where <code>a</code> and <code>b</code> are parameters specified by users(network administrator). <strong>Round-trip time (RTT)</strong> is the length of time it takes for a signal to be sent plus the length of time it takes for an acknowledgement of that signal to be received. </p>
+<p>Where <code>a</code> and <code>b</code> are parameters specified by users(network administrator). <strong>Round-trip time (RTT)</strong> is the length of time it takes for a signal to be sent plus the length of time it takes for an acknowledgement of that signal to be received. </p>
 <h3 id="Sequence-Number"><a href="#Sequence-Number" class="headerlink" title="Sequence Number"></a>Sequence Number</h3><h3 id="Acknowledgment"><a href="#Acknowledgment" class="headerlink" title="Acknowledgment"></a>Acknowledgment</h3><h3 id="Receive-Window"><a href="#Receive-Window" class="headerlink" title="Receive Window"></a>Receive Window</h3><h3 id="Sliding-Window"><a href="#Sliding-Window" class="headerlink" title="Sliding Window"></a>Sliding Window</h3><h2 id="Why-Why-Why-of-TCP-IP"><a href="#Why-Why-Why-of-TCP-IP" class="headerlink" title="Why Why Why of TCP/IP"></a>Why Why Why of TCP/IP</h2><h3 id="Why-Three-way-Handshake"><a href="#Why-Three-way-Handshake" class="headerlink" title="Why Three-way Handshake"></a>Why Three-way Handshake</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/18/ExplainingTCP_IP/" data-id="cjyabpi7w000boi0zr8y2c3xe" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/18/ExplainingTCP_IP/" data-id="ck35wll8g000bqw0zs3tp1lgw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -240,7 +242,7 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -249,7 +251,7 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -260,6 +262,10 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+          </li>
         
           <li>
             <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
@@ -275,10 +281,6 @@ TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime
         
           <li>
             <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
           </li>
         
       </ul>

@@ -83,6 +83,114 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-ExplainingTCP_IP" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/18/ExplainingTCP_IP/" class="article-date">
+  <time datetime="2018-06-18T15:51:33.000Z" itemprop="datePublished">2018-06-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/18/ExplainingTCP_IP/">Explaining TCP/IP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="TCP-IP-Header"><a href="#TCP-IP-Header" class="headerlink" title="TCP/IP Header"></a>TCP/IP Header</h2><h3 id="UDP-Header"><a href="#UDP-Header" class="headerlink" title="UDP Header"></a>UDP Header</h3><p><img src="/resources/res/ExplainingTCP_IP/UDP_header.jpg" alt="UDP Header"></p>
+<h4 id="UDP-Header-Terms-Explanation"><a href="#UDP-Header-Terms-Explanation" class="headerlink" title="UDP Header Terms Explanation"></a>UDP Header Terms Explanation</h4><ul>
+<li><code>Source port</code> : Sender’s port number, for de/multiplexing </li>
+<li><code>Destination port</code> : Receiver’s port number, for de/multiplexing </li>
+<li><code>Length</code> : Length in bytes including UDP header and UDP data</li>
+<li><code>Checksum</code> : <ol>
+<li>Adding 16 bits <code>Source port</code> , <code>Destination port</code> , <code>Length</code> , <code>16 bits data</code>(padding with 0 if necessary)</li>
+<li>Wrap around in case of overflow(not in the end, but in the whole process)</li>
+<li>Return 1’s complement</li>
+</ol>
+</li>
+<li><code>DATA</code> : Data from application layer</li>
+</ul>
+<h3 id="TCP-Header"><a href="#TCP-Header" class="headerlink" title="TCP Header"></a>TCP Header</h3><p><img src="/resources/res/ExplainingTCP_IP/TCP_header.jpeg" alt="TCP Header" width="70%"></p>
+<h4 id="TCP-Header-Terms-Explanation"><a href="#TCP-Header-Terms-Explanation" class="headerlink" title="TCP Header Terms Explanation"></a>TCP Header Terms Explanation</h4><ul>
+<li><code>Source port</code> : Sender’s port number, for de/multiplexing </li>
+<li><code>Destination port</code> : Receiver’s port number, for de/multiplexing</li>
+<li><code>Sequence number</code> : Indicating the sequence number of this segment(sequence number of the first byte)</li>
+<li><code>Acknowledgment number</code> : The next expected segment sequence number from the other side(ex. I have received segment 1 and 2. I expect to receive segment 3 from you. In this case, the <em>Acknowledgment number</em> is 3)</li>
+<li><code>Header Length</code> : Length of the header in 32-bit words. Because <strong>Options</strong> field is variant.</li>
+<li><code>Reserved</code> : Unused yet</li>
+<li><code>URG</code> : Indicating data in this segment is <strong>urgent</strong>, location of the urgent data is specified by <em>urgent data pointer</em>.</li>
+<li><code>ACK</code>: Indicating that this is an <em>ACK segment</em>, and the value in <em>Acknowledgment number</em> field is valid</li>
+<li><code>PSH</code> : Indicate that this segment is high priority, the receiver should send it to upper layer immediately</li>
+<li><code>RST</code> : Reject TCP connection request</li>
+<li><code>SYN</code> : Request to establish TCP connection</li>
+<li><code>FIN</code> : Ready to close the TCP connection</li>
+<li><code>Window</code> : It’s used for <strong>flow control</strong>. It indicate the receive <strong>buffer size</strong> of this segment sender.</li>
+<li><code>TCP checksum</code> : Checksum of data and psudoheader</li>
+<li><code>Urgent data pointer</code> : When <strong>URG</strong> is turn on, it will point to the location of urgent data</li>
+<li><code>Options</code> : <ul>
+<li>Maximum segment size</li>
+<li>Window scale</li>
+<li>Selective Acknowledgement permitted.</li>
+<li>Timestamp</li>
+</ul>
+</li>
+<li><code>DATA</code> : Data from application layer</li>
+</ul>
+<p>If you got confused with the terms above, please refer to this <a href="https://nmap.org/book/tcpip-ref.html" target="_blank" rel="noopener">Internet protocol header quick reference</a></p>
+<h2 id="TCP-UDP-Multiplexing-and-Demultiplexing"><a href="#TCP-UDP-Multiplexing-and-Demultiplexing" class="headerlink" title="TCP/UDP Multiplexing and Demultiplexing"></a>TCP/UDP Multiplexing and Demultiplexing</h2><h3 id="UDP-De-Multiplexing"><a href="#UDP-De-Multiplexing" class="headerlink" title="UDP De/Multiplexing"></a>UDP De/Multiplexing</h3><p>The de/multiplexing of UDP protocol is done by recognizing 2 tuples:</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. Destination IP<br>2. Destination Port Number<br></td></tr></table>
+
+<p>When a segment is received by the receiver’s transport layer. It will be direct to the socket which bind on the destination port. Note that in principle, one process(may have multiple thread and multiple sockets) can only bind on one port.</p>
+<h3 id="TCP-De-Multiplexing"><a href="#TCP-De-Multiplexing" class="headerlink" title="TCP De/Multiplexing"></a>TCP De/Multiplexing</h3><p>The de/multiplexing of TCP protocol is done by recognizing 4 tuples:</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>1. Source IP<br>2. Source Port Number<br>3. Destination IP<br>4. Destination Port Number<br></td></tr></table>
+
+<p>The TCP protocol will create a distinct socket for each connection with different 4 tuples. This characteristic has been used by web browsers to download web page objects in parallel. When a segment is received by the receiver’s transport layer. It will be direct to the socket whose 4 tuples match the 4 tuples of the segment.</p>
+<h4 id="Web-Browser-Scenario"><a href="#Web-Browser-Scenario" class="headerlink" title="Web Browser Scenario"></a>Web Browser Scenario</h4><p>In this scenario, we are going to show how web browsers download web page objects in parallel. </p>
+<p><img src="/resources/res/ExplainingTCP_IP/WebBrowserScenario.jpg" alt="UDP Header"></p>
+<p>As can be seen from the image, <strong>n</strong> sockets are binding on port <strong>80</strong>. All of these sockets are belong to the web service process of the server. While in the client side, the web browser process created multiple threads which each has its own socket. If you are careful enough, you can notice that the only difference between the n TCP headers is the <strong>Source port</strong> field. This is how the parallel downloading works. In words, the client side create multi-thread at the first step. Then it establish multiple TCP connections by changing only the source port number field.</p>
+<h2 id="TCP-Connection-Establishment-and-Tear-Down"><a href="#TCP-Connection-Establishment-and-Tear-Down" class="headerlink" title="TCP Connection Establishment and Tear Down"></a>TCP Connection Establishment and Tear Down</h2><h3 id="TCP-Connection-Establish"><a href="#TCP-Connection-Establish" class="headerlink" title="TCP Connection Establish"></a>TCP Connection Establish</h3><p>The TCP connection establishment procedure is also referred as <strong>three-way handshake</strong>. </p>
+<p><strong>Step 1. (SYN segment)</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//Client Side<br>//Set “SYN” header field<br>SYN = 1<br>//Choose an initial sequence number “client_initialSequenceNum”<br>client_initialSequenceNum = random()<br>//Set “Sequence number” header field<br>Sequence number = client_initialSequenceNum<br>//Fill the other fields and send the packet<br></td></tr></table>
+
+<p><strong>Step 2. (SYNACK segment)</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//Server Side<br>//Allocate buffers and variables for the connection<br>//Set “SYN” header field<br>SYN = 1<br>//Set “Acknowledgment number” header field<br>Acknowledgment number = client_initialSequenceNum + 1<br>//Choose an initial sequence number “server_initialSequenceNum”<br>server_initialSequenceNum = random()<br>//Set “Sequence number” header field<br>Sequence number = server_initialSequenceNum<br>//Fill the other fields and send the packet<br></td></tr></table>
+
+<p><strong>Step 3. (ACK segment)</strong></p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//Client Side<br>//Set “SYN” header field<br>SYN = 0<br>//Set “Acknowledgment number” header field<br>Acknowledgment number = server_initialSequenceNum + 1<br>//Set “Sequence number” header field<br>Sequence number = client_initialSequenceNum<br>//Fill the other fields and send the packet<br></td></tr></table>
+
+<h3 id="TCP-Connection-Tear-Down"><a href="#TCP-Connection-Tear-Down" class="headerlink" title="TCP Connection Tear Down"></a>TCP Connection Tear Down</h3><p>This image is already self explanatory.</p>
+<p><img src="/resources/res/ExplainingTCP_IP/Tcp_connection_close.png" alt="TCP Connection Tear Down"></p>
+<h3 id="TCP-Connection-Reject"><a href="#TCP-Connection-Reject" class="headerlink" title="TCP Connection Reject"></a>TCP Connection Reject</h3><p>If there is no socket binding on the destination port or the application bound on the port reject to serve the host. The server will reply a packet with</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>RST = 1<br></td></tr></table>
+
+<h2 id="Mechanism-used-in-TCP"><a href="#Mechanism-used-in-TCP" class="headerlink" title="Mechanism used in TCP"></a>Mechanism used in TCP</h2><h3 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h3><p>Timeout interval is set by</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>EstimateRoundTripTime = (1-a)EstimateRoundTripTime + a <em> SampleRoundTripTime<br><br>DeviateRoundTripTime = (1-b)DeviateRoundTripTime + b </em> |SampleRoundTripTime-EstimateRoundTripTime|<br><br>TimeoutInterval = EstimateRoundTripTime + 4 * DeviateRoundTripTime<br></td></tr></table>
+
+<p>Where <code>a</code> and <code>b</code> are parameters specified by users(network administrator). <strong>Round-trip time (RTT)</strong> is the length of time it takes for a signal to be sent plus the length of time it takes for an acknowledgement of that signal to be received. </p>
+<h3 id="Sequence-Number"><a href="#Sequence-Number" class="headerlink" title="Sequence Number"></a>Sequence Number</h3><h3 id="Acknowledgment"><a href="#Acknowledgment" class="headerlink" title="Acknowledgment"></a>Acknowledgment</h3><h3 id="Receive-Window"><a href="#Receive-Window" class="headerlink" title="Receive Window"></a>Receive Window</h3><h3 id="Sliding-Window"><a href="#Sliding-Window" class="headerlink" title="Sliding Window"></a>Sliding Window</h3><h2 id="Why-Why-Why-of-TCP-IP"><a href="#Why-Why-Why-of-TCP-IP" class="headerlink" title="Why Why Why of TCP/IP"></a>Why Why Why of TCP/IP</h2><h3 id="Why-Three-way-Handshake"><a href="#Why-Three-way-Handshake" class="headerlink" title="Why Three-way Handshake"></a>Why Three-way Handshake</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kelvin.ink/2018/06/18/ExplainingTCP_IP/" data-id="ck35wll8g000bqw0zs3tp1lgw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-FindConsecutiveSequnces" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/16/FindConsecutiveSequnces/" class="article-date">
@@ -130,7 +238,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/16/FindConsecutiveSequnces/" data-id="cjyabpi7y000doi0zyd2u3ugk" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/16/FindConsecutiveSequnces/" data-id="ck35wll8n000jqw0zy16a7xly" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
@@ -176,60 +284,10 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/13/BlockchainBasedTIVS/" data-id="cjyabpi7t0008oi0zi7x3tsa8" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2018/06/13/BlockchainBasedTIVS/" data-id="ck35wll8d0008qw0zsc0xwqgz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blockchain/">Blockchain</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ML4_FeasibilityOfLearning" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/12/ML4_FeasibilityOfLearning/" class="article-date">
-  <time datetime="2018-06-12T12:12:45.000Z" itemprop="datePublished">2018-06-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/ml-ntu-notes/">Machine Learning NTU Notes</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/12/ML4_FeasibilityOfLearning/">Machine Learning Note 4 Feasibility of Machine Learning</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This page requires some PDF plugins. If you cannot see anything, please click this link: <a href="/resources/res/ML4_FeasibilityOfLearning/ML4_FeasibilityOfLearning.pdf">Download PDF</a><br>
-
-	<div class="row">
-    <embed src="/resources/res/ML4_FeasibilityOfLearning/ML4_FeasibilityOfLearning.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2018/06/12/ML4_FeasibilityOfLearning/" data-id="cjyabpi88000toi0zqkwl6uz7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
 
     </footer>
   </div>
@@ -273,7 +331,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -282,7 +340,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -293,6 +351,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+          </li>
         
           <li>
             <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
@@ -308,10 +370,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
           </li>
         
       </ul>

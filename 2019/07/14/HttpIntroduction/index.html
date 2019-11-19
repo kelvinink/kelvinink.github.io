@@ -32,7 +32,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_request_components.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_request_components_details_method.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/HttpIntroduction/http_response_components_details.png">
-<meta property="og:updated_time" content="2019-07-14T13:08:25.721Z">
+<meta property="og:updated_time" content="2019-11-19T14:22:28.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP Introduction">
 <meta name="twitter:description" content="What’s HTTPHTTP is a protocol that is used for the communication in world wide web. For example, when you try to google something, you need to enter http://www.google.com in your web browser address b">
@@ -126,7 +126,9 @@ ga('send', 'pageview');
 </ol>
 <h1 id="Request-message-format"><a href="#Request-message-format" class="headerlink" title="Request message format"></a>Request message format</h1><p>Let’s take a look at a typical example of http request:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /path/to/resource HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)</span><br><span class="line">Host: www.kelvin.ink</span><br><span class="line">Content-Type: text/xml; charset=utf-8</span><br><span class="line">Content-Length: length</span><br><span class="line">Accept-Language: en-us</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">xmlns</span>=<span class="string">"http://hello.com/"</span>&gt;</span>string<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>A http request is composed of three parts: <em>request line</em>, <em>header</em> and <em>request body</em>. Where<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Request-Line = <span class="function"><span class="keyword">Method</span> <span class="title">SP</span> <span class="title">Request</span>-<span class="title">URI</span> <span class="title">SP</span> <span class="title">HTTP</span>-<span class="title">Version</span> <span class="title">CRLF</span></span></span><br></pre></td></tr></table></figure></p>
+<p>A http request is composed of three parts: <em>request line</em>, <em>header</em> and <em>request body</em>. Where</p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>Request-Line = Method SP Request-URI SP HTTP-Version CRLF<br></td></tr></table>
+
 <p>Where SP represents space and CRLF represents carrige return line feed.</p>
 <p><img alt="HTTP Request" src="/resources/res/HttpIntroduction/http_request_components.png" width="350px"></p>
 <p>The following figure shows the detail format of a HTTP datagram. <strong>Method</strong> can be one of <em>GET</em>, <em>PUT</em>, <em>POST</em>, <em>DELETE</em> .etc. And for the <strong>header</strong> field, you can specify some basic info such as <em>host</em>, <em>Accept-Language</em>, <em>Content-Type</em> for the request. Other fields are for advanced users, for example, if you want to crawl web content with spider, you can frequently change your User-Agent to pretend to be a normal human. You may also want to keep the connection alive by specifying the Connection field.</p>
@@ -136,7 +138,9 @@ ga('send', 'pageview');
 <h1 id="Response-message-format"><a href="#Response-message-format" class="headerlink" title="Response message format"></a>Response message format</h1><p>The format of HTTP response is similar to that of HTTP request.</p>
 <p>Let’s checkout a typical http response first:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sun, 30 Jun 2019 14:55:19 GMT</span><br><span class="line">Expires: -1</span><br><span class="line">Cache-Control: private, max-age=0</span><br><span class="line">Content-Type: text/html; charset=ISO-8859-1</span><br><span class="line">P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span><br><span class="line">Server: gws</span><br><span class="line">X-XSS-Protection: 0</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">Set-Cookie: 1P_JAR=2019-06-30-14; expires=Tue, 30-Jul-2019 14:55:19 GMT; path=/; domain=.google.com</span><br><span class="line">Set-Cookie: NID=186=Igr9gPUb8HL-S-iDsDtkEqrqPdEsWE19BA4R-EZ3gUeCnbE1tdG1t0irtfiiEOL7ZenA3ukMB7l4qG9TBwcKXrra7GLPmMpuShtKWaCrH1nnGJbqysRB8mvtPcAp9LC4nAmuYU6xG78FAnkNCaAOKrIiSqi7rseO9_w4JPBjW8Y; expires=Mon, 30-Dec-2019 14:55:19 GMT; path=/; domain=.google.com; HttpOnly</span><br><span class="line">Accept-Ranges: none</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span><span class="tag">&lt;<span class="name">html</span> <span class="attr">itemscope</span>=<span class="string">""</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WebPage"</span> <span class="attr">lang</span>=<span class="string">"zh-HK"</span>&gt;</span><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"/images/br ..........</span></span></span><br></pre></td></tr></table></figure>
-<p>A http response include three major components: <em>status line</em>, <em>header</em>, <em>reponse body</em>. Where<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Status-Line</span> = HTTP-Version <span class="keyword">SP</span> Status-Code <span class="keyword">SP</span> Reason-Phrase <span class="keyword">CRLF</span></span><br></pre></td></tr></table></figure></p>
+<p>A http response include three major components: <em>status line</em>, <em>header</em>, <em>reponse body</em>. Where </p>
+<table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF<br></td></tr></table>
+
 <p><img alt="HTTP Response" src="/resources/res/HttpIntroduction/http_response_components_details.png" width="470px"></p>
 <p>Basically, fields in a HTTP response tells us about the status of the http connection, information about the server, and some useful info for further access. For example, <em>Status-Code</em> tells us the healthiness of the connection, <em>Server</em> field tells us the identity of response server, and <em>Set-Cookie</em> sets a cookie on client side for later access.</p>
 <h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>We have talked about <em>HTTP1.0</em> and <em>HTTP1.1</em>. What they are and for what purpose. We have also compared the differences between the two. But we haven’t discussed <em>HTTP2.0</em> yet, this may be included in other posts or be expanded in this post later. Thanks!</p>
@@ -144,7 +148,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="cjyabpi7z000goi0zpzxft9ff" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="ck35wll8o000mqw0zaem8pmzg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -203,7 +207,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 15px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 15px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
@@ -212,7 +216,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -223,6 +227,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/11/19/LinklistCycle/">寻找链表环入口的算法证明</a>
+          </li>
         
           <li>
             <a href="/2019/07/18/Interview1/">BST(非平衡),AVL,红黑树,B+树的区别与应用</a>
@@ -238,10 +246,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2018/10/20/DM_Note1/">DataMing Note 1 Data Mining Basics</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/14/UniprocessorSchedulingAlgorithm/">Uniprocessor Scheduling Algorithms</a>
           </li>
         
       </ul>
