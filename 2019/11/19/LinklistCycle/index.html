@@ -30,7 +30,7 @@ ga('send', 'pageview');
 <meta property="og:locale" content="En, ZH">
 <meta property="og:image" content="http://kelvin.ink/resources/res/LinklistCycle/circularlinkedlist.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/LinklistCycle/list_decomposite.png">
-<meta property="og:updated_time" content="2019-11-19T14:33:29.372Z">
+<meta property="og:updated_time" content="2019-11-19T14:42:08.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="寻找链表环入口的算法证明">
 <meta name="twitter:description" content="寻找链表环入口是一道经典算法题目Linked List Cycle II，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。 先回顾下题目：给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节">
@@ -109,36 +109,36 @@ ga('send', 'pageview');
       
         <p>寻找链表环入口是一道经典算法题目<a href="https://leetcode.com/problems/linked-list-cycle-ii" target="_blank" rel="noopener">Linked List Cycle II</a>，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。</p>
 <h3 id="先回顾下题目："><a href="#先回顾下题目：" class="headerlink" title="先回顾下题目："></a>先回顾下题目：</h3><p>给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节点值为2的指针。<br><img src="/resources/res/LinklistCycle/circularlinkedlist.png" alt="Circular Linked List" width="80%"></p>
-<p>本题的最优解法是使用<strong>快慢两个指针</strong>，都从head开始出发，慢指针每次走一步，快指针每次走两步。<strong>当他们相撞的时候把快指针重新指向head</strong>，慢指针保留在相撞位置。并且从此时开始快慢指针的前进速度都改成一步，直到他们再次相撞的位置就是环的入口。详细代码如下：</p>
+<p>本题的最优解法是使用<strong>快慢两个指针</strong>，都从head开始出发，慢指针每次走一步，快指针每次走两步。<strong>当他们相撞的时候把快指针重新指向head</strong>，慢指针保留在相撞位置。并且从此时开始快慢指针的前进速度都改成一步，直到它们再次相撞的位置就是环的入口。详细代码如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!head)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//寻找碰撞点</span></span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(slow == fast) </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(fast==<span class="literal">nullptr</span> || fast-&gt;next==<span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//寻找环入口</span></span><br><span class="line">        fast = head;</span><br><span class="line">        <span class="keyword">while</span>(slow != fast)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>接下来我们将会对这种解法进行证明，如下图我们将一个环形链表分为三个部分，分别为a,b和c代表此部分链表的长度(length),其中a的末端是环入口。<br><img src="/resources/res/LinklistCycle/list_decomposite.png" alt="Circular Linked List" width="80%"></p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>接下来我们将会对这种解法进行证明，如下图所示将一个环形链表分为三个部分，分别为a,b和c代表此部分链表的长度(length),其中a的末端是环入口。<br><img src="/resources/res/LinklistCycle/list_decomposite.png" alt="Circular Linked List" width="80%"></p>
 <ol>
 <li>定义slow, fast分别为链表的快慢指针，slow每次前进一步，fast每次前进两步。</li>
-<li>可以证明当快慢指针相撞的时候，它们相撞的时间点必定是慢指针进入环后的第一圈。(提示：根据快慢指针的定义并使用矛盾证法:proof-by-contradiction)。我们假设它们在图示的碰撞点处碰撞，那么此时slow,fast两个指针走过的步数分别为：</li>
+<li>可以证明当快慢指针相撞的时候，它们相撞的时间点必定是慢指针进入环后的第一圈。(提示：根据快慢指针的定义并使用矛盾证法:proof-by-contradiction)。假设它们在图示的碰撞点处碰撞，那么此时slow,fast两个指针走过的步数分别为：</li>
 </ol>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>slow : a+b<br>fast : 2(a+b)<br></td></tr></table>
 
 <ol start="3">
-<li>假设我们有环形链表指针<strong>p1</strong>, <strong>p2</strong>，我们定义符号<font color="red"><strong>:=</strong></font>的意义为:<br>若<code>p1 := p2</code>则p1和p2指向环形链表的同一个节点。根据环形链表指针加减法的定义，我们有如下的法则：</li>
+<li>假设有环形链表指针<strong>p1</strong>, <strong>p2</strong>，我们定义符号<font color="red"><strong>:=</strong></font>的意义为:<br>若<code>p1 := p2</code>则p1和p2指向环形链表的同一个节点。根据环形链表指针加减法的定义，有如下的法则：</li>
 </ol>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>若p1 := p2，且k为一个整数，则：<br>p1+k := p2+k<br></td></tr></table>
 
 
 <ol start="4">
-<li>因为快慢指针在碰撞点相撞，且他们都是从head开始出发，所以我们可以有下面的等式：</li>
+<li>因为快慢指针在碰撞点相撞，且他们都是从head开始出发，所以可以得到下面的等式：</li>
 </ol>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>head+(a+b) := head+2(a+b)<br></td></tr></table>
 
 
-<p>观察我们的环形链表我们可以有下列等式:</p>
+<p>根据上图的环形链表，有下列等式:</p>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>head+(a) := head+(a+b+c)<br></td></tr></table>
 
-<p>值得提醒的是我们的a,b,c为整数长度(length)，而head为指针，我们上面的等式进行的是指针的加减法(pointer arithmetic)。<br><strong>为了方便表示，我们省略head，并默认等式两边都加上了head</strong>，那么可以得到下面的简化表示：</p>
+<p>值得提醒的是a,b,c为整数长度(length)，而head为指针，上面的等式进行的是指针的加减法(pointer arithmetic)。<br><strong>为了方便表示，我们省略head，并默认等式两边都加上了head</strong>，那么可以得到下面的简化表示：</p>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>a+b := 2(a+b)<br>a := a+b+c<br></td></tr></table>
 
-<p>我们上面有描述过我们的算法在找到碰撞点后把fast重新指向head然后再向前一次走一步，直到快慢指针碰撞，那么如果它们碰撞时的位置的确为环入口的话那么必定有这个等式成立：<code>a+b+a := a</code>。你会问为什么？解析是：碰撞时slow走的步数为a+b,此时fast指向了头结点，那么当再次碰撞的时候fast和slow都走了a步(别忘了此时它们的速度已经变成一样了)，那么<code>head+a+b+a</code>指向了环入口，<code>head+a</code>也指向了环入口，所以我们有简化式子<code>a+b+a := a</code>。</p>
+<p>我们在前面有提到过上述算法在找到碰撞点后把fast重新指向head然后再向前一次走一步，直到快慢指针碰撞，那么如果它们碰撞时的位置的确为环入口的话那么必定有这个等式成立：<code>a+b+a := a</code>。你会问为什么？解析是：碰撞时slow走的步数为a+b,此时fast指向了头结点，那么当再次碰撞的时候fast和slow都走了a步(别忘了此时它们的速度已经变成一样了)，那么<code>head+a+b+a</code>指向了环入口，<code>head+a</code>也指向了环入口，所以我们有简化式子<code>a+b+a := a</code>。</p>
 <ol start="5">
-<li>我们现在集中精力来证明这个等式是成立的：</li>
+<li>现在集中精力来证明这个等式是成立的：</li>
 </ol>
 <p><strong>核心部分</strong></p>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//别忘了这只是为了方便我们观察的简化表示，<br>//完整表达式中:=的左右应该都是指针<br><br>我们有：<br>a+b := 2(a+b)  (1)<br>a := a+b+c     (2)<br><br>那么<br>a+b+a := a+b+(a+b+c)  //利用(2)<br>      := 2(a+b)+c<br>      := a+b+c        //利用(1)<br>      := a            //利用(2)<br><br>证明完毕<br></td></tr></table>
@@ -148,7 +148,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35wll8l000gqw0zp3mxd1hd" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35yvhz8000loj0zfi2zog9y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
