@@ -134,22 +134,22 @@ ga('send', 'pageview');
 <p>值得提醒的是a,b,c为整数长度(length)，而head为指针，上面的等式进行的是指针的加减法(pointer arithmetic)。<br><strong>为了方便表示，我们省略head，并默认等式两边都加上了head</strong>，那么可以得到下面的简化表示：</p>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>a+b := 2(a+b)<br>a := a+b+c<br></td></tr></table>
 
-<p>我们在前面有提到过上述算法在找到碰撞点后把fast重新指向head然后再向前一次走一步，直到快慢指针碰撞，那么如果它们碰撞时的位置的确为环入口的话那么必定有这个等式成立：<code>a+b+a := a</code>。你会问为什么？解析是：碰撞时slow走的步数为a+b,此时fast指向了头结点，那么当再次碰撞的时候fast和slow都走了a步(别忘了此时它们的速度已经变成一样了)，那么<code>head+a+b+a</code>指向了环入口，<code>head+a</code>也指向了环入口，所以我们有简化式子<code>a+b+a := a</code>。</p>
+<p>我们在前面有提到过上述算法在找到碰撞点后把fast重新指向head然后再向前一次走一步，直到快慢指针碰撞，那么如果它们碰撞时的位置的确为环入口的话那么必定有这个等式成立：<code>a+b+a := a</code>。你会问为什么？解析是：假设上述算法是正确的，那么第一次碰撞时slow走的步数为a+b,此时fast重新指向了头结点。根据算法中的描述，当再次碰撞的时候fast和slow在原来的基础上又走了a步(别忘了此时它们的速度已经变成一样了)，此时<code>slow = head+a+b+a</code>指向了环入口，<code>fast = head+a</code>也指向了环入口，所以我们有简化式子<code>a+b+a := a</code>。只要证明这个式子正确，就可以确定slow指针从head出发经过了a+b+a步最终到达环入口。返回该处的指针即是题目要求的答案。</p>
 <ol start="5">
 <li>现在集中精力来证明这个等式是成立的：</li>
 </ol>
 <p><strong>核心部分</strong></p>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>//别忘了这只是为了方便我们观察的简化表示，<br>//完整表达式中:=的左右应该都是指针<br><br>我们有：<br>a+b := 2(a+b)  (1)<br>a := a+b+c     (2)<br><br>那么<br>a+b+a := a+b+(a+b+c)  //利用(2)<br>      := 2(a+b)+c<br>      := a+b+c        //利用(1)<br>      := a            //利用(2)<br><br>证明完毕<br></td></tr></table>
 
-<p>到此我们对于上述算法的确环入口的证明完毕，其实上面一大段都只是为了保持文章的完整性做的详细说明，真正的证明其实非常简短，就是核心部分，只要你对符号<code>:=</code>的定义了解，那么很容易就能够通过纯数学变换重新写出这份证明。我们的思路具有普适性，同样使用定义的符号<code>:=</code>可以证明寻找相交链表交点的算法正确性<a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">Intersection of Two Linked Lists</a>，有机会(通常隐含的意思是我懒得写）我会对此进行扩展说明。</p>
+<p>到此我们对于上述算法的确能够找到环入口的证明完毕，其实上面一大段都只是为了保持文章的完整性做的详细说明，真正的证明其实非常简短，就是核心部分，只要你对符号<code>:=</code>的定义了解，那么很容易就能够通过纯数学变换重新写出这份证明。我们的思路具有普适性，同样使用定义的符号<code>:=</code>可以证明寻找相交链表交点的算法正确性<a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">Intersection of Two Linked Lists</a>，有机会(通常隐含的意思是我懒得写）我会对此进行扩展说明。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35yz7f5001drg0zm4dp5w5j" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35z0y3x000pur0z50iyeowe" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -239,7 +239,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="ck35yz7el000nrg0zhauevnra" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/18/Interview1/" data-id="ck35z0y3q000gur0z2cjnrsl9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -310,7 +310,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="ck35yz7ej000krg0zf6mqo1x9" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/07/14/HttpIntroduction/" data-id="ck35z0y3n000eur0ze45pdo27" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -357,7 +357,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 16.67px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/Career/" style="font-size: 10px;">Career</a> <a href="/tags/Data-Mining/" style="font-size: 10px;">Data Mining</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Operating-System/" style="font-size: 13.33px;">Operating System</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a>
     </div>
   </div>
 
