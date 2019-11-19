@@ -30,7 +30,7 @@ ga('send', 'pageview');
 <meta property="og:locale" content="En, ZH">
 <meta property="og:image" content="http://kelvin.ink/resources/res/LinklistCycle/circularlinkedlist.png">
 <meta property="og:image" content="http://kelvin.ink/resources/res/LinklistCycle/list_decomposite.png">
-<meta property="og:updated_time" content="2019-11-19T14:42:08.240Z">
+<meta property="og:updated_time" content="2019-11-19T14:44:59.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="寻找链表环入口的算法证明">
 <meta name="twitter:description" content="寻找链表环入口是一道经典算法题目Linked List Cycle II，其解法是比较技巧性的快慢指针，写起来比较简单。真正的难点在于如何去证明解法的正确性。网上许多证明难以理解(没，我没证据)，并且思路没有普适性，本文将会提供一种比较简洁且可移植的证明思路。 先回顾下题目：给定一个单向链表(singly-linked-list)的头结点head,返回该链表的环入口。如下图所示，函数应该返回指向节">
@@ -119,7 +119,7 @@ ga('send', 'pageview');
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>slow : a+b<br>fast : 2(a+b)<br></td></tr></table>
 
 <ol start="3">
-<li>假设有环形链表指针<strong>p1</strong>, <strong>p2</strong>，我们定义符号<font color="red"><strong>:=</strong></font>的意义为:<br>若<code>p1 := p2</code>则p1和p2指向环形链表的同一个节点。根据环形链表指针加减法的定义，有如下的法则：</li>
+<li>假设有环形链表指针<strong>p1</strong>, <strong>p2</strong>，我们定义符号<font color="red"><strong>:=</strong></font>的意义为:若<code>p1 := p2</code>则p1和p2指向环形链表的同一个节点。<br>根据环形链表指针加减法的定义，有如下的法则：</li>
 </ol>
 <table><tr><td bgcolor="#f5f5f5" style="padding:0px 10px 20px 10px;"><br>若p1 := p2，且k为一个整数，则：<br>p1+k := p2+k<br></td></tr></table>
 
@@ -148,7 +148,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35yvhz8000loj0zfi2zog9y" class="article-share-link">Share</a>
+      <a data-url="http://kelvin.ink/2019/11/19/LinklistCycle/" data-id="ck35yz7f5001drg0zm4dp5w5j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Operating-System/">Operating System</a></li></ul>
